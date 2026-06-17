@@ -7,6 +7,11 @@ use App\Models\User;
 
 class Company extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
     public function user(){
         return $this->hasOne(User::class);
     }
