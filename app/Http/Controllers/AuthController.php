@@ -26,22 +26,31 @@ class AuthController extends Controller
             'company_name' => 'required|string|max:255',
         ]);
 
-    $this->authService->register($data);
+        $this->authService->register($data);
         return redirect('/login')->with('success', 'Conta criada com sucesso!');
     }
 
     # Sistema de login.
     public function login(Request $request)
     {
-        # Confiabilidade.
+        #garante confiabilidade.
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        # Autenticação.
-        if(Auth::attempt($credentials)){
+        #tentativa de autenticação.
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            // Check if setup is needed
+            $user = Auth::user();
+            $company = $user->company;
+
+            if (!$company || !$company->setup_completed) {
+                return redirect()->route('setup.step1');
+            }
+
             return redirect('/dashboard');
         }
         return back()->withErrors([
@@ -57,7 +66,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
-
     }
 
     # Link de reset.
@@ -79,18 +87,19 @@ class AuthController extends Controller
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password){
+            function ($user, $password) {
                 $user->password = Hash::make($password);
                 $user->save();
-            });
-
-            if ($status === Password::PASSWORD_RESET){
-                return redirect('/login')->with('success', 'Senha redefinida com sucesso!');
             }
+        );
 
-            return back()->withErrors([
-                'email' => __($status)
-            ]);
+        if ($status === Password::PASSWORD_RESET) {
+            return redirect('/login')->with('success', 'Senha redefinida com sucesso!');
+        }
+
+        return back()->withErrors([
+            'email' => __($status)
+        ]);
     }
 
     # View digitar dados.
