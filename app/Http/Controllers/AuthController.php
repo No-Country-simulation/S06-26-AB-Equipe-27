@@ -30,17 +30,16 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Conta criada com sucesso!');
     }
 
-    # SISTEMA DE LOGIN!
-
+    # Sistema de login.
     public function login(Request $request)
     {
-        #garante confiabilidade.
+        # Confiabilidade.
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        #tentativa de autenticação.
+        # Autenticação.
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
             return redirect('/dashboard');
@@ -50,19 +49,18 @@ class AuthController extends Controller
         ]);
     }
 
-    #LOGOUT - SAIDERA.
-
+    # Logout.
     public function logout(Request $request)
     {
-        Auth::logout(); #Desautenticação.
-        $request->session()->invalidate(); #Invalida sessão antiga.
-        $request->session()->regenerateToken(); #Troca chave. :)
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect('/login');
 
     }
 
-    #Função envia link de reset.
+    # Link de reset.
     public function forgotPassword(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -70,7 +68,7 @@ class AuthController extends Controller
         return back()->with('status', 'Email enviado');
     }
 
-    #Função para trocar senha.
+    # Trocar senha.
     public function resetPassword(Request $request)
     {
         $request->validate([
@@ -95,13 +93,13 @@ class AuthController extends Controller
             ]);
     }
 
-    #Tela para digitar email.
+    # View digitar dados.
     public function showForgotPasswordForm()
     {
         return view('forgot-password');
     }
 
-    #Exibe tela para digitar nova senha (TOKEN VIA GET).
+    # View para nova senha, token recebido via GET.
     public function showResetPasswordForm($token, Request $request)
     {
         return view('reset-password', ['token' => $token, 'email' => $request->email]);
