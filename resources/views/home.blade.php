@@ -226,7 +226,7 @@
 
 <body>
 
-<!-- NAVBAR -->
+<!-- Navbar Top. -->
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
         <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
@@ -245,14 +245,14 @@
     </div>
 </nav>
 
-<!-- HERO -->
+<!-- Hero. -->
 <header class="hero">
     <div class="hero-content text-white text-center container">
         <h1 class="display-3 mb-0">Nós somos o futuro.</h1>
     </div>
 </header>
 
-<!-- SECTION 1 (Competências) -->
+<!-- Section 1 (Competências). -->
 <section class="py-5 my-4">
     <div class="container">
         <div class="row align-items-center justify-content-between">
@@ -265,7 +265,8 @@
                 <button class="btn btn-custom-primary px-5 btn-lg">Começar agora</button>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 mb-4 mb-lg-0">
-                <!-- Elemento visual abstrato representando diversidade de conexões -->
+
+                <!-- Elemento visual, representando diversidade de conexões. -->
                 <div class="img-box" style="height: 280px; background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); display:flex; align-items:center; justify-content:center;">
                     <i class="bi bi-cpu text-white" style="font-size: 5rem; opacity: 0.9;"></i>
                 </div>
@@ -274,12 +275,12 @@
     </div>
 </section>
 
-<!-- SECTION 2 (Empresas - Imagem oculta no Mobile) -->
+<!-- Section 2 (Imagem oculta no Mobile). -->
 <section class="py-5 bg-light-subtle">
     <div class="container">
         <div class="row align-items-center g-5">
 
-            <!-- IMAGEM: Oculta em telas menores que LG-->
+            <!-- Imagem: Oculta em telas menores que LG. -->
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="img-box">
                     <img src="https://cdn.pixabay.com/photo/2026/04/10/10/21/erwinbosman-woman-10219062_1280.jpg" alt="Profissional trabalhando">
@@ -299,7 +300,7 @@
     </div>
 </section>
 
-<!-- LOGIN & CALL TO ACTION -->
+<!-- Login & Call to action. -->
 <section class="py-5">
     <div class="container">
         <div class="cta-login-section">
@@ -313,6 +314,7 @@
                 <div class="col-lg-6">
                     <div class="login-box">
                         <h3>Login</h3>
+                        <!-- Exibe possíveis erros. -->
                         @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
@@ -321,7 +323,7 @@
                                 </div>
                             @endif
                         <form method="POST" action="/login">
-                            <!-- Inclusão de segurança simulada do framework -->
+                            <!-- Inclusão de segurança simulada do framework. -->
                             <input type="hidden" name="_token" value="csrf_token_placeholder">
 
                             <div class="mb-3">
@@ -342,14 +344,14 @@
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- Footer. -->
 <footer class="text-center">
     <div class="container">
         <p class="mb-0">&copy; 2026 SkillFocus. Potencializando a diversidade através da tecnologia corporativa.</p>
     </div>
 </footer>
 
-<!-- Bootstrap 5.3 JS Bundle -->
+<!-- Bootstrap 5.3 JS Bundle. -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

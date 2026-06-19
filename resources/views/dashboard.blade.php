@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-        /* Paleta de Cores */
+        /* Paleta de cores base. */
         :root {
-            --primary-color: #4A148C;      /* Roxo Profundo */
-            --secondary-color: #FF6D00;    /* Laranja Coral */
-            --accent-color: #00BFA5;       /* Verde Teal */
-            --bg-light: #F9F7F6;           /* Off-White */
+            --primary-color: #4A148C;
+            --secondary-color: #FF6D00;
+            --accent-color: #00BFA5;
+            --bg-light: #F9F7F6;
             --text-dark: #2B2B2B;
         }
 
@@ -36,7 +36,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* NAVBAR TOP */
+        /* Navbar top. */
         .dash-navbar {
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(74, 20, 140, 0.05);
@@ -51,7 +51,7 @@
             color: var(--secondary-color);
         }
 
-        /* CARDS DE MÉTRICAS */
+        /* Cards de métricas. */
         .metric-card {
             background: #ffffff;
             border: none;
@@ -74,7 +74,7 @@
             font-size: 1.5rem;
         }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* Conteúdo principal. */
         .dash-card {
             background: #ffffff;
             border: none;
@@ -94,7 +94,7 @@
             gap: 0.5rem;
         }
 
-        /* ESTILO DOS INPUTS DO FORMULÁRIO */
+        /* Estilo dos Inputs */
         .form-control, .form-select {
             border-radius: 0.75rem;
             padding: 0.65rem 1rem;
@@ -108,7 +108,7 @@
             box-shadow: 0 0 0 0.25rem rgba(0, 191, 165, 0.12);
         }
 
-        /* BOTÕES */
+        /* Botões */
         .btn-publish {
             background-color: var(--primary-color);
             color: white;
@@ -125,7 +125,7 @@
             box-shadow: 0 5px 15px rgba(255, 109, 0, 0.3);
         }
 
-        /* BADGES E STATUS */
+        /* Status */
         .badge-status {
             padding: 0.4rem 0.75rem;
             border-radius: 2rem;
@@ -145,40 +145,53 @@
             font-weight: 500;
         }
 
-        /* BARRA DE PROGRESSO */
-        .progress {
-            height: 6px;
-            border-radius: 10px;
-            background-color: #EDF2F7;
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.85rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
-        .progress-bar-purple { background-color: var(--primary-color); }
-        .progress-bar-orange { background-color: var(--secondary-color); }
-        .progress-bar-teal { background-color: var(--accent-color); }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 109, 0, 0.25);
+        }
     </style>
 </head>
 <body>
 
-<!-- NAVBAR SUPERIOR -->
+<!-- Navbar Top. -->
 <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
     <div class="container">
         <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
         <div class="d-flex align-items-center ms-auto">
-            <!-- Usuário Conectado -->
             <div class="dropdown">
+                <!-- Imagem do usuário. -->
                 <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
                     <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
                         <i class="bi bi-person-fill"></i>
                     </div>
             @auth
+                <!-- Nome do usuário. -->
             <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
                 {{ auth()->user()->name }}
             </span>
             @endauth
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
-                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2 text-muted"></i> Configurações</a></li>
+                    <li><a class="dropdown-item py-2" href="{{url('/dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
+                    <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
+                    <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
+                    <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
                     <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
                 </ul>
             </div>
@@ -186,66 +199,19 @@
     </div>
 </nav>
 
-<!-- CONTAINER DO DASHBOARD -->
+<!-- Container Dashboard. -->
 <main class="container my-5">
 
-    <!-- SAUDAÇÃO INICIAL -->
-    <div class="row mb-4">
-        <div class="col">
+    <!-- Texto inicial -->
+    <div class="mb-4">
+        <div class="">
             <h1 class="fw-bold h3" style="color: var(--primary-color);">Olá, Equipe de Atração e Seleção</h1>
             <p class="text-muted">Gerencie suas oportunidades e monitore o andamento dos processos seletivos sem vieses.</p>
         </div>
     </div>
-
-    <!-- CARDS DE METRICAS RÁPIDAS -->
-    <div class="row g-4 mb-5">
-        <!-- Card 1 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Vagas Ativas</span>
-                        <h3 class="fw-bold mb-0 mt-1">12</h3>
-                    </div>
-                    <div class="icon-circle" style="background-color: rgba(74, 20, 140, 0.1); color: var(--primary-color);">
-                        <i class="bi bi-briefcase"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Candidaturas</span>
-                        <h3 class="fw-bold mb-0 mt-1">348</h3>
-                    </div>
-                    <div class="icon-circle" style="background-color: rgba(255, 109, 0, 0.1); color: var(--secondary-color);">
-                        <i class="bi bi-people"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Taxa de Diversidade</span>
-                        <h3 class="fw-bold mb-0 mt-1">64%</h3>
-                    </div>
-                    <div class="icon-circle" style="background-color: rgba(0, 191, 165, 0.1); color: var(--accent-color);">
-                        <i class="bi bi-award"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row g-4">
 
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card dash-card">
                 <h3 class="card-title-dash">
                     <i class="bi bi-columns-gap text-muted"></i> Vagas Publicadas & Andamentos
@@ -255,133 +221,57 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr class="text-muted small" style="font-size: 0.85rem;">
-                                <th scope="col" class="py-3 ps-3">Cargo / Link Inclusivo</th>
+                                <th scope="col" class="py-3 ps-3">Cargo</th>
+                                <th scope="col" class="py-3">Cidade</th>
                                 <th scope="col" class="py-3">Status</th>
                                 <th scope="col" class="py-3">Adesão / Match</th>
-                                <th scope="col" class="py-3 text-end pe-3">Ações</th>
+                                <th scope="col" class="py-3 text-end pe-3">Ver Candidatos</th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
-                            <!-- Item 1 -->
+                        <tbody>
+                            <!-- Laço para percorrer banco de dados. -->
+                            @foreach($jobs as $job)
+                            <!-- Título. -->
                             <tr>
                                 <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Pessoa Desenvolvedora Fullstack</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">Gênero</span>
-                                        <span class="tag-diversity">Remoto</span>
+                                    <div class="d-flex gap-1 flex-wrap">
+                                        <span class="tag-diversity">{{$job->title}}</span>
                                     </div>
                                 </td>
-                                <td><span class="badge-status badge-active">Triagem</span></td>
+
+                                <!-- Cidade. -->
+                                <td class="py-3 ps-3 ">
+                                    <div class="d-flex gap-1 flex-wrap"">
+                                        <span class="tag-diversity">{{$job->city}}</span>
+                                    </div>
+                                </td>
+
+                                <!-- Status. -->
                                 <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
+                                    <span class="badge-status badge-active">Aberto</span>
+                                </td>
+
+                                <!-- Progresso/match. -->
+                                <td>
+                                    <div class="d-flex align-items-center gap-2" style="width: 130px;">
                                         <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-teal" style="width: 75%"></div>
+                                            <div class="progress-bar progress-bar-teal" style="width: 60%"></div>
                                         </div>
-                                        <span class="small text-muted fw-medium">75%</span>
+                                        <span class="small text-muted fw-mediu">60%</span>
                                     </div>
                                 </td>
+
+                                <!-- Ver candidatos. -->
                                 <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
+                                    <button type="button" class="btn btn-sm btn-light border" title="Ver candidatos">
+                                        <i class="bi bi-eye text-muted"></i>
+                                    </button>
                                 </td>
                             </tr>
-                            <!-- Item 2 -->
-                            <tr>
-                                <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Gerente de Produto (PM)</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">PCD</span>
-                                        <span class="tag-diversity">Híbrido</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge-status badge-progress">Entrevistas</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
-                                        <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-purple" style="width: 45%"></div>
-                                        </div>
-                                        <span class="small text-muted fw-medium">45%</span>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
-                                </td>
-                            </tr>
-                            <!-- Item 3 -->
-                            <tr>
-                                <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Analista de Dados Sênior</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">50+ Plural</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge-status badge-active">Aberto</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
-                                        <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-orange" style="width: 20%"></div>
-                                        </div>
-                                        <span class="small text-muted fw-medium">20%</span>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
-                                </td>
-                            </tr>
-                        </tbody> --}}
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <!-- COLUNA DIREITA: Publicar Nova Vaga -->
-        <div class="col-lg-4">
-            <div class="card dash-card">
-                <h3 class="card-title-dash">
-                    <i class="bi bi-plus-circle-fill text-orange" style="color: var(--secondary-color);"></i> Publicar Nova Vaga
-                </h3>
-
-                <!-- Formulário Simples para Publicar -->
-                <form method="POST" action="/jobs/store">
-                    <!-- Token Cross-site Simulado -->
-                    <input type="hidden" name="_token" value="csrf_token_placeholder">
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Título do Cargo</label>
-                        <input type="text" class="form-control" name="title" placeholder="Ex: Especialista DevOps" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Área / Departamento</label>
-                        <select class="form-select" name="department" required>
-                            <option value="" selected disabled>Selecione a área</option>
-                            <option value="tecnologia">Tecnologia & Produto</option>
-                            <option value="vendas">Vendas & Comercial</option>
-                            <option value="marketing">Marketing & Comunicação</option>
-                            <option value="financeiro">Financeiro e Operações</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Foco em Afirmação / Diversidade</label>
-                        <select class="form-select" name="diversity_focus">
-                            <option value="geral">Ampla Concorrência (Inclusiva)</option>
-                            <option value="pcd">Vaga Exclusiva / Foco PCD</option>
-                            <option value="genero">Equidade de Gênero (Mulheres na Tech)</option>
-                            <option value="etnico">Foco Étnico-Racial</option>
-                            <option value="idade">Intergeracional (Talentos 50+)</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label small text-muted fw-medium">Descrição Simplificada das Competências</label>
-                        <textarea class="form-control" name="skills_description" rows="3" placeholder="Quais soft e hard skills reais a pessoa precisa ter?" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-publish w-100">
-                        <i class="bi bi-megaphone me-1"></i> Publicar Oportunidade
-                    </button>
-                </form>
-
             </div>
         </div>
 

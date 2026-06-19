@@ -197,7 +197,7 @@
 
             <!-- Opção de Sair ou trocar de conta -->
             <div class="pt-3 border-top">
-                <form method="POST" action="/logout" class="d-inline">
+                <form method="GET" action="/logout" class="d-inline">
                     <input type="hidden" name="_token" value="csrf_token_placeholder">
                     <span class="text-muted small">Não é o seu e-mail?</span>
                     <a href="{{url('/logout')}}"><button type="submit" class="btn-logout ms-1">Sair da conta</button></a>
