@@ -1,394 +1,191 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | SkillFocus</title>
-
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts: Poppins e Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    <style>
-        /* Paleta de Cores */
-        :root {
-            --primary-color: #4A148C;      /* Roxo Profundo */
-            --secondary-color: #FF6D00;    /* Laranja Coral */
-            --accent-color: #00BFA5;       /* Verde Teal */
-            --bg-light: #F9F7F6;           /* Off-White */
-            --text-dark: #2B2B2B;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-        }
-
-        h1, h2, h3, h4, h5, h6, .btn, .navbar-brand {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* NAVBAR TOP */
-        .dash-navbar {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(74, 20, 140, 0.05);
-            border-bottom: 2px solid rgba(74, 20, 140, 0.05);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
-        .navbar-brand span {
-            color: var(--secondary-color);
-        }
-
-        /* CARDS DE MÉTRICAS */
-        .metric-card {
-            background: #ffffff;
-            border: none;
-            border-radius: 1.25rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            transition: transform 0.2s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .icon-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        /* CONTEÚDO PRINCIPAL */
-        .dash-card {
-            background: #ffffff;
-            border: none;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(74, 20, 140, 0.03);
-            padding: 2rem;
-            height: 100%;
-        }
-
-        .card-title-dash {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* ESTILO DOS INPUTS DO FORMULÁRIO */
-        .form-control, .form-select {
-            border-radius: 0.75rem;
-            padding: 0.65rem 1rem;
-            border: 1px solid #E2E8F0;
-            background-color: #FAFAFA;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--accent-color);
-            background-color: #ffffff;
-            box-shadow: 0 0 0 0.25rem rgba(0, 191, 165, 0.12);
-        }
-
-        /* BOTÕES */
-        .btn-publish {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-publish:hover {
-            background-color: var(--secondary-color);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 109, 0, 0.3);
-        }
-
-        /* BADGES E STATUS */
-        .badge-status {
-            padding: 0.4rem 0.75rem;
-            border-radius: 2rem;
-            font-weight: 500;
-            font-size: 0.8rem;
-        }
-
-        .badge-active { background-color: rgba(0, 191, 165, 0.15); color: #00796B; }
-        .badge-progress { background-color: rgba(255, 109, 0, 0.15); color: #E65100; }
-
-        .tag-diversity {
-            font-size: 0.75rem;
-            background-color: rgba(74, 20, 140, 0.06);
-            color: var(--primary-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-
-        /* BARRA DE PROGRESSO */
-        .progress {
-            height: 6px;
-            border-radius: 10px;
-            background-color: #EDF2F7;
-        }
-        .progress-bar-purple { background-color: var(--primary-color); }
-        .progress-bar-orange { background-color: var(--secondary-color); }
-        .progress-bar-teal { background-color: var(--accent-color); }
-    </style>
+    <title>SkillFocus - Painel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-<!-- NAVBAR SUPERIOR -->
-<nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
-
-        <div class="d-flex align-items-center ms-auto">
-            <!-- Usuário Conectado -->
-            <div class="dropdown">
-                <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
-                    <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-            @auth
-            <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
-                {{ auth()->user()->name }}
-            </span>
-            @endauth
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
-                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2 text-muted"></i> Configurações</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
-                </ul>
+<body class="bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="max-w-6xl mx-auto mb-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-4xl font-bold text-purple-800">SkillFocus</h1>
+                    <p class="text-gray-600">Plataforma de Inteligência de Diversidade & ESG</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-700">Bem-vindo(a), {{ Auth::user()->name }}</span>
+                    <a href="{{ route('logout') }}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">Sair</a>
+                </div>
             </div>
-        </div>
-    </div>
-</nav>
 
-<!-- CONTAINER DO DASHBOARD -->
-<main class="container my-5">
-
-    <!-- SAUDAÇÃO INICIAL -->
-    <div class="row mb-4">
-        <div class="col">
-            <h1 class="fw-bold h3" style="color: var(--primary-color);">Olá, Equipe de Atração e Seleção</h1>
-            <p class="text-muted">Gerencie suas oportunidades e monitore o andamento dos processos seletivos sem vieses.</p>
-        </div>
-    </div>
-
-    <!-- CARDS DE METRICAS RÁPIDAS -->
-    <div class="row g-4 mb-5">
-        <!-- Card 1 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Vagas Ativas</span>
-                        <h3 class="fw-bold mb-0 mt-1">12</h3>
+            <!-- Check if setup is completed -->
+            @if(!Auth::user()->company || !Auth::user()->company->setup_completed)
+            <div class="bg-yellow-50 border-2 border-yellow-400 rounded-2xl p-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
                     </div>
-                    <div class="icon-circle" style="background-color: rgba(74, 20, 140, 0.1); color: var(--primary-color);">
-                        <i class="bi bi-briefcase"></i>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-yellow-800 mb-1">Conclua sua configuração!</h3>
+                        <p class="text-yellow-700 mb-3">Termine de configurar suas metas de diversidade e ESG para começar.</p>
+                        <a href="{{ route('setup.step1') }}" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Iniciar Configuração</a>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Diversity Score -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl p-4 mb-4">
+                        <h3 class="text-white font-bold text-lg">Pontuação de Diversidade</h3>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-6xl font-bold text-purple-700 mb-4">85<span class="text-3xl text-gray-400">/100</span></p>
+                        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-700 h-4 rounded-full" style="width: 85%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500">Excelente progresso!</p>
+                    </div>
+                </div>
+
+                <!-- ESG Goals -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl p-4 mb-4">
+                        <h3 class="text-white font-bold text-lg">Metas ESG</h3>
+                    </div>
+                    <div class="space-y-4">
+                        @if(Auth::user()->company && Auth::user()->company->esgGoals->count() > 0)
+                        @foreach(Auth::user()->company->esgGoals->take(2) as $goal)
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <p class="font-medium text-gray-800 text-sm">{{ $goal->title }}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full" style="width: {{ rand(30, 70) }}%"></div>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-600">{{ rand(1, 50) }}%</span>
+                            </div>
+                        </div>
+                        @endforeach
+                        @else
+                        <p class="text-gray-500 text-sm">Nenhuma meta definida ainda</p>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Diversity Priorities -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-xl p-4 mb-4">
+                        <h3 class="text-white font-bold text-lg">Prioridades de Diversidade</h3>
+                    </div>
+                    <div class="space-y-2">
+                        @if(Auth::user()->company && Auth::user()->company->diversityGoals->count() > 0)
+                        @php
+                        $groupLabels = [
+                        'women' => 'Mulheres',
+                        'black' => 'Profissionais Negros',
+                        'indigenous' => 'Profissionais Indígenas',
+                        'disabled' => 'Pessoas com Deficiência (PCD)',
+                        'lgbt' => 'LGBTQIA+',
+                        'refugee' => 'Refugiados / Imigrantes',
+                        'over_50' => 'Profissionais Sêniores (50+)',
+                        'neurodivergent' => 'Profissionais Neurodivergentes'
+                        ];
+                        $priorityLabels = [
+                        'low' => 'Baixa',
+                        'medium' => 'Média',
+                        'high' => 'Alta'
+                        ];
+                        @endphp
+                        @foreach(Auth::user()->company->diversityGoals as $goal)
+                        <div class="flex items-center justify-between p-2">
+                            <span class="text-gray-800 font-medium">{{ $groupLabels[$goal->group] ?? ucwords(str_replace('_', ' ', $goal->group)) }}</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold {{ $goal->priority === 'high' ? 'bg-red-100 text-red-700' : ($goal->priority === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700') }}">{{ strtoupper($priorityLabels[$goal->priority] ?? $goal->priority) }}</span>
+                        </div>
+                        @endforeach
+                        @else
+                        <p class="text-gray-500 text-sm">Nenhuma prioridade definida</p>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- AI Recommendation -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-br from-orange-500 to-amber-700 rounded-xl p-4 mb-4">
+                        <h3 class="text-white font-bold text-lg">Recomendação IA</h3>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-3xl font-bold text-orange-700 mb-4">1,248</p>
+                        <p class="text-sm text-gray-600 mb-4">profissionais correspondentes</p>
+                        <div class="bg-orange-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-gray-700 font-medium">Principais regiões:</p>
+                            <div class="flex flex-wrap gap-2 mt-2 justify-center">
+                                <span class="bg-orange-200 text-orange-800 px-3 py-1 rounded-full text-xs">Salvador</span>
+                                <span class="bg-orange-200 text-orange-800 px-3 py-1 rounded-full text-xs">Recife</span>
+                                <span class="bg-orange-200 text-orange-800 px-3 py-1 rounded-full text-xs">Fortaleza</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105">
+                            Ver Candidatos
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200 hover:border-purple-400 transition-all cursor-pointer">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Publicar Vaga</h3>
+                            <p class="text-gray-600">Criar uma nova oferta de emprego</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-blue-200 hover:border-blue-400 transition-all cursor-pointer">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Mapa de Talentos</h3>
+                            <p class="text-gray-600">Ver concentração de talentos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-green-200 hover:border-green-400 transition-all cursor-pointer">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800">Relatórios</h3>
+                            <p class="text-gray-600">Ver métricas de diversidade</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Card 2 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Candidaturas</span>
-                        <h3 class="fw-bold mb-0 mt-1">348</h3>
-                    </div>
-                    <div class="icon-circle" style="background-color: rgba(255, 109, 0, 0.1); color: var(--secondary-color);">
-                        <i class="bi bi-people"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-md-4">
-            <div class="card metric-card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <span class="text-muted small fw-medium text-uppercase">Taxa de Diversidade</span>
-                        <h3 class="fw-bold mb-0 mt-1">64%</h3>
-                    </div>
-                    <div class="icon-circle" style="background-color: rgba(0, 191, 165, 0.1); color: var(--accent-color);">
-                        <i class="bi bi-award"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <div class="row g-4">
-
-        <div class="col-lg-8">
-            <div class="card dash-card">
-                <h3 class="card-title-dash">
-                    <i class="bi bi-columns-gap text-muted"></i> Vagas Publicadas & Andamentos
-                </h3>
-
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr class="text-muted small" style="font-size: 0.85rem;">
-                                <th scope="col" class="py-3 ps-3">Cargo / Link Inclusivo</th>
-                                <th scope="col" class="py-3">Status</th>
-                                <th scope="col" class="py-3">Adesão / Match</th>
-                                <th scope="col" class="py-3 text-end pe-3">Ações</th>
-                            </tr>
-                        </thead>
-                        {{-- <tbody>
-                            <!-- Item 1 -->
-                            <tr>
-                                <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Pessoa Desenvolvedora Fullstack</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">Gênero</span>
-                                        <span class="tag-diversity">Remoto</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge-status badge-active">Triagem</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
-                                        <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-teal" style="width: 75%"></div>
-                                        </div>
-                                        <span class="small text-muted fw-medium">75%</span>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
-                                </td>
-                            </tr>
-                            <!-- Item 2 -->
-                            <tr>
-                                <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Gerente de Produto (PM)</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">PCD</span>
-                                        <span class="tag-diversity">Híbrido</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge-status badge-progress">Entrevistas</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
-                                        <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-purple" style="width: 45%"></div>
-                                        </div>
-                                        <span class="small text-muted fw-medium">45%</span>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
-                                </td>
-                            </tr>
-                            <!-- Item 3 -->
-                            <tr>
-                                <td class="py-3 ps-3">
-                                    <div class="fw-semibold">Analista de Dados Sênior</div>
-                                    <div class="d-flex gap-1 mt-1">
-                                        <span class="tag-diversity">50+ Plural</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge-status badge-active">Aberto</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2" style="width: 120px;">
-                                        <div class="progress w-100">
-                                            <div class="progress-bar progress-bar-orange" style="width: 20%"></div>
-                                        </div>
-                                        <span class="small text-muted fw-medium">20%</span>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-3">
-                                    <button class="btn btn-sm btn-light border" title="Ver Candidatos"><i class="bi bi-eye text-muted"></i></button>
-                                </td>
-                            </tr>
-                        </tbody> --}}
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- COLUNA DIREITA: Publicar Nova Vaga -->
-        <div class="col-lg-4">
-            <div class="card dash-card">
-                <h3 class="card-title-dash">
-                    <i class="bi bi-plus-circle-fill text-orange" style="color: var(--secondary-color);"></i> Publicar Nova Vaga
-                </h3>
-
-                <!-- Formulário Simples para Publicar -->
-                <form method="POST" action="/jobs/store">
-                    <!-- Token Cross-site Simulado -->
-                    <input type="hidden" name="_token" value="csrf_token_placeholder">
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Título do Cargo</label>
-                        <input type="text" class="form-control" name="title" placeholder="Ex: Especialista DevOps" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Área / Departamento</label>
-                        <select class="form-select" name="department" required>
-                            <option value="" selected disabled>Selecione a área</option>
-                            <option value="tecnologia">Tecnologia & Produto</option>
-                            <option value="vendas">Vendas & Comercial</option>
-                            <option value="marketing">Marketing & Comunicação</option>
-                            <option value="financeiro">Financeiro e Operações</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-medium">Foco em Afirmação / Diversidade</label>
-                        <select class="form-select" name="diversity_focus">
-                            <option value="geral">Ampla Concorrência (Inclusiva)</option>
-                            <option value="pcd">Vaga Exclusiva / Foco PCD</option>
-                            <option value="genero">Equidade de Gênero (Mulheres na Tech)</option>
-                            <option value="etnico">Foco Étnico-Racial</option>
-                            <option value="idade">Intergeracional (Talentos 50+)</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label small text-muted fw-medium">Descrição Simplificada das Competências</label>
-                        <textarea class="form-control" name="skills_description" rows="3" placeholder="Quais soft e hard skills reais a pessoa precisa ter?" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-publish w-100">
-                        <i class="bi bi-megaphone me-1"></i> Publicar Oportunidade
-                    </button>
-                </form>
-
-            </div>
-        </div>
-
-    </div>
-</main>
-
-<!-- Bootstrap 5.3 JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

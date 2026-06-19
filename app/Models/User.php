@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Company;
 
 
@@ -19,11 +20,6 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -32,7 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function company(){
-    return $this->hasOne(Company::class);
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
     }
 }
