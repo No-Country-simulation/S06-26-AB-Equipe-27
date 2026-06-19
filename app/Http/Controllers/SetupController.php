@@ -49,11 +49,11 @@ class SetupController extends Controller
         ]);
 
         $company = Auth::user()->company;
-        
-        // Delete old goals
+
+        // Deletar metas antigas
         $company->diversityGoals()->delete();
-        
-        // Create new goals
+
+        // Criar novas metas
         if (isset($validated['groups'])) {
             foreach ($validated['groups'] as $group) {
                 $company->diversityGoals()->create([
@@ -85,11 +85,11 @@ class SetupController extends Controller
         ]);
 
         $company = Auth::user()->company;
-        
-        // Predefined goals
+
+        // Metas predefinidas
         $predefinedGoals = [
             'environmental' => [
-                'reduce_paper' => ['title' => 'Reduce paper usage', 'pillar' => 'environmental'],
+                'reduce_paper' => ['title' => 'Reduzir o uso de papel', 'pillar' => 'environmental'],
                 'reduce_emissions' => ['title' => 'Reduce emissions', 'pillar' => 'environmental'],
                 'renewable_energy' => ['title' => 'Renewable energy adoption', 'pillar' => 'environmental'],
                 'other_env' => ['title' => 'Other', 'pillar' => 'environmental'],
@@ -109,10 +109,10 @@ class SetupController extends Controller
             ],
         ];
 
-        // Delete old goals
+        // Deletar metas antigas
         $company->esgGoals()->delete();
-        
-        // Flatten predefined goals for easier lookup
+
+        // Padronizar metas para uma busca mais fácil
         $flattenedGoals = [];
         foreach ($predefinedGoals as $pillar => $goals) {
             foreach ($goals as $key => $goal) {
@@ -120,7 +120,7 @@ class SetupController extends Controller
             }
         }
 
-        // Create selected predefined goals
+        // Criar metas selecionadas predefinidas
         if (isset($validated['esg_goals'])) {
             foreach ($validated['esg_goals'] as $goalKey) {
                 if (isset($flattenedGoals[$goalKey])) {
@@ -133,7 +133,7 @@ class SetupController extends Controller
             }
         }
 
-        // Create custom goal
+        // Criar uma personalizada
         if ($validated['custom_title']) {
             $company->esgGoals()->create([
                 'title' => $validated['custom_title'],
@@ -159,12 +159,11 @@ class SetupController extends Controller
         $validated = $request->validate([
             'matching_priority' => 'array',
             'candidate_radius' => 'required|integer',
-            'include_remote' => 'boolean',
             'talent_sources' => 'array',
         ]);
 
         $company = Auth::user()->company;
-        
+
         $company->aiPreferences()->updateOrCreate(
             ['company_id' => $company->id],
             [
@@ -191,7 +190,7 @@ class SetupController extends Controller
     {
         $company = Auth::user()->company;
         $company->update(['setup_completed' => true]);
-        
+
         return redirect()->route('dashboard');
     }
 }

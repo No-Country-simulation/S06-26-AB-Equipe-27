@@ -43,7 +43,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Check if setup is needed
+            // Cheque se o setup é exigido
             $user = Auth::user();
             $company = $user->company;
 
