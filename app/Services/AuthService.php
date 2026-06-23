@@ -30,6 +30,7 @@ class AuthService
         Company::create([
             'user_id' => $user->id,
             'name' => $data['company_name'],
+            'setup_completed' => false
         ]);
 
         return $user;

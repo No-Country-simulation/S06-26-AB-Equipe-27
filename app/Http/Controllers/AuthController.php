@@ -45,7 +45,7 @@ class AuthController extends Controller
 
             // Cheque se o setup é exigido
             $user = Auth::user();
-            $company = $user->company;
+            $company = $user->company; #VERIFICAR DEPOIS.
 
             if (!$company || !$company->setup_completed) {
                 return redirect()->route('setup.step1');
@@ -98,7 +98,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => __($status)
+            'email' => ($status)
         ]);
     }
 

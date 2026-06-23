@@ -20,6 +20,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    public function company()
+    {
+        return $this->hasOne(\App\Models\Company::class);
+    }
+
     protected function casts(): array
     {
         return [
@@ -28,8 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function company(): HasOne
+    /* public function company(): HasOne
     {
         return $this->hasOne(Company::class);
-    }
+    } */
 }

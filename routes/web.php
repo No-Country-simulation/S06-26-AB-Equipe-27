@@ -38,7 +38,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 # Dashboard unificado (Chama direto o Controller que gerencia as lógicas da tela)
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index'])->middleware(['auth', 'verified']);
 
 # Notificação de verificação
@@ -61,8 +61,11 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
+# ====================================
 # Setup Wizard
-Route::middleware(['auth', 'verified'])->group(function () {
+# ====================================
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/setup/step1', [SetupController::class, 'step1'])->name('setup.step1');
     Route::post('/setup/step1', [SetupController::class, 'postStep1'])->name('setup.step1.post');
 
@@ -78,6 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/setup/review', [SetupController::class, 'review'])->name('setup.review');
     Route::post('/setup/finish', [SetupController::class, 'finish'])->name('setup.finish');
 });
+
 # ====================================
 # CRUD de Vagas
 # ====================================

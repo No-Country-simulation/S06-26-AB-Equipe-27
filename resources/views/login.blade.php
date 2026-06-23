@@ -125,7 +125,7 @@
         }
 
         .form-floating label {
-            color: #8D8D8D;
+            color: tificação de verificação#8D8D8D;
         }
 
         /* Botão Personalizado */
