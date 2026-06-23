@@ -47,11 +47,17 @@ class AuthController extends Controller
             $user = Auth::user();
             $company = $user->company; #VERIFICAR DEPOIS.
 
-            if (!$company || !$company->setup_completed) {
+            $user = auth()->user();
+
+            if (!$user->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice');
+            }
+
+            if (!$user->company || !$user->company->setup_completed) {
                 return redirect()->route('setup.step1');
             }
 
-            return redirect('/dashboard');
+            return redirect()->route('dashboard');
         }
         return back()->withErrors([
             'email' => 'Credenciais inválidas',

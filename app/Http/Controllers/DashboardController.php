@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     # Método essencial para percorrer array em View.
         public function index(){
-        $jobs = JobPosting::latest()->take(5)->get();
+        $jobs = JobPosting::where('company_id', auth()->user()->company->id)->latest()->get();
         return view('dashboard', compact('jobs'));
     }
 }
