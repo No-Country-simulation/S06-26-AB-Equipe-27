@@ -79,12 +79,12 @@
         <h3 class="font-bold text-lg text-purple-800 mb-4">Meta de Contratação</h3>
         <p class="text-gray-600 mb-4">Aumentar a representatividade em:</p>
         <div class="flex items-center gap-4">
-            <input type="number" name="target_percentage" value="{{ old('target_percentage', round($goals->first()->target_percentage) ?? 20) }}" min="0" max="100" class="w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold focus:border-purple-500">
+            <input type="number" name="target_percentage" value="{{ old('target_percentage', round($goals->first()?->target_percentage) ?? 20) }}" min="0" max="100" class="w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold focus:border-purple-500">
             <span class="text-2xl font-bold text-gray-700">%</span>
             <span class="text-gray-600">até</span>
             <select name="target_year" class="px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500">
                 @for($year = date('Y'); $year <= date('Y') + 10; $year++)
-                    <option value="{{ $year }}" {{ old('target_year', $goals->first()->target_year ?? date('Y') + 2) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    <option value="{{ $year }}" {{ old('target_year', $goals->first()?->target_year ?? date('Y') + 2) == $year ? 'selected' : '' }}>{{ $year }}</option>
                     @endfor
             </select>
         </div>
