@@ -2,69 +2,74 @@
 
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\SetupController;
-use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\JobsDashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SetupController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
-# Padrão
+# --------------------------------------------------------------------------
+# 1. Rotas Públicas / Visitantes
+# --------------------------------------------------------------------------
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-# ====================================
-# Autenticação (Login e Registro)
-# ====================================
+# Restrição 'guest': Apenas utilizadores NÃO autenticados podem aceder
+Route::middleware('guest')->group(function () {
+    # Cadastro
+    Route::get('/register', function () {
+        return view('register');
+    });
+    Route::post('/register', [AuthController::class, 'register']);
 
-# Cadastro
-Route::get('/register', function () {
-    return view('register');
+    # Login
+    Route::get('/login', function () {
+        return view('login');
+    })->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+
+    # Recuperação de Senha
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+    Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
-Route::post('/register', [AuthController::class, 'register']);
 
-# Login
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+# --------------------------------------------------------------------------
+# 2. Rotas que Exigem Apenas Autenticação Base (Utilizadores Logados)
+# --------------------------------------------------------------------------
+Route::middleware(['auth'])->group(function () {
 
-# Logout
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    # Logout (Fora de outras restrições para permitir sair a qualquer momento)
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-# ====================================
-# Dashboard e Verificação de Email
-# ====================================
+    # Notificação de Verificação de Email
+    Route::get('/email/verify', function () {
+        return view('verify');
+    })->name('verification.notice');
 
-# Dashboard unificado (Chama direto o Controller que gerencia as lógicas da tela)
+    # Processamento do Link de Verificação
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
-Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index'])->middleware(['auth', 'verified']);
+        $user = $request->user();
+        $company = $user->company;
 
-# Notificação de verificação
-Route::get('/email/verify', function () {
-    return view('verify');
-})->middleware('auth')->name('verification.notice');
+        if (!$company || !$company->setup_completed) {
+            return redirect()->route('setup.step1');
+        }
 
-# Link de verificação processado
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect()->route('setup.step1');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+        return redirect()->route('dashboard');
+    })->name('verification.verify');
+});
 
-# ====================================
-# Recuperação de Senha
-# ====================================
-
-Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
-
-# Setup Wizard
+# --------------------------------------------------------------------------
+# 3. Wizard de Configuração (Exige Auth e Email Verificado)
+# --------------------------------------------------------------------------
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/setup/step1', [SetupController::class, 'step1'])->name('setup.step1');
     Route::post('/setup/step1', [SetupController::class, 'postStep1'])->name('setup.step1.post');
@@ -82,19 +87,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/setup/finish', [SetupController::class, 'finish'])->name('setup.finish');
 });
 
-# ====================================
-# CRUD de Vagas
-# ====================================
 
-Route::get('/jobs', [JobPostingController::class, 'index']);          // Listar
-Route::get('/jobs/create', function () {
-    return view('job-posting');
-}); // Tela criar
-Route::post('/jobs', [JobPostingController::class, 'store']);          // Salvar
+# --------------------------------------------------------------------------
+# 4. Aplicação Principal (Exige Auth, Email Verificado e Setup Concluído)
+# --------------------------------------------------------------------------
+Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
 
-Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);   // Tela editar
-Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']); // Salvar edição
-Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']); // Excluir
+    # Dashboards
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index']);
+
+    # CRUD de Vagas (Mantendo os URLs originais para compatibilidade com as tuas Views)
+    Route::get('/jobs', [JobPostingController::class, 'index']);
+    Route::get('/jobs/create', function () {
+        return view('job-posting');
+    });
+    Route::post('/jobs', [JobPostingController::class, 'store']);
+    Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);
+    Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']);
+    Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']);
+});
 
 # ====================================
 # Matches
@@ -103,12 +115,4 @@ Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']); // 
 Route::middleware(['auth'])->group(function () {
     Route::get('/match/{jobId}', [MatchController::class, 'show'])->name('match.show');
     Route::post('/match/{jobId}/generate', [MatchController::class, 'generate'])->name('match.generate');
-});
-
-# Test Email Test Route
-Route::get('/test-email', function () {
-    Mail::raw('Test email from SkillFocus!', function ($message) {
-        $message->to('test@example.com')->subject('Test Email');
-    });
-    return 'Email sent! Check storage/logs/laravel.log (if using log driver) or Mailpit UI at http://localhost:8025!';
 });

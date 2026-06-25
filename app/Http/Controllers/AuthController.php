@@ -45,13 +45,19 @@ class AuthController extends Controller
 
             // Cheque se o setup é exigido
             $user = Auth::user();
-            $company = $user->company;
+            $company = $user->company; #VERIFICAR DEPOIS.
 
-            if (!$company || !$company->setup_completed) {
+            $user = auth()->user();
+
+            if (!$user->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice');
+            }
+
+            if (!$user->company || !$user->company->setup_completed) {
                 return redirect()->route('setup.step1');
             }
 
-            return redirect('/dashboard');
+            return redirect()->route('dashboard');
         }
         return back()->withErrors([
             'email' => 'Credenciais inválidas',
@@ -98,7 +104,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => __($status)
+            'email' => ($status)
         ]);
     }
 

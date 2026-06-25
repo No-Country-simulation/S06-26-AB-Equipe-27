@@ -14,6 +14,13 @@ class SetupController extends Controller
     public function step1()
     {
         $company = Auth::user()->company;
+
+        #dd(Auth::user(), Auth::user()->company);
+
+        if (!$company) {
+            abort(500, 'Empresa não encontrada para o usuário.');
+        }
+
         return view('setup.step1', compact('company'));
     }
 

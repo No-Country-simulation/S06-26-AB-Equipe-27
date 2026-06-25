@@ -156,7 +156,7 @@
         <form method="POST" action="/jobs">
             @csrf
             <h1 class="form-title text-center text-md-start">
-                <i class="bi bi-plus-circle text-orange me-2" style="color: var(--secondary-color);"></i>Publicar nova vagaZ.
+                <i class="bi bi-plus-circle text-orange me-2" style="color: var(--secondary-color);"></i>Publicar nova vaga.
             </h1>
 
             <div class="row g-3">
