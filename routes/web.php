@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MatchController;
 use App\Http\Controllers\JobsDashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Mail;
 
 # Padrão
 Route::get('/', function () {
@@ -78,6 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/setup/review', [SetupController::class, 'review'])->name('setup.review');
     Route::post('/setup/finish', [SetupController::class, 'finish'])->name('setup.finish');
 });
+
 # ====================================
 # CRUD de Vagas
 # ====================================
@@ -91,3 +95,20 @@ Route::post('/jobs', [JobPostingController::class, 'store']);          // Salvar
 Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);   // Tela editar
 Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']); // Salvar edição
 Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']); // Excluir
+
+# ====================================
+# Matches
+# ====================================
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/match/{jobId}', [MatchController::class, 'show'])->name('match.show');
+    Route::post('/match/{jobId}/generate', [MatchController::class, 'generate'])->name('match.generate');
+});
+
+# Test Email Test Route
+Route::get('/test-email', function () {
+    Mail::raw('Test email from SkillFocus!', function ($message) {
+        $message->to('test@example.com')->subject('Test Email');
+    });
+    return 'Email sent! Check storage/logs/laravel.log (if using log driver) or Mailpit UI at http://localhost:8025!';
+});
