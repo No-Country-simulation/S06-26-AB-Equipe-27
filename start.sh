@@ -1,26 +1,25 @@
 #!/bin/sh
-set -eux
+
+set -e
 
 cd /var/www/html
 
-echo "Starting Laravel..."
+echo "Running Laravel initialization..."
 
 php artisan package:discover --ansi
+
 php artisan migrate --force || true
+
 php artisan storage:link || true
+
 php artisan config:cache
+
 php artisan route:cache
+
 php artisan view:cache
 
-echo "Starting PHP-FPM..."
+echo "Starting Laravel..."
 
-/usr/local/sbin/php-fpm -F &
-sleep 2
-
-echo "Checking PHP-FPM..."
-
-ps aux | grep php
-
-echo "Starting Nginx..."
-
-exec nginx -g "daemon off;"
+exec php artisan serve \
+    --host=0.0.0.0 \
+    --port="${PORT:-10000}"
