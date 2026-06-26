@@ -116,3 +116,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/match/{jobId}', [MatchController::class, 'show'])->name('match.show');
     Route::post('/match/{jobId}/generate', [MatchController::class, 'generate'])->name('match.generate');
 });
+
+# ====================================
+# Test (Route just for tests)
+# ====================================
+
+Route::get('/test', function () {
+    return view('tests');
+});
