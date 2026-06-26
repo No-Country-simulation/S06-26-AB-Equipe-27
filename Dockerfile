@@ -38,6 +38,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
     libzip-dev \
+    libpq-dev \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -50,6 +51,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install \
     pdo \
     pdo_mysql \
+    pdo_pgsql \
     bcmath \
     intl \
     gd \
