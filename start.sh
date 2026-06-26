@@ -1,16 +1,26 @@
 #!/bin/sh
-set -e
+set -eux
 
-echo "PHP executable:"
-which php
+cd /var/www/html
 
-echo "PHP-FPM executable:"
-which php-fpm || true
+echo "Starting Laravel..."
 
-echo "PHP version:"
-php -v
+php artisan package:discover --ansi
+php artisan migrate --force || true
+php artisan storage:link || true
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
-echo "PHP-FPM version:"
-php-fpm -v || true
+echo "Starting PHP-FPM..."
 
-sleep 300
+/usr/local/sbin/php-fpm -F &
+sleep 2
+
+echo "Checking PHP-FPM..."
+
+ps aux | grep php
+
+echo "Starting Nginx..."
+
+exec nginx -g "daemon off;"
