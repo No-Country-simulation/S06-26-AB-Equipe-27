@@ -100,38 +100,36 @@
 <body>
 
 <!-- Navbar Top. -->
-<nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+<nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3 mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-        <div class="d-flex align-items-center ms-auto">
-            <div class="dropdown">
-                <!-- Imagem do usuário. -->
-                <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
-                    <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-            @auth
-                <!-- Nome do usuário. -->
-            <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
-                {{ auth()->user()->name }}
-            </span>
-            @endauth
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
-                    <li><a class="dropdown-item py-2" href="{{url('/dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
-                    <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
-                </ul>
+            <div class="d-flex align-items-center ms-auto">
+                <div class="dropdown">
+                    <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
+                        <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        @auth
+                        <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
+                            {{ auth()->user()->name }}
+                        </span>
+                        @endauth
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
+                        <li><a class="dropdown-item py-2" href="{{url('/dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 <!-- Container principal. -->
 <main class="container my-5">
 
@@ -164,7 +162,7 @@
 
                     <div id="skills-container" class="row g-2">
                         @if(!empty($job->required_skills))
-                            @foreach(json_decode($job->required_skills, true) as $skill)
+                            @foreach($job->required_skills as $skill)
                                 <div class="">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="required_skills[]" value="{{ $skill }}" required>

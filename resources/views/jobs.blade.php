@@ -88,6 +88,13 @@
             border-radius: 0.5rem;
             font-weight: 500;
         }
+
+        .clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -118,7 +125,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
                         <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
                     </ul>
                 </div>
@@ -146,7 +152,7 @@
 
                             <div>
                                 <h5 class="fw-bold mb-2" style="color: var(--primary-color);">{{ $job->title }}</h5>
-                                <p class="text-muted small mb-3">{{ $job->description }}</p>
+                                <p class="text-muted small mb-3 clamp-3">{{ $job->description }}</p>
 
                                 <div class="d-flex flex-wrap gap-2 align-items-center">
                                     <span class="tag-diversity"><i class="bi bi-layer-forward me-1"></i>{{ $job->level }}</span>

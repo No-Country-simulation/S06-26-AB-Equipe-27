@@ -115,6 +115,7 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/match/{jobId}', [MatchController::class, 'show'])->name('match.show');
     Route::post('/match/{jobId}/generate', [MatchController::class, 'generate'])->name('match.generate');
+    Route::post('/match/{matching}/select', [App\Http\Controllers\MatchController::class, 'selectCandidate'])->name('match.select');
 });
 
 # ====================================

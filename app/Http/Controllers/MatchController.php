@@ -49,4 +49,17 @@ class MatchController extends Controller
 
         return redirect()->route('match.show', $jobId);
     }
+
+    public function selectCandidate($matchingId)
+    {
+        // Busca o match específico no banco
+        $match = \App\Models\Matching::findOrFail($matchingId);
+
+        // Atualiza o status para mostrar que o recrutador gostou
+        $match->status = 'selecionado';
+        $match->save();
+
+        // Retorna para a mesma tela com um aviso de sucesso
+        return back()->with('success', 'Interesse registrado! O candidato foi notificado e a plataforma fará a ponte entre vocês em breve.');
+    }
 }
