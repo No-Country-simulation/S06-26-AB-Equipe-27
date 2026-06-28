@@ -23,7 +23,6 @@ class MatchController extends Controller
         $job = JobPosting::findOrFail($jobId);
         $company = Auth::user()->company;
 
-        // 🔒 BLOQUEIO: já gerou?
         if ($job->matches_generated) {
             return redirect()->route('match.show', $jobId)
                 ->with('error', 'Matches já foram gerados para esta vaga.');
@@ -57,7 +56,6 @@ class MatchController extends Controller
                 ]);
             }
 
-            // 🔒 TRAVA FINAL
             $job->matches_generated = true;
             $job->save();
         }
