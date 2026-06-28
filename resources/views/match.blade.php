@@ -176,12 +176,28 @@
                 <h3 class="fw-bold h4 mb-0" style="color: var(--primary-color);">
                     <i class="bi bi-people-fill me-2" style="color: var(--secondary-color);"></i>Matches de Candidatos
                 </h3>
-                <form action="{{ route('match.generate', $job->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary rounded-pill px-4" style="background-color: var(--primary-color); border: none;">
-                        <i class="bi bi-lightning-charge-fill me-2"></i>Gerar Matches
-                    </button>
-                </form>
+                @if($job->matches_generated)
+    <button class="btn btn-success rounded-pill px-4"
+        style="background-color: #198754; border: none;"
+        disabled>
+        <i class="bi bi-check-circle-fill me-2"></i>
+        Matches já gerados
+    </button>
+
+    <p class="text-muted small mt-2 mb-0">
+        Os candidatos já foram processados para esta vaga.
+    </p>
+@else
+    <form action="{{ route('match.generate', $job->id) }}" method="POST">
+        @csrf
+        <button type="submit"
+            class="btn btn-primary rounded-pill px-4"
+            style="background-color: var(--primary-color); border: none;">
+            <i class="bi bi-lightning-charge-fill me-2"></i>
+            Gerar Matches
+        </button>
+    </form>
+@endif
             </div>
 
             @if($matches->isEmpty())
@@ -198,7 +214,7 @@
 
                             <div class="flex-grow-1 w-100">
                                 <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
-                                    <h5 class="fw-bold mb-0 me-2" style="color: var(--primary-color);">Candidato Mascarado #{{ $match->id }}</h5>
+                                    <h5 class="fw-bold mb-0 me-2" style="color: var(--primary-color);">Candidato Mascarado #{{ $loop->iteration }}</h5>
 
                                     <span class="badge bg-color text-white rounded-pill px-3 py-2"><i class="bi bi-star-fill me-1"></i>{{ $match->score_match }}% Match</span>
                                     <span class="badge bg-info text-dark rounded-pill px-3 py-2"><i class="bi bi-award-fill me-1"></i>{{ $match->badge_diversidade }}</span>

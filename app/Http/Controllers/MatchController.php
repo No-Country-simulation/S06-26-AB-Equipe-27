@@ -18,26 +18,37 @@ class MatchController extends Controller
         return view('match', compact('job', 'matches'));
     }
 
-    public function generate($jobId, Request $request, PythonService $pythonService, MatchService $matchService)
+    public function generate($jobId, Request $request, PythonService $pythonService)
     {
         $job = JobPosting::findOrFail($jobId);
         $company = Auth::user()->company;
 
-        Matching::where('job_posting_id', $jobId)->delete();
+        // 🔒 BLOQUEIO: já gerou?
+        if ($job->matches_generated) {
+            return redirect()->route('match.show', $jobId)
+                ->with('error', 'Matches já foram gerados para esta vaga.');
+        }
 
-        $job->skills_obrigatorias = $job->required_skills;
+        // payload simples
         $payload = [
-            'vaga' => $job->toArray(),
-            'candidatos' => $request->input('candidatos', [])
+            'vaga' => [
+                'skills_obrigatorias' => $job->required_skills,
+            ]
         ];
 
         $result = $pythonService->execute($payload);
 
         if ($result['success']) {
+
             foreach ($result['shortlist'] as $candidate) {
-                $matchService->updateOrCreate([
+
+                Matching::create([
                     'job_posting_id' => $jobId,
                     'company_id' => $company->id,
+
+                    // identidade estável do candidato
+                    'external_id' => $candidate['external_id'],
+
                     'skills' => $candidate['skills'],
                     'seniority' => $candidate['seniority'],
                     'score_match' => $candidate['score_match'],
@@ -45,6 +56,10 @@ class MatchController extends Controller
                     'recomendacao' => $candidate['recomendacao'],
                 ]);
             }
+
+            // 🔒 TRAVA FINAL
+            $job->matches_generated = true;
+            $job->save();
         }
 
         return redirect()->route('match.show', $jobId);
