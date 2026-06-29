@@ -142,27 +142,6 @@
                     <span class="ml-2 font-semibold">{{ $preferences->include_remote ? 'Ativado ✓' : 'Desativado' }}</span>
                 </div>
             </div>
-
-            @if($preferences->talent_sources && count($preferences->talent_sources) > 0)
-            <div>
-                <p class="text-sm font-semibold text-gray-700 mb-2">Fontes:</p>
-                <div class="flex flex-wrap gap-2">
-                    @php
-                    $sourceLabels = [
-                    'universities' => 'Universidades',
-                    'bootcamps' => 'Bootcamps',
-                    'experienced' => 'Profissionais Experientes',
-                    'career_transition' => 'Programas de Transição de Carreira'
-                    ];
-                    @endphp
-                    @foreach($preferences->talent_sources as $source)
-                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
-                        {{ $sourceLabels[$source] ?? ucwords(str_replace('_', ' ', $source)) }}
-                    </span>
-                    @endforeach
-                </div>
-            </div>
-            @endif
         </div>
     </div>
     @endif

@@ -11,14 +11,12 @@ class AiPreference extends Model
         'company_id',
         'matching_priority',
         'candidate_radius',
-        'include_remote',
-        'talent_sources',
+        'include_remote'
     ];
 
     protected $casts = [
         'matching_priority' => 'array',
         'include_remote' => 'boolean',
-        'talent_sources' => 'array',
         'candidate_radius' => 'integer',
     ];
 

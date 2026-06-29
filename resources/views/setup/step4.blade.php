@@ -78,27 +78,6 @@
         </div>
     </div>
 
-    <!-- Talent Sources -->
-    <div class="mb-8">
-        <label class="block text-sm font-semibold text-gray-700 mb-4">Fontes de Talentos</label>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            @php
-            $sources = [
-            'universities' => 'Universidades',
-            'bootcamps' => 'Bootcamps',
-            'experienced' => 'Profissionais Experientes',
-            'career_transition' => 'Programas de Transição de Carreira',
-            ];
-            $selectedSources = $preferences->talent_sources ?? array_keys($sources);
-            @endphp
-            @foreach($sources as $value => $label)
-            <label class="flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all {{ in_array($value, (array)$selectedSources) ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-purple-300' }}">
-                <input type="checkbox" name="talent_sources[]" value="{{ $value }}" class="mr-3 w-4 h-4 text-purple-600" {{ in_array($value, (array)$selectedSources) ? 'checked' : '' }}>
-                <span class="font-medium">{{ $label }}</span>
-            </label>
-            @endforeach
-        </div>
-    </div>
 
     <!-- Navigation -->
     <div class="flex justify-between">

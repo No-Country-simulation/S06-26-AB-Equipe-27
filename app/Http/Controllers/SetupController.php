@@ -165,8 +165,7 @@ class SetupController extends Controller
     {
         $validated = $request->validate([
             'matching_priority' => 'array',
-            'candidate_radius' => 'required|integer',
-            'talent_sources' => 'array',
+            'candidate_radius' => 'required|integer'
         ]);
 
         $company = Auth::user()->company;
@@ -176,8 +175,7 @@ class SetupController extends Controller
             [
                 'matching_priority' => $validated['matching_priority'] ?? ['technical_skills', 'diversity_goals', 'location', 'experience', 'education'],
                 'candidate_radius' => $validated['candidate_radius'],
-                'include_remote' => $request->has('include_remote'),
-                'talent_sources' => $validated['talent_sources'] ?? [],
+                'include_remote' => $request->has('include_remote')
             ]
         );
 

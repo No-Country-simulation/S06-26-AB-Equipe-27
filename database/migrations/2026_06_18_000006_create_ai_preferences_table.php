@@ -14,7 +14,6 @@ return new class extends Migration
             $table->json('matching_priority')->nullable(); // ordered list: technical_skills, diversity_goals, location, experience, education
             $table->integer('candidate_radius')->default(50); // km
             $table->boolean('include_remote')->default(true);
-            $table->json('talent_sources')->nullable(); // universities, bootcamps, experienced, career_transition
             $table->timestamps();
         });
     }
