@@ -54,7 +54,12 @@ def processar_match(candidato, vaga):
 
     # Também retirei um for e um if que tinha nessa parte
     
-    score = len(skill_match) * 20
+    total_skills_exigidas = len(vaga['skills_obrigatorias'])
+
+    if total_skills_exigidas > 0:
+        score = (100 / total_skills_exigidas) * len(skill_match)
+    else:
+        score = 0
     
     dados_para_recrutador = mascarar_dados(candidato)
 

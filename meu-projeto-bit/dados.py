@@ -38,13 +38,13 @@ lista_candidatos = [{'nome': 'Ana Júlia dos Santos Ferreira', 'idade': 28,'raca
         'genero': 'Masculino','is_pcd': False, 'cluster_origem':'SAO_JOSE_BARREIROS', 
         'municipio':'São José', 'lat': -27.645, 'long':-48.65, 'skills':['Python', 'FastAPI', 
         'Kubernetes'],'seniority':'Senior'}]
-    
+
 vagas = {'vaga_1':{'titulo': 'Desenvolvedor(a) Back-end Sênior',
-                    'seniority': 'Senior',
-                    'skills_obrigatorias': ['PHP', 'Laravel', 'MySQL'],
-                    'skills_desejaveis': ['Python', 'FastAPI', 'Microsserviços'],
-                    'municipio': 'Florianópolis',
-                    'cluster_origem': 'UFSC'},
+                'seniority': 'Senior',
+                'skills_obrigatorias': ['PHP', 'Laravel', 'MySQL'],
+                'skills_desejaveis': ['Python', 'FastAPI', 'Microsserviços'],
+                'municipio': 'Florianópolis',
+                'cluster_origem': 'UFSC'},
         
         'vaga_2':{'titulo': 'Cientista de Dados',
                 'seniority':'Junior',
