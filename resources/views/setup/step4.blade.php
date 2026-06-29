@@ -78,7 +78,6 @@
         </div>
     </div>
 
-
     <!-- Navigation -->
     <div class="flex justify-between">
         <a href="{{ route('setup.step3') }}" class="text-gray-600 hover:text-gray-800 font-medium py-3 px-6 rounded-xl border-2 border-gray-300 hover:border-gray-400 transition-all">

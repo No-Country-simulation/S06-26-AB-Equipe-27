@@ -12,7 +12,8 @@ class JobService
     /* Depois de campos validados no controller,
     são recebidos pelo service que gera novos campos no banco de dados. */
 
-    public function create(array $data){
+    public function create(array $data)
+    {
         $company = auth()->user()->company;
 
         $job = JobPosting::create([

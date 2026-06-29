@@ -17,7 +17,7 @@ class JobPosting extends Model
         'district',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'required_skills' => 'array',
     ];
 }

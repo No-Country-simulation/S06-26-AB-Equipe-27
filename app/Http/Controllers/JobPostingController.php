@@ -16,8 +16,15 @@ class JobPostingController extends Controller
     }
 
     # Método essencial para percorrer array em View.
-    public function index(){
-        $jobs = JobPosting::latest()->get();
+    public function index()
+    {
+        $jobs = JobPosting::where('company_id', auth()->user()->company->id)->latest()->get();
+        // $jobs = collect($rawJobs)->map(function ($job) {
+        //     $job->required_skills = json_decode($job->required_skills);
+
+        //     return $job;
+        // })->all();
+
         return view('jobs', compact('jobs'));
     }
 
@@ -38,7 +45,7 @@ class JobPostingController extends Controller
         ]);
 
         # Filtro backend para possiveis campos nulos..
-        $data['required_skills'] = array_filter($request->required_skills, function ($value){
+        $data['required_skills'] = array_filter($request->required_skills, function ($value) {
             return !is_null($value) && $value !== '';
         });
 
@@ -52,7 +59,7 @@ class JobPostingController extends Controller
         $job = JobPosting::findOrFail($id);
 
         # Confiabilidade.
-        if($job->company_id !== auth()->user()->company->id){
+        if ($job->company_id !== auth()->user()->company->id) {
             abort(403);
         }
         return view('jobs-edit', compact('job'));
@@ -63,7 +70,7 @@ class JobPostingController extends Controller
     {
         $job = JobPosting::findOrFail($id);
 
-        if($job->company_id !== auth()->user()->company->id){
+        if ($job->company_id !== auth()->user()->company->id) {
             abort(403);
         }
 
@@ -90,7 +97,7 @@ class JobPostingController extends Controller
     {
         $job = JobPosting::findOrFail($id);
 
-        if($job->company_id !== auth()->user()->company->id){
+        if ($job->company_id !== auth()->user()->company->id) {
             abort(403);
         }
 
@@ -98,4 +105,3 @@ class JobPostingController extends Controller
         return redirect('/jobs')->with('sucess', 'Vaga removida');
     }
 }
-

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-
         :root {
             --primary-color: #4A148C;
             --secondary-color: #FF6D00;
@@ -34,6 +34,7 @@
             font-weight: 700;
             color: var(--primary-color) !important;
         }
+
         .navbar-brand span {
             color: var(--secondary-color);
         }
@@ -49,7 +50,8 @@
             padding: 2rem 1rem;
         }
 
-        h1, .btn-submit {
+        h1,
+        .btn-submit {
             font-family: 'Poppins', sans-serif;
         }
 
@@ -114,149 +116,152 @@
         }
     </style>
 </head>
+
 <body>
 
-<!-- Navbar Top. -->
-<nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+    <!-- Navbar Top. -->
+    <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-        <div class="d-flex align-items-center ms-auto">
-            <!-- Usuário Conectado -->
-            <div class="dropdown">
-                <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
-                    <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-            @auth
-            <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
-                {{ auth()->user()->name }}
-            </span>
-            @endauth
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
-                    <li><a class="dropdown-item py-2" href="{{url('/dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
-                    <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
-                </ul>
+            <div class="d-flex align-items-center ms-auto">
+                <div class="dropdown">
+                    <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
+                        <div class="bg-purple text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; background-color: var(--primary-color);">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        @auth
+                        <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
+                            {{ auth()->user()->name }}
+                        </span>
+                        @endauth
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
+                        <li><a class="dropdown-item py-2" href="{{url('/dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
+                        <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-<div class="allContent">
+    </nav>
 
-    <!-- Publicação de vaga. -->
-    <div class="form-card">
+    <div class="allContent">
 
-        <!-- Formulário. -->
-        <form method="POST" action="/jobs">
-            @csrf
-            <h1 class="form-title text-center text-md-start">
-                <i class="bi bi-plus-circle text-orange me-2" style="color: var(--secondary-color);"></i>Publicar nova vaga.
-            </h1>
+        <!-- Publicação de vaga. -->
+        <div class="form-card">
 
-            <div class="row g-3">
+            <!-- Formulário. -->
+            <form method="POST" action="/jobs">
+                @csrf
+                <h1 class="form-title text-center text-md-start">
+                    <i class="bi bi-plus-circle text-orange me-2" style="color: var(--secondary-color);"></i>Publicar nova vaga.
+                </h1>
 
-                <!-- Título. -->
-                <div class="col-12">
-                    <label>Título da oportunidade</label>
-                    <input name="title" class="form-control" placeholder="Título da vaga" type="text" required>
-                </div>
+                <div class="row g-3">
 
-                <!-- Descrição. -->
-                <div class="col-12">
-                    <label>Descrição detalhada</label>
-                    <textarea name="description" class="form-control" rows="4" placeholder="Descreva as atividades e o perfil esperado..." required></textarea>
-                </div>
-
-                <!-- Skills. -->
-                <div class="col-12">
-                    <label class="fw-semibold text-muted small mb-2">Principais Competências</label>
-                    <div id="skills-container">
-                        <div class="mb-2" >
-                            <span class=" bg-light text-muted">
-                                <input name="required_skills[]" class="form-control" placeholder="Skill (ex: Laravel)" type="text" required>
-                            </span>
-                        </div>
+                    <!-- Título. -->
+                    <div class="col-12">
+                        <label>Título da oportunidade</label>
+                        <input name="title" class="form-control" placeholder="Título da vaga" type="text" required>
                     </div>
-                    <button type="button" id="add-skill-btn" class="btn btn-sm btn-light border mt-1 fw-medium text-purple" style="color: var(--primary-color);">
-                        <i class="bi bi-plus-circle-fill me-1" style="color: var(--secondary-color);"></i>Adicionar mais uma Skill
-                    </button>
+
+                    <!-- Descrição. -->
+                    <div class="col-12">
+                        <label>Descrição detalhada</label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="Descreva as atividades e o perfil esperado..." required></textarea>
+                    </div>
+
+                    <!-- Skills. -->
+                    <div class="col-12">
+                        <label class="fw-semibold text-muted small mb-2">Principais Competências</label>
+                        <div id="skills-container">
+                            <div class="mb-2">
+                                <span class=" bg-light text-muted">
+                                    <input name="required_skills[]" class="form-control" placeholder="Skill (ex: Laravel)" type="text" required>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="button" id="add-skill-btn" class="btn btn-sm btn-light border mt-1 fw-medium text-purple" style="color: var(--primary-color);">
+                            <i class="bi bi-plus-circle-fill me-1" style="color: var(--secondary-color);"></i>Adicionar mais uma Skill
+                        </button>
+                    </div>
+
+
+                    <!-- Level. -->
+                    <div class="col-md-4">
+                        <label>Sênioridade</label>
+                        <input name="level" class="form-control" placeholder="Senior" type="text" required>
+                    </div>
+
+                    <!-- Cidade. -->
+                    <div class="col-md-4">
+                        <label>Cidade</label>
+                        <input name="city" class="form-control" placeholder="Cidade" type="text" required>
+                    </div>
+
+                    <!-- Bairro. -->
+                    <div class="col-md-4">
+                        <label>Bairro</label>
+                        <input name="district" class="form-control" placeholder="Bairro" type="text" required>
+                    </div>
+
+                    <!-- Criar vaga. -->
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn-submit w-100">
+                            Criar vaga <i class="bi bi-check-lg ms-1"></i>
+                        </button>
+                    </div>
+
                 </div>
-
-
-                <!-- Level. -->
-                <div class="col-md-4">
-                    <label>Sênioridade</label>
-                    <input name="level" class="form-control" placeholder="Senior" type="text" required>
-                </div>
-
-                <!-- Cidade. -->
-                <div class="col-md-4">
-                    <label>Cidade</label>
-                    <input name="city" class="form-control" placeholder="Cidade" type="text" required>
-                </div>
-
-                <!-- Bairro. -->
-                <div class="col-md-4">
-                    <label>Bairro</label>
-                    <input name="district" class="form-control" placeholder="Bairro" type="text" required>
-                </div>
-
-                <!-- Criar vaga. -->
-                <div class="col-12 mt-4">
-                    <button type="submit" class="btn-submit w-100">
-                        Criar vaga <i class="bi bi-check-lg ms-1"></i>
-                    </button>
-                </div>
-
-            </div>
-        </form>
+            </form>
 
 
 
+        </div>
     </div>
-</div>
 
-<!-- Script responsável pela visibilidade das skills (adicionar e remover) -->
-<script>
-    document.getElementById('add-skill-btn').addEventListener('click', function() {
-        const container = document.getElementById('skills-container');
+    <!-- Script responsável pela visibilidade das skills (adicionar e remover) -->
+    <script>
+        document.getElementById('add-skill-btn').addEventListener('click', function() {
+            const container = document.getElementById('skills-container');
 
-        // Cria linha de agrupamento do bootstrap.
-        const inputGroup = document.createElement('div');
-        inputGroup.className = 'input-group mb-2 animate-fade-in';
+            // Cria linha de agrupamento do bootstrap.
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mb-2 animate-fade-in';
 
-        // Cria input.
-        const input = document.createElement('input');
-        input.name = 'required_skills[]';
-        input.className = 'form-control';
-        input.placeholder = 'Próxima Skill';
-        input.type = 'text';
-        input.required = true; // Proibe eventuais campos nulos.
+            // Cria input.
+            const input = document.createElement('input');
+            input.name = 'required_skills[]';
+            input.className = 'form-control';
+            input.placeholder = 'Próxima Skill';
+            input.type = 'text';
+            input.required = true; // Proibe eventuais campos nulos.
 
-        // Cria botão de remover (lixeira).
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-outline-danger';
-        removeBtn.type = 'button';
-        removeBtn.innerHTML = '<i class="bi bi-trash3"></i>';
+            // Cria botão de remover (lixeira).
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'btn btn-outline-danger';
+            removeBtn.type = 'button';
+            removeBtn.innerHTML = '<i class="bi bi-trash3"></i>';
 
-        // Lógica do botão.
-        removeBtn.onclick = function(){
-            inputGroup.remove();
-        };
+            // Lógica do botão.
+            removeBtn.onclick = function() {
+                inputGroup.remove();
+            };
 
-        // Acoplamento geral.
-        inputGroup.appendChild(input);
-        inputGroup.appendChild(removeBtn);
-        container.appendChild(inputGroup);
-    })
-</script>
+            // Acoplamento geral.
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(removeBtn);
+            container.appendChild(inputGroup);
+        })
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

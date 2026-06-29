@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | Pluralis RH</title>
+    <title>Cadastro | SkillFocus</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,15 +31,21 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 2rem 0; /* Padding extra caso a tela seja pequena na vertical */
+            padding: 2rem 0;
+            /* Padding extra caso a tela seja pequena na vertical */
         }
 
-        h1, h2, h3, h4, .btn {
+        h1,
+        h2,
+        h3,
+        h4,
+        .btn {
             font-family: 'Poppins', sans-serif;
         }
 
         .register-container {
-            max-width: 950px; /* Levemente mais largo para acomodar o formulário maior */
+            max-width: 950px;
+            /* Levemente mais largo para acomodar o formulário maior */
             margin: 0 auto;
         }
 
@@ -62,18 +69,21 @@
         }
 
         /* Círculos decorativos */
-        .brand-section::before, .brand-section::after {
+        .brand-section::before,
+        .brand-section::after {
             content: '';
             position: absolute;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
         }
+
         .brand-section::before {
             width: 250px;
             height: 250px;
             top: -80px;
             right: -80px;
         }
+
         .brand-section::after {
             width: 150px;
             height: 150px;
@@ -138,7 +148,8 @@
 
         /* Botão Personalizado */
         .btn-register {
-            background-color: var(--secondary-color); /* Laranja em destaque no registro */
+            background-color: var(--secondary-color);
+            /* Laranja em destaque no registro */
             color: white;
             border: none;
             border-radius: 0.75rem;
@@ -169,6 +180,7 @@
             text-decoration: none;
             font-weight: 500;
         }
+
         /* NAVBAR */
         .navbar {
             background-color: rgba(255, 255, 255, 0.95) !important;
@@ -196,108 +208,112 @@
             position: relative;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary-color) !important;
         }
     </style>
 </head>
+
 <body>
     <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<section class="allContent">
-    <div class="container register-container">
-        <div class="card register-card">
-            <div class="row g-0">
+    </nav>
+    <section class="allContent">
+        <div class="container register-container">
+            <div class="card register-card">
+                <div class="row g-0">
 
-                <div class="col-lg-5 d-none d-lg-flex brand-section">
-                    <h2>Junte-se à revolução.</h2>
-                    <p>Dê o primeiro passo para construir equipes mais criativas, plurais e inovadoras. O futuro do trabalho é diverso.</p>
+                    <div class="col-lg-5 d-none d-lg-flex brand-section">
+                        <h2>Junte-se à revolução.</h2>
+                        <p>Dê o primeiro passo para construir equipes mais criativas, plurais e inovadoras. O futuro do trabalho é diverso.</p>
 
-                    <div class="mt-5 z-1">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                            <span>Atraia talentos únicos</span>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                            <span>Ambiente focado em inclusão</span>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                            <span>Relatórios customizados</span>
-                        </div>
+                        <div class="mt-5 z-1">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
+                                <span>Atraia talentos únicos</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
+                                <span>Ambiente focado em inclusão</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
+                                <span>Relatórios customizados</span>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-7 form-section">
-                    <h3 class="form-title">Crie sua conta corporativa</h3>
-                    <p class="form-subtitle">Preencha os dados abaixo para cadastrar sua empresa.</p>
+                    <div class="col-lg-7 form-section">
+                        <h3 class="form-title">Crie sua conta corporativa</h3>
+                        <p class="form-subtitle">Preencha os dados abaixo para cadastrar sua empresa.</p>
 
-                    <form method="POST" action="/register">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required>
-                                    <label for="name"><i class="bi bi-person input-icon"></i>Nome completo</label>
+                        <form method="POST" action="/register">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required>
+                                        <label for="name"><i class="bi bi-person input-icon"></i>Nome completo</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Nome da Empresa" required>
+                                        <label for="company_name"><i class="bi bi-building input-icon"></i>Empresa</label>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 mb-3">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Nome da Empresa" required>
-                                    <label for="company_name"><i class="bi bi-building input-icon"></i>Empresa</label>
-                                </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="nome@empresa.com.br" required>
+                                <label for="email"><i class="bi bi-envelope input-icon"></i>E-mail corporativo</label>
                             </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                                <label for="password"><i class="bi bi-shield-lock input-icon"></i>Crie uma senha segura</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-register">
+                                Criar minha conta <i class="bi bi-check2-circle ms-1"></i>
+                            </button>
+
+                            <p class="terms-text">
+                                Ao se cadastrar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
+                            </p>
+                        </form>
+
+                        <div class="text-center mt-4 pt-3 border-top">
+                            <p class="text-muted" style="font-size: 0.95rem;">
+                                Sua empresa já possui cadastro? <a href="/login" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Faça Login</a>
+                            </p>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="nome@empresa.com.br" required>
-                            <label for="email"><i class="bi bi-envelope input-icon"></i>E-mail corporativo</label>
-                        </div>
-
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
-                            <label for="password"><i class="bi bi-shield-lock input-icon"></i>Crie uma senha segura</label>
-                        </div>
-
-                        <button type="submit" class="btn btn-register">
-                            Criar minha conta <i class="bi bi-check2-circle ms-1"></i>
-                        </button>
-
-                        <p class="terms-text">
-                            Ao se cadastrar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
-                        </p>
-                    </form>
-
-                    <div class="text-center mt-4 pt-3 border-top">
-                        <p class="text-muted" style="font-size: 0.95rem;">
-                            Sua empresa já possui cadastro? <a href="/login" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Faça Login</a>
-                        </p>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</section
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </section
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 </body>
+
 </html>

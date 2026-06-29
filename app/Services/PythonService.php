@@ -9,33 +9,30 @@ class PythonService
 {
     public function execute(array $data): array
     {
-        $process = new Process(
-            [
-                'python',
-                base_path('app/scripts/match.py')
-            ],
-            base_path(),
-            [
-                'SYSTEMROOT' => getenv('SYSTEMROOT'),
-                'WINDIR' => getenv('WINDIR'),
-                'PATH' => getenv('PATH'),
-                'TEMP' => getenv('TEMP'),
-                'TMP' => getenv('TMP'),
-            ]
-        );
+        $process = new Process([
+            'python3',
+            base_path('app/scripts/match.py')
+        ]);
 
-        $process->setInput(
-            json_encode($data, JSON_THROW_ON_ERROR)
-        );
-
+        $process->setInput(json_encode($data, JSON_THROW_ON_ERROR));
         $process->setTimeout(30);
+
         $process->run();
+
 
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
+
+        $output = $process->getOutput();
+        $error = $process->getErrorOutput();
+
+        if (!empty($error)) {
+            logger()->error('Python error: ' . $error);
+        }
+
         return json_decode(
-            $process->getOutput(),
+            $output,
             true,
             512,
             JSON_THROW_ON_ERROR
