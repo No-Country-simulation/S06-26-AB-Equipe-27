@@ -96,7 +96,7 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
 
     # Dashboards
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index']);
+    /* Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index']); */
 
     # CRUD de Vagas (Mantendo os URLs originais para compatibilidade com as tuas Views)
     Route::get('/jobs', [JobPostingController::class, 'index']);
@@ -111,8 +111,10 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
     Route::get('/mapa-talentos', function (){
         return view('mapa');
     });
-
     Route::get('/mapa-talentos', [MapaController::class, 'index']);
+    Route::get('/jobs/reports', function () {
+        return view('reports');
+    });
 });
 
 

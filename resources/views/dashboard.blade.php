@@ -182,10 +182,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                         </svg>
                     </div>
+                    <a href="{{url('/jobs/reports')}}">
                     <div>
                         <h3 class="text-lg font-bold text-green-800 mb-0">Relatórios</h3>
                         <p class="text-gray-500 text-sm mb-0 mt-1">Métricas de diversidade</p>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -313,9 +315,11 @@
                                         </div>
                                     </td>
                                     <td class="text-end pe-4">
+                                        <a href="{{url('/jobs')}}">
                                         <button type="button" class="btn btn-sm btn-light border rounded-lg hover:bg-gray-50" title="Ver Vagas">
                                             <i class="bi bi-eye text-gray-600"></i>
                                         </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
