@@ -20,13 +20,13 @@
             <!-- Progress Bar -->
             @php
             $steps = [
-            'step1' => 25,
-            'step2' => 50,
-            'step3' => 75,
-            'step4' => 100,
+            'step1' => 20,
+            'step2' => 40,
+            'step3' => 60,
+            'step4' => 80,
             'review' => 100,
             ];
-            $currentStep = request()->route()->getName();
+            $currentStep = explode("/", request()?->path())[1];
             $progress = $steps[$currentStep] ?? 25;
             @endphp
 
