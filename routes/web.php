@@ -7,6 +7,7 @@ use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\JobsDashboardController;
 use App\Http\Controllers\SetupController;
+use App\Http\Controllers\MapaController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -106,7 +107,14 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
     Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);
     Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']);
     Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']);
+
+    Route::get('/mapa-talentos', function (){
+        return view('mapa');
+    });
+
+    Route::get('/mapa-talentos', [MapaController::class, 'index']);
 });
+
 
 # ====================================
 # Matches
