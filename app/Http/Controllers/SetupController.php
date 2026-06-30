@@ -97,22 +97,22 @@ class SetupController extends Controller
         $predefinedGoals = [
             'environmental' => [
                 'reduce_paper' => ['title' => 'Reduzir o uso de papel', 'pillar' => 'environmental'],
-                'reduce_emissions' => ['title' => 'Reduce emissions', 'pillar' => 'environmental'],
-                'renewable_energy' => ['title' => 'Renewable energy adoption', 'pillar' => 'environmental'],
-                'other_env' => ['title' => 'Other', 'pillar' => 'environmental'],
+                'reduce_emissions' => ['title' => 'Reduzir emissões', 'pillar' => 'environmental'],
+                'renewable_energy' => ['title' => 'Adotar energia renovável', 'pillar' => 'environmental'],
+                'other_env' => ['title' => 'Outro', 'pillar' => 'environmental'],
             ],
             'social' => [
-                'hire_underrepresented' => ['title' => 'Hire underrepresented talent', 'pillar' => 'social'],
-                'mentorship' => ['title' => 'Mentorship programs', 'pillar' => 'social'],
-                'accessibility' => ['title' => 'Accessibility improvements', 'pillar' => 'social'],
-                'community' => ['title' => 'Community engagement', 'pillar' => 'social'],
-                'scholarships' => ['title' => 'Scholarships', 'pillar' => 'social'],
+                'hire_underrepresented' => ['title' => 'Contratar talentos sub-representados', 'pillar' => 'social'],
+                'mentorship' => ['title' => 'Programas de mentoria', 'pillar' => 'social'],
+                'accessibility' => ['title' => 'Melhorias de acessibilidade', 'pillar' => 'social'],
+                'community' => ['title' => 'Engajamento comunitário', 'pillar' => 'social'],
+                'scholarships' => ['title' => 'Bolsas de estudo', 'pillar' => 'social'],
             ],
             'governance' => [
-                'anti_bias' => ['title' => 'Anti-bias recruitment process', 'pillar' => 'governance'],
-                'dei_training' => ['title' => 'DEI training', 'pillar' => 'governance'],
-                'anonymous_reporting' => ['title' => 'Anonymous reporting channel', 'pillar' => 'governance'],
-                'compliance' => ['title' => 'Compliance audits', 'pillar' => 'governance'],
+                'anti_bias' => ['title' => 'Processo de recrutamento antiviés', 'pillar' => 'governance'],
+                'dei_training' => ['title' => 'Treinamento em DEI', 'pillar' => 'governance'],
+                'anonymous_reporting' => ['title' => 'Canal de denúncia anônimo', 'pillar' => 'governance'],
+                'compliance' => ['title' => 'Auditorias de conformidade', 'pillar' => 'governance'],
             ],
         ];
 
