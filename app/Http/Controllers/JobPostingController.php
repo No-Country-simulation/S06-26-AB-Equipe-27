@@ -19,11 +19,6 @@ class JobPostingController extends Controller
     public function index()
     {
         $jobs = JobPosting::where('company_id', auth()->user()->company->id)->latest()->get();
-        // $jobs = collect($rawJobs)->map(function ($job) {
-        //     $job->required_skills = json_decode($job->required_skills);
-
-        //     return $job;
-        // })->all();
 
         return view('jobs', compact('jobs'));
     }
@@ -58,6 +53,8 @@ class JobPostingController extends Controller
     {
         $job = JobPosting::findOrFail($id);
 
+        $job->required_skills = json_decode($job->required_skills);
+
         # Confiabilidade.
         if ($job->company_id !== auth()->user()->company->id) {
             abort(403);
@@ -81,6 +78,8 @@ class JobPostingController extends Controller
             'city' => 'required',
             'district' => 'required',
         ]);
+
+        $request->required_skills = json_encode($request->required_skills);
 
         $job->title = $request->title;
         $job->description = $request->description;
