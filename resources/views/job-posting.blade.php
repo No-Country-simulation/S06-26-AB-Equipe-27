@@ -196,7 +196,7 @@
                     <!-- Level. -->
                     <div class="col-md-4">
                         <label>Sênioridade</label>
-                        <input name="level" class="form-control" placeholder="Senior" type="text" required>
+                        <input name="level" class="form-control" placeholder="Sênior" type="text" required>
                     </div>
 
                     <!-- Cidade. -->
