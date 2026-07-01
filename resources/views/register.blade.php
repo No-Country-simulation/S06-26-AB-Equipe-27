@@ -242,7 +242,6 @@
                     <div class="col-lg-5 d-none d-lg-flex brand-section">
                         <h2>Junte-se à revolução.</h2>
                         <p>Dê o primeiro passo para construir equipes mais criativas, plurais e inovadoras. O futuro do trabalho é diverso.</p>
-
                         <div class="mt-5 z-1">
                             <div class="d-flex align-items-center mb-3">
                                 <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
@@ -261,6 +260,9 @@
                     </div>
 
                     <div class="col-lg-7 form-section">
+                        @error('email')
+                            <div class="alert alert-danger">Erro ao cadastrar usuário.</div>
+                        @enderror
                         <h3 class="form-title">Crie sua conta corporativa</h3>
                         <p class="form-subtitle">Preencha os dados abaixo para cadastrar sua empresa.</p>
 

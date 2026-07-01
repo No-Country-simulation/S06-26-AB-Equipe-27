@@ -15,6 +15,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
     <style>
         /* Paleta de cores base */
         :root {
@@ -29,7 +32,6 @@
             background-color: var(--bg-light);
             font-family: 'Inter', sans-serif;
             color: var(--text-dark);
-            /* Impede rolagem horizontal indesejada no mobile */
             overflow-x: hidden;
         }
 
@@ -79,6 +81,13 @@
         .progress-bar-teal {
             background-color: var(--accent-color);
         }
+
+        /* 2. Adicionado: Estilo para delimitar a altura do container do mapa */
+        #map-heatmap {
+            height: 380px;
+            width: 100%;
+            z-index: 1; /* Garante que elementos do mapa não fiquem por cima do dropdown da navbar */
+        }
     </style>
 </head>
 
@@ -107,7 +116,7 @@
                     <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
-                    <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                    <li><a class="dropdown-item py-2 text-danGeografiager" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -156,10 +165,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
+                    <a href="{{url('/mapa-talentos')}}">
                     <div>
                         <h3 class="text-lg font-bold text-blue-800 mb-0">Mapa de Talentos</h3>
                         <p class="text-gray-500 text-sm mb-0 mt-1">Ver concentração</p>
                     </div>
+                    </a>
+
                 </div>
             </div>
 
@@ -170,10 +182,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                         </svg>
                     </div>
+                    <a href="{{url('/jobs/reports')}}">
                     <div>
                         <h3 class="text-lg font-bold text-green-800 mb-0">Relatórios</h3>
                         <p class="text-gray-500 text-sm mb-0 mt-1">Métricas de diversidade</p>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -237,7 +251,7 @@
                             ];
                             $priorityLabels = [
                                 'low' => 'Baixa',
-                                'medium' => 'Média',
+                                'medium' => 'Regular',
                                 'high' => 'Alta'
                             ];
                         @endphp
@@ -259,7 +273,7 @@
 
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
             <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl p-6 transition-all lg:col-span-2">
                 <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl p-4 mb-4">
@@ -301,9 +315,11 @@
                                         </div>
                                     </td>
                                     <td class="text-end pe-4">
+                                        <a href="{{url('/jobs')}}">
                                         <button type="button" class="btn btn-sm btn-light border rounded-lg hover:bg-gray-50" title="Ver Vagas">
                                             <i class="bi bi-eye text-gray-600"></i>
                                         </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -346,5 +362,43 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Injeção segura dos dados do Laravel vindo do Controller
+            const pointsData = @json($heatPoints ?? []);
+
+            if(pointsData.length > 0) {
+                // Inicialização focada no ponto médio padrão (ex: Florianópolis)
+                const mapInstance = L.map('map-heatmap').setView([-27.595, -48.556], 12);
+
+                // Camada limpa do OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18,
+                    attribution: '&copy; SkillFocus & OpenStreetMap contributors'
+                }).addTo(mapInstance);
+
+                // Geração dinâmica do gradiente de calor
+                L.heatLayer(pointsData, {
+                    radius: 28,
+                    blur: 15,
+                    maxZoom: 16,
+                    max: 0.4,
+                    minOpacity: 0.5,
+                    gradient: {
+                        0.4: 'blue',
+                        0.6: 'cyan',
+                        0.7: 'lime',
+                        0.8: 'yellow',
+                        1.0: '#B71C1C'
+                    }
+                }).addTo(mapInstance);
+            }
+        });
+    </script>
 </body>
 </html>

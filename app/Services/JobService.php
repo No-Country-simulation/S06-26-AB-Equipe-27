@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class JobService
 {
     /* Depois de campos validados no controller,
-    são recebidos pelo service que gera novos campos no banco de dados. */
+    sÃ£o recebidos pelo service que gera novos campos no banco de dados. */
 
     public function create(array $data)
     {

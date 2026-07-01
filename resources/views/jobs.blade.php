@@ -157,11 +157,18 @@
                                     <span class="tag-diversity"><i class="bi bi-layer-forward me-1"></i>{{ $job->level }}</span>
                                     <span class="tag-diversity"><i class="bi bi-geo-alt me-1"></i>{{ $job->city }} - {{ $job->district }}</span>
                                     @if(!empty($job->required_skills))
-                                    @foreach(json_decode($job->required_skills) as $skill)
-                                    <span class="badge text-dark bg-light border fw-normal py-1.5 px-2" style="font-size: 0.75rem; border-radius: 0.5rem;">
-                                        {{ $skill }}
-                                    </span>
-                                    @endforeach
+                                        @php
+                                            // Verifica se já é um array. Se for, usa direto. Se for string, decodifica.
+                                            $skills = is_array($job->required_skills) ? $job->required_skills : json_decode($job->required_skills, true);
+                                        @endphp
+
+                                        @if(is_iterable($skills))
+                                            @foreach($skills as $skill)
+                                            <span class="badge text-dark bg-light border fw-normal py-1.5 px-2" style="font-size: 0.75rem; border-radius: 0.5rem;">
+                                                {{ $skill }}
+                                            </span>
+                                            @endforeach
+                                        @endif
                                     @endif
                                 </div>
                             </div>
