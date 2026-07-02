@@ -151,7 +151,9 @@
         <h4 style="margin-top: 16px;">Principais regiões mapeadas:</h4>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
             @foreach($topRegions as $region)
-            <span style="padding: 4px 12px; border-radius: 9999px; background: #fff7ed; color: #EA580C; border: 1px solid #fed7aa; font-size: 14px;">📍 {{ $region }}</span>
+            <span style="padding: 4px 12px; border-radius: 9999px; background: #fff7ed; color: #EA580C; border: 1px solid #fed7aa; font-size: 14px;">
+                {{ $region }}
+            </span>
             @endforeach
         </div>
     </div>
