@@ -63,7 +63,6 @@ class DiversityScoreService
         $programContribution = min($programCount * 3, 15); // 3 points per program, max 15
         $totalScore += $programContribution;
         $maxPossibleScore += 15;
-        print_r($inclusionPrograms);
 
         // Part 4: Diversity statement (up to 10 points)
         if (!empty(trim($company->diversity_statement ?? ''))) {
