@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +33,11 @@
             align-items: center;
         }
 
-        h1, h2, h3, h4, .btn {
+        h1,
+        h2,
+        h3,
+        h4,
+        .btn {
             font-family: 'Poppins', sans-serif;
         }
 
@@ -62,18 +67,21 @@
         }
 
         /* Círculos decorativos para representar pluralidade */
-        .brand-section::before, .brand-section::after {
+        .brand-section::before,
+        .brand-section::after {
             content: '';
             position: absolute;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
         }
+
         .brand-section::before {
             width: 200px;
             height: 200px;
             top: -50px;
             left: -50px;
         }
+
         .brand-section::after {
             width: 300px;
             height: 300px;
@@ -188,91 +196,94 @@
             position: relative;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary-color) !important;
         }
     </style>
 </head>
+
 <body>
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<section class="allContent">
-    <div class="container login-container">
-        <div class="card login-card">
-            <div class="row g-0">
+    </nav>
+    <section class="allContent">
+        <div class="container login-container">
+            <div class="card login-card">
+                <div class="row g-0">
 
-                <div class="col-lg-5 d-none d-lg-flex brand-section">
-                    <h2>SkillFocus</h2>
-                    <p>Conectando talentos diversos às melhores oportunidades. Acreditamos que a pluralidade é o motor da inovação.</p>
-                </div>
+                    <div class="col-lg-5 d-none d-lg-flex brand-section">
+                        <h2>SkillFocus</h2>
+                        <p>Conectando talentos diversos às melhores oportunidades. Acreditamos que a pluralidade é o motor da inovação.</p>
+                    </div>
 
-                <div class="col-lg-7 form-section">
-                    <h3 class="form-title">Bem-vindo(a) de volta!</h3>
-                    <p class="form-subtitle">Acesse sua conta para continuar transformando equipes.</p>
+                    <div class="col-lg-7 form-section">
+                        <h3 class="form-title">Bem-vindo(a) de volta!</h3>
+                        <p class="form-subtitle">Acesse sua conta para continuar transformando equipes.</p>
 
-                    <form method="POST" action="/login">
-                        @csrf
+                        <form method="POST" action="/login">
+                            @csrf
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="nome@exemplo.com" required>
-                            <label for="email"><i class="bi bi-envelope me-2"></i>E-mail profissional</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
-                            <label for="password"><i class="bi bi-lock me-2"></i>Sua senha</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="rememberMe">
-                                <label class="form-check-label text-muted" for="rememberMe" style="font-size: 0.9rem;">
-                                    Lembrar de mim
-                                </label>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="nome@exemplo.com" required value="jidiv10776@ocuser.com">
+                                <label for="email"><i class="bi bi-envelope me-2"></i>E-mail profissional</label>
                             </div>
-                            <a href="{{route('password.request')}}" class="forgot-password">Esqueceu a senha?</a>
-                        </div>
 
-                        <button type="submit" class="btn btn-login">
-                            Entrar na Plataforma <i class="bi bi-arrow-right ms-2"></i>
-                        </button>
-                    </form>
-                    <div class="text-center mt-4" style="font-size: 0.9rem; color: red;">
-                        @if ($errors->any())
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required value="123456">
+                                <label for="password"><i class="bi bi-lock me-2"></i>Sua senha</label>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                                    <label class="form-check-label text-muted" for="rememberMe" style="font-size: 0.9rem;">
+                                        Lembrar de mim
+                                    </label>
+                                </div>
+                                <a href="{{route('password.request')}}" class="forgot-password">Esqueceu a senha?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-login">
+                                Entrar na Plataforma <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </form>
+                        <div class="text-center mt-4" style="font-size: 0.9rem; color: red;">
+                            @if ($errors->any())
                             <div class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
+                                <div>{{ $error }}</div>
                                 @endforeach
                             </div>
-                        @endif
-                    </div>
-                    <div class="text-center mt-4">
-                        <p class="text-muted" style="font-size: 0.9rem;">
-                            Sua empresa ainda não faz parte? <a href="{{url('/register')}}" style="color: var(--secondary-color); font-weight: 500; text-decoration: none;">Cadastre-se aqui</a>.
-                        </p>
-                    </div>
+                            @endif
+                        </div>
+                        <div class="text-center mt-4">
+                            <p class="text-muted" style="font-size: 0.9rem;">
+                                Sua empresa ainda não faz parte? <a href="{{url('/register')}}" style="color: var(--secondary-color); font-weight: 500; text-decoration: none;">Cadastre-se aqui</a>.
+                            </p>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

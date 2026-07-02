@@ -60,7 +60,7 @@
             'black' => 'Profissionais Negros',
             'indigenous' => 'Profissionais Indígenas',
             'disabled' => 'Pessoas com Deficiência (PCD)',
-            'lgbt' => 'LGBTQIA+',
+            'lgbt' => 'LGBTQIAP++',
             'refugee' => 'Refugiados / Imigrantes',
             'over_50' => 'Profissionais Sêniores (50+)',
             'neurodivergent' => 'Profissionais Neurodivergentes'
@@ -81,9 +81,9 @@
             @endforeach
         </div>
 
-        @if($goals->first()->target_percentage)
+        @if($goals->first()->target_value)
         <div class="mt-4 pt-4 border-t border-blue-200">
-            <p class="font-medium">Meta: <span class="text-blue-700">{{ $goals->first()->target_percentage }}% até {{ $goals->first()->target_year }}</span></p>
+            <p class="font-medium">Meta: <span class="text-blue-700">{{ $goals->first()->target_value }}% até {{ $goals->first()->target_year }}</span></p>
         </div>
         @endif
     </div>

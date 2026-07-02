@@ -35,7 +35,7 @@
         <label class="block text-sm font-semibold text-gray-700 mb-4">Tamanho da Empresa</label>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
             @foreach(['1-10', '11-50', '51-200', '201-1000', '1000+'] as $size)
-            <label class="flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all {{ old('size', $company->size) === $size ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-purple-300' }}">
+            <label class="flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all border-gray-200 hover:border-purple-300" @class(['border-purple-500', 'bg-purple-50 text-purple-600'=> old('size', $company->size)])>
                 <input type="radio" name="size" value="{{ $size }}" class="mr-3 w-4 h-4 text-purple-600" {{ old('size', $company->size) === $size ? 'checked' : '' }} required>
                 <span class="font-medium">{{ $size }}</span>
             </label>

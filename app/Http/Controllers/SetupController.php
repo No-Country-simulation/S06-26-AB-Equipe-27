@@ -51,7 +51,7 @@ class SetupController extends Controller
         $validated = $request->validate([
             'groups' => 'array',
             'priorities' => 'array',
-            'target_percentage' => 'nullable|integer|min:0|max:100',
+            'target_value' => 'nullable|integer|min:0|max:100',
             'target_year' => 'nullable|integer',
         ]);
 
@@ -66,7 +66,7 @@ class SetupController extends Controller
                 $company->diversityGoals()->create([
                     'group' => $group,
                     'priority' => $validated['priorities'][$group] ?? 'medium',
-                    'target_percentage' => $validated['target_percentage'] ?? null,
+                    'target_value' => $validated['target_value'] ?? null,
                     'target_year' => $validated['target_year'] ?? null,
                 ]);
             }
@@ -86,6 +86,7 @@ class SetupController extends Controller
     {
         $validated = $request->validate([
             'esg_goals' => 'array',
+            'goal_keys' => 'array',
             'custom_title' => 'nullable|string',
             'custom_target' => 'nullable|integer',
             'custom_deadline' => 'nullable|date',
@@ -96,23 +97,23 @@ class SetupController extends Controller
         // Metas predefinidas
         $predefinedGoals = [
             'environmental' => [
-                'reduce_paper' => ['title' => 'Reduzir o uso de papel', 'pillar' => 'environmental'],
-                'reduce_emissions' => ['title' => 'Reduzir emissões', 'pillar' => 'environmental'],
-                'renewable_energy' => ['title' => 'Adotar energia renovável', 'pillar' => 'environmental'],
-                'other_env' => ['title' => 'Outro', 'pillar' => 'environmental'],
+                'ecologic_preservation' => ['title' => 'Preservação ecológica', 'pillar' => 'environmental', 'tracking_type' => 'count'],
+                'reduce_emissions' => ['title' => 'Reduzir emissões', 'pillar' => 'environmental', 'tracking_type' => 'percentage'],
+                'renewable_energy' => ['title' => 'Adotar energia renovável', 'pillar' => 'environmental', 'tracking_type' => 'count'],
+                'other_env' => ['title' => 'Outro', 'pillar' => 'environmental', 'tracking_type' => 'count'],
             ],
             'social' => [
-                'hire_underrepresented' => ['title' => 'Contratar talentos sub-representados', 'pillar' => 'social'],
-                'mentorship' => ['title' => 'Programas de mentoria', 'pillar' => 'social'],
-                'accessibility' => ['title' => 'Melhorias de acessibilidade', 'pillar' => 'social'],
-                'community' => ['title' => 'Engajamento comunitário', 'pillar' => 'social'],
-                'scholarships' => ['title' => 'Bolsas de estudo', 'pillar' => 'social'],
+                'hire_underrepresented' => ['title' => 'Contratar talentos sub-representados', 'pillar' => 'social', 'tracking_type' => 'count'],
+                'mentorship' => ['title' => 'Programas de mentoria', 'pillar' => 'social', 'tracking_type' => 'count'],
+                'accessibility' => ['title' => 'Melhorias de acessibilidade', 'pillar' => 'social', 'tracking_type' => 'percentage'],
+                'community' => ['title' => 'Engajamento comunitário', 'pillar' => 'social', 'tracking_type' => 'count'],
+                'scholarships' => ['title' => 'Bolsas de estudo', 'pillar' => 'social', 'tracking_type' => 'count'],
             ],
             'governance' => [
-                'anti_bias' => ['title' => 'Processo de recrutamento antiviés', 'pillar' => 'governance'],
-                'dei_training' => ['title' => 'Treinamento em DEI', 'pillar' => 'governance'],
-                'anonymous_reporting' => ['title' => 'Canal de denúncia anônimo', 'pillar' => 'governance'],
-                'compliance' => ['title' => 'Auditorias de conformidade', 'pillar' => 'governance'],
+                'anti_bias' => ['title' => 'Processo de recrutamento antiviés', 'pillar' => 'governance', 'tracking_type' => 'status'],
+                'dei_training' => ['title' => 'Treinamento em DEI', 'pillar' => 'governance', 'tracking_type' => 'status'],
+                'anonymous_reporting' => ['title' => 'Canal de denúncia anônimo', 'pillar' => 'governance', 'tracking_type' => 'status'],
+                'compliance' => ['title' => 'Auditorias de conformidade', 'pillar' => 'governance', 'tracking_type' => 'status'],
             ],
         ];
 
@@ -131,9 +132,16 @@ class SetupController extends Controller
         if (isset($validated['esg_goals'])) {
             foreach ($validated['esg_goals'] as $goalKey) {
                 if (isset($flattenedGoals[$goalKey])) {
+                    $trackingType = $request->input("tracking_type_{$goalKey}", $flattenedGoals[$goalKey]['tracking_type']);
+                    $targetValue = $request->input("target_value_{$goalKey}");
+                    $deadline = $request->input("deadline_{$goalKey}");
+
                     $company->esgGoals()->create([
                         'title' => $flattenedGoals[$goalKey]['title'],
                         'pillar' => $flattenedGoals[$goalKey]['pillar'],
+                        'tracking_type' => $trackingType,
+                        'target_value' => $targetValue ?: null,
+                        'deadline' => $deadline ?: null,
                         'status' => 'IN_PROGRESS',
                     ]);
                 }
@@ -145,6 +153,7 @@ class SetupController extends Controller
             $company->esgGoals()->create([
                 'title' => $validated['custom_title'],
                 'pillar' => 'custom',
+                'tracking_type' => 'count',
                 'target_value' => $validated['custom_target'] ?? null,
                 'deadline' => $validated['custom_deadline'] ?? null,
                 'status' => 'PENDING',

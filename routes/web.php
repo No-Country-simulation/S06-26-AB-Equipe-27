@@ -3,11 +3,14 @@
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EsgProgressController;
+use App\Http\Controllers\DiversityProgressController;
 use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\JobsDashboardController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\MapaController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +101,14 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     /* Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index']); */
 
+    # ESG Progress
+    Route::get('/esg-progress', [EsgProgressController::class, 'index'])->name('esg-progress.index');
+    Route::put('/esg-progress/{goal}', [EsgProgressController::class, 'update'])->name('esg-progress.update');
+
+    # Diversity Progress
+    Route::get('/diversity-progress', [DiversityProgressController::class, 'index'])->name('diversity-progress.index');
+    Route::put('/diversity-progress/{goal}', [DiversityProgressController::class, 'update'])->name('diversity-progress.update');
+
     # CRUD de Vagas (Mantendo os URLs originais para compatibilidade com as tuas Views)
     Route::get('/jobs', [JobPostingController::class, 'index']);
     Route::get('/jobs/create', function () {
@@ -108,13 +119,12 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
     Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']);
     Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']);
 
-    Route::get('/mapa-talentos', function (){
+    Route::get('/mapa-talentos', function () {
         return view('mapa');
     });
     Route::get('/mapa-talentos', [MapaController::class, 'index']);
-    Route::get('/jobs/reports', function () {
-        return view('reports');
-    });
+    Route::get('/jobs/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/jobs/reports/download-pdf', [ReportController::class, 'downloadPdf'])->name('reports.download-pdf');
 });
 
 
@@ -135,3 +145,31 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/test', function () {
     return view('tests');
 });
+
+Route::get('/seed-matchings', function () {
+    $company = auth()->user()->company;
+    if (!$company) {
+        return 'No company found!';
+    }
+
+    $jobPosting = \App\Models\JobPosting::firstOrCreate([
+        'company_id' => $company->id,
+        'title' => 'Desenvolvedor PHP',
+        'city' => 'São Paulo'
+    ]);
+
+    // Create 15 sample matchings with varying scores
+    for ($i = 0; $i < 15; $i++) {
+        \App\Models\Matching::create([
+            'job_posting_id' => $jobPosting->id,
+            'company_id' => $company->id,
+            'skills' => ['PHP', 'Laravel', 'MySQL'],
+            'seniority' => 'Pleno',
+            'score_match' => rand(60, 100),
+            'badge_diversidade' => 'Diversidade',
+            'recomendacao' => 'Candidato com alta compatibilidade'
+        ]);
+    }
+
+    return 'Sample matchings created! Now go check the dashboard!';
+})->middleware(['auth', 'verified']);

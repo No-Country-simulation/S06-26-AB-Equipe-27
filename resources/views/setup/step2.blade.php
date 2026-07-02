@@ -39,7 +39,7 @@
             'black' => 'Profissionais Negros',
             'indigenous' => 'Profissionais Indígenas',
             'disabled' => 'Pessoas com Deficiência (PCD)',
-            'lgbt' => 'LGBTQIA+',
+            'lgbt' => 'LGBTQIAP++',
             'refugee' => 'Refugiados / Imigrantes',
             'over_50' => 'Profissionais Sêniores (50+)',
             'neurodivergent' => 'Profissionais Neurodivergentes',
@@ -79,7 +79,7 @@
         <h3 class="font-bold text-lg text-purple-800 mb-4">Meta de Contratação</h3>
         <p class="text-gray-600 mb-4">Aumentar a representatividade em:</p>
         <div class="flex items-center gap-4">
-            <input type="number" name="target_percentage" value="{{ old('target_percentage', isset($goal->target_percentage) ? round($goal->target_percentage) : 20) }}" min="0" max="100" class="w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold focus:border-purple-500">
+            <input type="number" name="target_value" value="{{ old('target_value', isset($goal->target_value) ? round($goal->target_value) : 20) }}" min="0" max="100" class="w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold focus:border-purple-500">
 
             <span class="text-2xl font-bold text-gray-700">%</span>
             <span class="text-gray-600">até</span>

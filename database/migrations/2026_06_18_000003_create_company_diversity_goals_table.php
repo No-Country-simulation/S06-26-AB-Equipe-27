@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('group'); // women, black, disabled, lgbt, indigenous, over_50, etc.
-            $table->decimal('target_percentage', 5, 2)->nullable();
+            $table->decimal('target_value', 5, 2)->nullable();
             $table->integer('target_year')->nullable();
             $table->string('priority')->default('medium'); // low, medium, high
             $table->timestamps();

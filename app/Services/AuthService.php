@@ -16,24 +16,25 @@ class AuthService
 {
     public function register(array $data)
     {
-        return DB::transaction(function () use ($data){
-        # Cria usuário.
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return DB::transaction(function () use ($data) {
+            # Cria usuário.
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                // 'email_verified_at' => now(), // Auto-verificar para testes
+                'password' => Hash::make($data['password']),
+            ]);
 
-        $user->sendEmailVerificationNotification();
+            $user->sendEmailVerificationNotification();
 
-        # Cria empresa vinculada ao usuário.
-        Company::create([
-            'user_id' => $user->id,
-            'name' => $data['company_name'],
-            'setup_completed' => false,
-        ]);
+            # Cria empresa vinculada ao usuário.
+            Company::create([
+                'user_id' => $user->id,
+                'name' => $data['company_name'],
+                'setup_completed' => false,
+            ]);
 
-        return $user;
+            return $user;
         });
     }
 }

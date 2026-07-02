@@ -261,7 +261,7 @@
 
                     <div class="col-lg-7 form-section">
                         @error('email')
-                            <div class="alert alert-danger">Erro ao cadastrar usuário.</div>
+                        <div class="alert alert-danger">Erro ao cadastrar usuário.</div>
                         @enderror
                         <h3 class="form-title">Crie sua conta corporativa</h3>
                         <p class="form-subtitle">Preencha os dados abaixo para cadastrar sua empresa.</p>

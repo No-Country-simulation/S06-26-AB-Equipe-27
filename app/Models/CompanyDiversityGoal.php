@@ -10,14 +10,16 @@ class CompanyDiversityGoal extends Model
     protected $fillable = [
         'company_id',
         'group',
-        'target_percentage',
+        'target_value',
         'target_year',
         'priority',
+        'current_value',
     ];
 
     protected $casts = [
-        'target_percentage' => 'decimal:2',
+        'target_value' => 'decimal:2',
         'target_year' => 'integer',
+        'current_value' => 'decimal:2',
     ];
 
     public function company(): BelongsTo

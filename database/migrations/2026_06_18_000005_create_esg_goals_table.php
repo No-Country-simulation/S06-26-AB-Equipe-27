@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('unit')->nullable(); // %, count, etc.
             $table->integer('current_value')->default(0);
             $table->date('deadline')->nullable();
-            $table->enum('status', ['PENDING', 'IN_PROGRESS', 'ACHIEVED', 'CANCELLED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'])->default('PENDING');
             $table->timestamps();
         });
     }

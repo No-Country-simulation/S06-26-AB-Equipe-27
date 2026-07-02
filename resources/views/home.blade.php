@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,13 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6, .navbar-brand {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .navbar-brand {
             font-family: 'Poppins', sans-serif;
         }
 
@@ -64,7 +71,8 @@
             position: relative;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary-color) !important;
         }
 
@@ -72,7 +80,7 @@
         .hero {
             height: 60vh;
             background: linear-gradient(135deg, rgba(74, 14, 140, 0.85) 0%, rgba(255, 109, 0, 0.8) 100%),
-                        url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+                url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
             position: relative;
             display: flex;
             align-items: center;
@@ -153,7 +161,7 @@
             height: 380px;
             overflow: hidden;
             border-radius: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             position: relative;
         }
 
@@ -217,7 +225,7 @@
         /* FOOTER DECORATIVO */
         footer {
             background-color: var(--primary-color);
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             padding: 2rem 0;
             font-size: 0.9rem;
         }
@@ -226,132 +234,133 @@
 
 <body>
 
-<!-- Navbar Top. -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+    <!-- Navbar Top. -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Hero. -->
-<header class="hero">
-    <div class="hero-content text-white text-center container">
-        <h1 class="display-3 mb-0">Nós somos o futuro.</h1>
-    </div>
-</header>
-
-<!-- Section 1 (Competências). -->
-<section class="py-5 my-4">
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-lg-6 order-2 order-lg-1">
-                <h1 class="section-title">Contrate com base em competências</h1>
-                <p class="section-text">
-                    O SkillFocus utiliza Inteligência Artificial para interpretar dados,
-                    mapear competências e gerar insights estratégicos para recrutamento.
-                </p>
-                <button class="btn btn-custom-primary px-5 btn-lg">Começar agora</button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
+                </ul>
             </div>
-            <div class="col-lg-5 order-1 order-lg-2 mb-4 mb-lg-0">
+        </div>
+    </nav>
 
-                <!-- Elemento visual, representando diversidade de conexões. -->
-                <div class="img-box" style="height: 280px; background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); display:flex; align-items:center; justify-content:center;">
-                    <i class="bi bi-cpu text-white" style="font-size: 5rem; opacity: 0.9;"></i>
+    <!-- Hero. -->
+    <header class="hero">
+        <div class="hero-content text-white text-center container">
+            <h1 class="display-3 mb-0">Nós somos o futuro.</h1>
+        </div>
+    </header>
+
+    <!-- Section 1 (Competências). -->
+    <section class="py-5 my-4">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <h1 class="section-title">Contrate com base em competências</h1>
+                    <p class="section-text">
+                        O SkillFocus utiliza Inteligência Artificial para interpretar dados,
+                        mapear competências e gerar insights estratégicos para recrutamento.
+                    </p>
+                    <button class="btn btn-custom-primary px-5 btn-lg">Começar agora</button>
+                </div>
+                <div class="col-lg-5 order-1 order-lg-2 mb-4 mb-lg-0">
+
+                    <!-- Elemento visual, representando diversidade de conexões. -->
+                    <div class="img-box" style="height: 280px; background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); display:flex; align-items:center; justify-content:center;">
+                        <i class="bi bi-cpu text-white" style="font-size: 5rem; opacity: 0.9;"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section 2 (Imagem oculta no Mobile). -->
-<section class="py-5 bg-light-subtle">
-    <div class="container">
-        <div class="row align-items-center g-5">
-
-            <!-- Imagem: Oculta em telas menores que LG. -->
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="img-box">
-                    <img src="https://cdn.pixabay.com/photo/2026/04/10/10/21/erwinbosman-woman-10219062_1280.jpg" alt="Profissional trabalhando">
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <span class="subtitle-badge">Decisões mais inteligentes</span>
-                <h1 class="section-title">Para Recrutadores e Empresas</h1>
-                <p class="section-text">
-                    O SkillFocus transforma dados em decisões estratégicas,
-                    reduzindo vieses e ampliando a qualidade das contratações.
-                </p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Login & Call to action. -->
-<section class="py-5">
-    <div class="container">
-        <div class="cta-login-section">
+    <!-- Section 2 (Imagem oculta no Mobile). -->
+    <section class="py-5 bg-light-subtle">
+        <div class="container">
             <div class="row align-items-center g-5">
 
-                <div class="col-lg-6 text-center text-lg-start">
-                    <h2 class="section-title" style="font-size: 2.8rem;">Aqui você contrata sem viés.</h2>
-                    <p class="fs-4 text-muted mb-0">Processos mais justos, inteligentes e eficientes.</p>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="login-box">
-                        <h3>Login</h3>
-                        <!-- Exibe possíveis erros. -->
-                        @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <div>{{ $error }}</div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        <form method="POST" action="/login">
-                            <!-- Inclusão de segurança simulada do framework. -->
-                            <input type="hidden" name="_token" value="csrf_token_placeholder">
-
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-semibold">E-mail</label>
-                                <input type="email" class="form-control" name="email" placeholder="Seu e-mail cadastrado" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label text-muted small fw-semibold" >Senha</label>
-                                <input type="password" class="form-control" name="password" placeholder="Sua senha de acesso" required>
-                            </div>
-                            <button type="submit" class="btn btn-custom-dark w-100 py-3">Entrar</button>
-                        </form>
+                <!-- Imagem: Oculta em telas menores que LG. -->
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="img-box">
+                        <img src="https://cdn.pixabay.com/photo/2026/04/10/10/21/erwinbosman-woman-10219062_1280.jpg" alt="Profissional trabalhando">
                     </div>
                 </div>
 
+                <div class="col-lg-6">
+                    <span class="subtitle-badge">Decisões mais inteligentes</span>
+                    <h1 class="section-title">Para Recrutadores e Empresas</h1>
+                    <p class="section-text">
+                        O SkillFocus transforma dados em decisões estratégicas,
+                        reduzindo vieses e ampliando a qualidade das contratações.
+                    </p>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer. -->
-<footer class="text-center">
-    <div class="container">
-        <p class="mb-0">&copy; 2026 SkillFocus. Potencializando a diversidade através da tecnologia corporativa.</p>
-    </div>
-</footer>
+    <!-- Login & Call to action. -->
+    <section class="py-5">
+        <div class="container">
+            <div class="cta-login-section">
+                <div class="row align-items-center g-5">
 
-<!-- Bootstrap 5.3 JS Bundle. -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                    <div class="col-lg-6 text-center text-lg-start">
+                        <h2 class="section-title" style="font-size: 2.8rem;">Aqui você contrata sem viés.</h2>
+                        <p class="fs-4 text-muted mb-0">Processos mais justos, inteligentes e eficientes.</p>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="login-box">
+                            <h3>Login</h3>
+                            <!-- Exibe possíveis erros. -->
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                                @endforeach
+                            </div>
+                            @endif
+                            <form method="POST" action="/login">
+                                <!-- Inclusão de segurança simulada do framework. -->
+                                <input type="hidden" name="_token" value="csrf_token_placeholder">
+
+                                <div class="mb-3">
+                                    <label class="form-label text-muted small fw-semibold">E-mail</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Seu e-mail cadastrado" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label text-muted small fw-semibold">Senha</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Sua senha de acesso" required>
+                                </div>
+                                <button type="submit" class="btn btn-custom-dark w-100 py-3">Entrar</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer. -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 SkillFocus. Potencializando a diversidade através da tecnologia corporativa.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

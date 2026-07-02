@@ -14,9 +14,11 @@ class EsgGoal extends Model
         'description',
         'target_value',
         'unit',
+        'tracking_type',
         'current_value',
         'deadline',
         'status',
+        'notes',
     ];
 
     protected $casts = [
