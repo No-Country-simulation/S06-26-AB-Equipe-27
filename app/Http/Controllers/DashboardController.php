@@ -50,9 +50,9 @@ class DashboardController extends Controller
         // Get top 3 regions (we'll mock for now but structure is there)
         $topRegions = JobPosting::where('company_id', $company->id)
             ->select('city')
-            ->selectRaw('COUNT(city)')
+            ->selectRaw('COUNT(city) as total') // Define um alias para o contador
             ->groupBy('city')
-            ->orderBy('COUNT(city)', 'desc')
+            ->orderBy('total', 'desc')        // Ordena utilizando o alias definido
             ->take(3)
             ->get();
 
