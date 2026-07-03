@@ -293,7 +293,7 @@
                 <div class="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-xl p-4 mb-4">
                     <h3 class="text-white font-bold text-lg mb-0">Prioridades de Diversidade</h3>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-6">
                     @if(Auth::user()->company && Auth::user()->company->diversityGoals->count() > 0)
                     @php
                     $groupLabels = [
@@ -319,16 +319,6 @@
                             <span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider {{ $goal->priority === 'high' ? 'bg-red-100 text-red-700' : ($goal->priority === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700') }}">
                                 {{ strtoupper($priorityLabels[$goal->priority] ?? $goal->priority) }}
                             </span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                @php
-                                $maxPercent = $goal->target_value ?? 100;
-                                $progressPercent = $maxPercent > 0 ? min(($goal->current_value / $maxPercent) * 100, 100) : 0;
-                                @endphp
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full" style="width: {{ $progressPercent }}%"></div>
-                            </div>
-                            <span class="text-xs font-semibold text-gray-600">{{ $goal->current_value ?? 0 }}%</span>
                         </div>
                     </div>
                     @endforeach
