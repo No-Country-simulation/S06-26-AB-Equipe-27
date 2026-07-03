@@ -19,7 +19,6 @@ class DiversityScoreService
         ];
 
         $diversityGoals = $company->diversityGoals;
-        echo 'diversityGoals' . $diversityGoals;
         $totalGoalWeight = 0;
         $totalGoalScore = 0;
 
@@ -41,7 +40,6 @@ class DiversityScoreService
         $esgGoals = $company->esgGoals;
         $totalGoalWeight = 0;
         $totalGoalScore = 0;
-        echo 'esgGoals' . $esgGoals;
 
         foreach ($esgGoals as $goal) {
             $weight = $priorityWeights[$goal->priority] ?? 1;
@@ -69,7 +67,6 @@ class DiversityScoreService
             $totalScore += 10;
         }
         $maxPossibleScore += 10;
-        echo 'diversity_statement' . $company->diversity_statement;
 
         // Part 5: Work model (up to 10 points)
         $workModelScores = [
@@ -78,7 +75,6 @@ class DiversityScoreService
             'on-site' => 5,
         ];
         $workModelScore = $workModelScores[$company->work_model] ?? 5;
-        echo 'work_model' . $company->work_model;
 
         $totalScore += $workModelScore;
         $maxPossibleScore += 10;

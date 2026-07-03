@@ -359,7 +359,7 @@
                                     <th scope="col" class="py-3 ps-4 border-0">Cargo</th>
                                     <th scope="col" class="py-3 border-0">Cidade</th>
                                     <th scope="col" class="py-3 border-0">Status</th>
-                                    <th scope="col" class="py-3 border-0">Adesão / Match</th>
+                                    <th scope="col" class="py-3 border-0">Skills</th>
                                     <th scope="col" class="py-3 text-end pe-4 border-0">Ações</th>
                                 </tr>
                             </thead>
@@ -376,12 +376,20 @@
                                         <span class="badge-status badge-active">Aberto</span>
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-2" style="min-width: 100px;">
-                                            <div class="progress w-100 bg-gray-200" style="height: 6px;">
-                                                <div class="progress-bar progress-bar-teal rounded-full" style="width: 60%"></div>
-                                            </div>
-                                            <span class="small text-muted fw-medium">60%</span>
-                                        </div>
+                                        @if(!empty($job->required_skills))
+                                        @php
+                                        // Verifica se já é um array. Se for, usa direto. Se for string, decodifica.
+                                        $skills = is_array($job->required_skills) ? $job->required_skills : json_decode($job->required_skills, true);
+                                        @endphp
+
+                                        @if(is_iterable($skills))
+                                        @foreach($skills as $skill)
+                                        <span class="badge text-dark bg-light border fw-normal py-1.5 px-2" style="font-size: 0.75rem; border-radius: 0.5rem;">
+                                            {{ $skill }}
+                                        </span>
+                                        @endforeach
+                                        @endif
+                                        @endif
                                     </td>
                                     <td class="text-end pe-4">
                                         <a href="{{url('/jobs')}}">

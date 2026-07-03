@@ -118,11 +118,9 @@
 </head>
 
 <body>
-
-    <!-- Navbar Top. -->
-    <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3">
-        <div class="container">
-            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
+    <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3 px-4 mb-5">
+        <div class="container-fluid max-w-[1920px] mx-auto flex justify-between items-center">
+            <a class="navbar-brand text-2xl" href="/">Skill<span>Focus</span></a>
 
             <div class="d-flex align-items-center ms-auto">
                 <div class="dropdown">
@@ -138,6 +136,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
                         <li><a class="dropdown-item py-2" href="{{route('dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
+                        <li><a class="dropdown-item py-2" href="{{route('diversity-progress.index')}}"><i class="bi bi-people-fill me-2 text-muted"></i>Progresso Diversidade</a></li>
                         <li><a class="dropdown-item py-2" href="{{route('esg-progress.index')}}"><i class="bi bi-bar-chart-fill me-2 text-muted"></i>Progresso ESG</a></li>
                         <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
                         <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
