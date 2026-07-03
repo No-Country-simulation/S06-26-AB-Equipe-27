@@ -52,7 +52,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3 px-4 mb-5">
         <div class="container-fluid max-w-[1920px] mx-auto flex justify-between items-center">
             <a class="navbar-brand text-2xl" href="{{url('/dashboard')}}">Skill<span>Focus</span></a>
@@ -236,10 +235,6 @@
                         </div>
                     </div>
                 </div>
-
-                <a href="{{ route('dashboard') }}" class="w-full text-center bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold py-2 px-4 rounded-xl transition-all shadow-sm">
-                    Analisar Candidatos
-                </a>
             </div>
         </div>
     </main>

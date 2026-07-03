@@ -101,7 +101,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3 px-4 mb-5">
         <div class="container-fluid max-w-[1920px] mx-auto flex justify-between items-center">
             <a class="navbar-brand text-2xl" href="/">Skill<span>Focus</span></a>
@@ -397,10 +396,6 @@
                         </table>
                     </div>
                 </div>
-
-                <a class="block text-center w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-sm text-decoration-none" href="{{'/dashboard/jobs'}}">
-                    Gerenciar Todas as Vagas
-                </a>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl p-6 transition-all flex flex-col justify-between">
@@ -422,12 +417,7 @@
                         </div>
                     </div>
                 </div>
-
-                <button class="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-sm">
-                    Analisar Candidatos
-                </button>
             </div>
-
         </div>
     </main>
 
