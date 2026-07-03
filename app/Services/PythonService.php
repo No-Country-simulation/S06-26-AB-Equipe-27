@@ -11,7 +11,7 @@ class PythonService
     {
         $process = new Process(
             [
-                'C:\Program Files\Python39\python.exe',
+                'python',
                 base_path('app/scripts/match.py')
             ],
             base_path(),
