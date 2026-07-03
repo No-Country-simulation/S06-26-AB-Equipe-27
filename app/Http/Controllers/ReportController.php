@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Matching;
+use App\Models\JobPosting;
 use App\Services\DiversityScoreService;
 
 class ReportController extends Controller
