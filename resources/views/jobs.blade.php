@@ -464,6 +464,7 @@
            painel full-width empilhado sob a linha marca/toggler: links
            em coluna (mais fácil de tocar) e o cluster de ações separado
            por um divisor, para não parecer "grudado" nos links. */
+
         @media (max-width: 991.98px) {
             .navbar-collapse.show {
                 margin-top: 0.85rem;
