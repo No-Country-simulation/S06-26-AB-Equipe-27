@@ -1,321 +1,569 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | SkillFocus</title>
+    <title>Criar conta | SkillFocus</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Palheta de cores */
+        /* ==========================================================
+           SKILLFOCUS — DESIGN TOKENS
+           Idênticos a jobs.blade.php e login.blade.php.
+        ========================================================== */
         :root {
-            --primary-color: #4A148C;
-            --secondary-color: #FF6D00;
-            --accent-color: #00BFA5;
-            --bg-color: #F9F7F6;
-            --text-dark: #2B2B2B;
+            --color-primary: #7C3AED;
+            --color-primary-dark: #5B21B6;
+            --color-primary-hover: #6D28D9;
+            --color-primary-soft: #F3EEFE;
+            --color-primary-softer: #FBFAFF;
+
+            --color-shield: #0D9488;
+            --color-shield-soft: #E8F8F6;
+            --color-shield-warn: #B45309;
+            --color-shield-warn-soft: #FEF6E7;
+
+            --color-ink: #17152A;
+            --color-body: #47435C;
+            --color-muted: #77738F;
+            --color-border: #E9E5F3;
+            --color-surface: #FFFFFF;
+            --color-bg: #FAF9FD;
+
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
+            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+
+            --font-display: 'Sora', 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        .allContent {
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
+        * { -webkit-font-smoothing: antialiased; }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-body);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .font-display { font-family: var(--font-display); }
+        a { text-decoration: none; }
+
+        /* ==========================================================
+           LAYOUT — split screen (mesma estrutura do login)
+           Aqui o painel esquerdo troca a mensagem de "confiança" pela
+           de "onboarding": os 3 passos que a pessoa vai dar depois de
+           criar a conta, já que é o momento de decisão de cadastro.
+        ========================================================== */
+        .login-shell {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding: 2rem 0;
-            /* Padding extra caso a tela seja pequena na vertical */
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        .btn {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .register-container {
-            max-width: 950px;
-            /* Levemente mais largo para acomodar o formulário maior */
-            margin: 0 auto;
-        }
-
-        .register-card {
-            border: none;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 35px rgba(74, 20, 140, 0.08);
-            overflow: hidden;
-            background: #ffffff;
-        }
-
-        .brand-section {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #D84315 40%, var(--primary-color) 100%);
-            color: white;
-            padding: 4rem 3rem;
+        .login-aside {
+            width: 44%;
+            flex-shrink: 0;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            position: relative;
+            justify-content: space-between;
+            padding: 3rem 3.25rem;
+            color: #fff;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(124,58,237,.55), transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(13,148,136,.45), transparent 50%),
+                linear-gradient(165deg, var(--color-ink) 0%, #241F3D 55%, #1B1830 100%);
             overflow: hidden;
         }
 
-        /* Círculos decorativos */
-        .brand-section::before,
-        .brand-section::after {
-            content: '';
+        .login-aside::after {
+            content: "";
             position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+            background-size: 22px 22px;
+            mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,.7) 55%, transparent);
+            pointer-events: none;
         }
 
-        .brand-section::before {
-            width: 250px;
-            height: 250px;
-            top: -80px;
-            right: -80px;
-        }
-
-        .brand-section::after {
-            width: 150px;
-            height: 150px;
-            bottom: 50px;
-            left: -50px;
-        }
-
-        .brand-section h2 {
+        .login-aside .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-display);
             font-weight: 700;
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            position: relative;
             z-index: 1;
         }
 
-        .brand-section p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            z-index: 1;
+        .brand-icon {
+            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
+            color: #fff;
+            border-radius: 9px;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 10px -3px rgba(124,58,237,.6);
+            flex-shrink: 0;
         }
 
-        /* Área do Formulário */
-        .form-section {
-            padding: 3rem 3rem;
+        .login-aside .aside-content {
+            position: relative;
+            z-index: 1;
+            max-width: 400px;
         }
+
+        .login-aside .eyebrow {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #C4B5FD;
+            margin-bottom: 0.9rem;
+        }
+
+        .login-aside h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.9rem;
+        }
+
+        .login-aside p.lede {
+            color: #C9C6DC;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Passos de onboarding — numerados de propósito aqui: é uma
+           sequência real (o que acontece 1º, 2º, 3º depois do cadastro),
+           diferente da lista de features do login. */
+        .aside-steps {
+            list-style: none;
+            padding: 0;
+            margin: 1.9rem 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .aside-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+        }
+
+        .aside-steps .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.18);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .aside-steps .step-text {
+            font-size: 0.87rem;
+            color: #E3E1F0;
+            line-height: 1.5;
+        }
+
+        .aside-steps .step-text strong {
+            display: block;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .login-aside .trust-line {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: #B7B2CF;
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 1.25rem;
+        }
+
+        .login-aside .trust-line i { color: #5EEAD4; }
+
+        /* ---- Painel direito (formulário) ---- */
+        .login-form-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            background-color: var(--color-bg);
+            background-image: radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%);
+        }
+
+        .mobile-brand { display: none; }
+
+        .login-card {
+            background: var(--color-surface);
+            width: 100%;
+            max-width: 440px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border);
+            padding: 2.25rem;
+            position: relative;
+        }
+
+        .auth-toggle {
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 999px;
+            padding: 0.3rem;
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .auth-toggle .btn-toggle {
+            flex: 1;
+            text-align: center;
+            padding: 0.55rem 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 999px;
+            color: var(--color-muted);
+            transition: all .18s ease;
+        }
+
+        .auth-toggle .btn-toggle.active {
+            background-color: var(--color-ink);
+            color: #fff;
+        }
+
+        .auth-toggle .btn-toggle:not(.active):hover { color: var(--color-ink); }
 
         .form-title {
-            color: var(--primary-color);
+            font-family: var(--font-display);
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 1.45rem;
+            color: var(--color-ink);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.3rem;
         }
 
         .form-subtitle {
-            color: #6c757d;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
+            color: var(--color-muted);
+            font-size: 0.88rem;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        /* Estilização dos Inputs */
-        .form-floating .form-control {
-            border-radius: 0.75rem;
-            border: 1px solid #E0E0E0;
-            padding-top: 1.625rem;
-            padding-bottom: 0.625rem;
-            background-color: #FAFAFA;
+        .form-subtitle .free-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--color-shield);
+            flex-shrink: 0;
         }
 
-        .form-floating .form-control:focus {
-            border-color: var(--accent-color);
-            background-color: #ffffff;
-            box-shadow: 0 0 0 0.25rem rgba(0, 191, 165, 0.15);
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.9rem;
         }
 
-        .form-floating label {
-            color: #8D8D8D;
+        .field-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-ink);
+            margin-bottom: 0.4rem;
+            display: block;
         }
 
-        /* Ícones nos labels */
-        .input-icon {
-            color: var(--primary-color);
-            margin-right: 8px;
+        .field-group { margin-bottom: 1.1rem; }
+
+        .input-group-custom {
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            padding: 0 0.9rem;
+            transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
         }
 
-        /* Botão Personalizado */
-        .btn-register {
-            background-color: var(--secondary-color);
-            /* Laranja em destaque no registro */
-            color: white;
+        .input-group-custom:focus-within {
+            border-color: var(--color-primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+        }
+
+        .input-group-custom i { color: var(--color-primary); font-size: 1rem; }
+
+        .input-group-custom input {
             border: none;
-            border-radius: 0.75rem;
-            padding: 0.875rem;
-            font-size: 1.1rem;
+            background: transparent;
+            padding: 0.75rem 0.7rem;
+            width: 100%;
+            outline: none;
+            color: var(--color-ink);
+            font-size: 0.92rem;
+        }
+
+        .input-group-custom input::placeholder { color: #ACA8C2; }
+
+        .toggle-visibility {
+            background: none;
+            border: none;
+            color: var(--color-muted);
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            transition: color .15s ease;
+        }
+        .toggle-visibility:hover { color: var(--color-ink); }
+
+        .password-hint {
+            font-size: 0.76rem;
+            color: var(--color-muted);
+            margin-top: 0.4rem;
+        }
+
+        .alert-soft-danger {
+            background-color: #FDEEEE;
+            border: 1px solid #F6D4D4;
+            color: #B42318;
+            border-radius: var(--radius-sm);
+            padding: 0.8rem 1rem;
+            font-size: 0.83rem;
+            margin-bottom: 1.1rem;
+        }
+        .alert-soft-danger ul { margin-bottom: 0; padding-left: 1.1rem; }
+
+        .btn-submit {
+            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
+            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            transition: transform .15s ease, box-shadow .15s ease;
+            margin-top: 0.25rem;
         }
 
-        .btn-register:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 20, 140, 0.25);
+        .btn-submit:hover {
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
         }
 
         .terms-text {
-            font-size: 0.8rem;
-            color: #8D8D8D;
+            font-size: 0.76rem;
+            color: var(--color-muted);
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1.1rem;
+            line-height: 1.5;
+        }
+        .terms-text a { color: var(--color-primary); font-weight: 600; }
+        .terms-text a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .login-link {
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--color-body);
+            margin-top: 1.4rem;
+        }
+        .login-link a { color: var(--color-primary); font-weight: 700; }
+        .login-link a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        /* ---------------- Responsivo ---------------- */
+        @media (max-width: 991.98px) {
+            .login-aside { display: none; }
+            .mobile-brand {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.55rem;
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1.1rem;
+                color: var(--color-ink);
+                margin-bottom: 1.75rem;
+            }
         }
 
-        .terms-text a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
+        @media (max-width: 575.98px) {
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
         }
 
-        /* NAVBAR */
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(74, 20, 140, 0.04);
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        .navbar-brand span {
-            color: var(--secondary-color);
-        }
-
-        .nav-link {
-            color: var(--text-dark) !important;
-            font-weight: 500;
-            margin-left: 1.5rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--primary-color) !important;
+        @media (max-width: 420px) {
+            .login-card { padding: 1.75rem 1.35rem; }
         }
     </style>
 </head>
-
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Skill<span>Focus</span></a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="login-shell">
 
-            <div class="collapse navbar-collapse" id="nav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link active" href="{{url('/')}}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/login')}}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/register')}}">Registro</a></li>
+        {{-- PAINEL ESQUERDO — onboarding em 3 passos --}}
+        <aside class="login-aside">
+            <div class="brand-row">
+                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
+                Skill<span style="color: #C4B5FD;">Focus</span>
+            </div>
+
+            <div class="aside-content">
+                <div class="eyebrow">Comece agora</div>
+                <h1>Sua triagem justa começa em 3 passos.</h1>
+                <p class="lede">Grátis, sem cartão de crédito. Crie sua conta e já configure a primeira vaga com acompanhamento de equidade.</p>
+
+                <ul class="aside-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span class="step-text"><strong>Crie sua conta</strong>Nome, empresa e e-mail profissional.</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span class="step-text"><strong>Publique uma vaga</strong>Defina nível, área e localização.</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span class="step-text"><strong>Acompanhe o Bias Shield</strong>Veja o índice de equidade de cada candidatura.</span>
+                    </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    <section class="allContent">
-        <div class="container register-container">
-            <div class="card register-card">
-                <div class="row g-0">
 
-                    <div class="col-lg-5 d-none d-lg-flex brand-section">
-                        <h2>Junte-se à revolução.</h2>
-                        <p>Dê o primeiro passo para construir equipes mais criativas, plurais e inovadoras. O futuro do trabalho é diverso.</p>
-                        <div class="mt-5 z-1">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                                <span>Atraia talentos únicos</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                                <span>Ambiente focado em inclusão</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-check-circle-fill fs-5 me-3" style="color: var(--accent-color);"></i>
-                                <span>Relatórios customizados</span>
-                            </div>
+            <div class="trust-line">
+                <i class="bi bi-lock-fill"></i> Dados protegidos · Bias Shield ativo
+            </div>
+        </aside>
 
-                        </div>
+        {{-- PAINEL DIREITO — formulário --}}
+        <main class="login-form-panel">
+            <div style="width: 100%; max-width: 440px;">
+
+                <div class="mobile-brand">
+                    <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
+                    Skill<span style="color: var(--color-primary);">Focus</span>
+                </div>
+
+                <div class="login-card">
+
+                    <div class="auth-toggle">
+                        <a href="{{ url('/login') }}" class="btn-toggle">Entrar</a>
+                        <a href="{{ url('/register') }}" class="btn-toggle active">Criar conta</a>
                     </div>
 
-                    <div class="col-lg-7 form-section">
-                        @error('email')
-                        <div class="alert alert-danger">Erro ao cadastrar usuário.</div>
-                        @enderror
-                        <h3 class="form-title">Crie sua conta corporativa</h3>
-                        <p class="form-subtitle">Preencha os dados abaixo para cadastrar sua empresa.</p>
+                    <h1 class="form-title">Crie sua conta</h1>
+                    <p class="form-subtitle"><span class="free-dot"></span>É totalmente gratuito</p>
 
-                        <form method="POST" action="/register">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required>
-                                        <label for="name"><i class="bi bi-person input-icon"></i>Nome completo</label>
-                                    </div>
-                                </div>
+                    @if ($errors->any())
+                    <div class="alert-soft-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Nome da Empresa" required>
-                                        <label for="company_name"><i class="bi bi-building input-icon"></i>Empresa</label>
-                                    </div>
+                    <form method="POST" action="/register">
+                        @csrf
+
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label class="field-label" for="name">Nome completo</label>
+                                <div class="input-group-custom">
+                                    <i class="bi bi-person"></i>
+                                    <input type="text" name="name" id="name" placeholder="Seu nome" required value="{{ old('name') }}">
                                 </div>
                             </div>
 
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="nome@empresa.com.br" required>
-                                <label for="email"><i class="bi bi-envelope input-icon"></i>E-mail corporativo</label>
+                            <div class="field-group">
+                                <label class="field-label" for="company_name">Empresa</label>
+                                <div class="input-group-custom">
+                                    <i class="bi bi-building"></i>
+                                    <input type="text" name="company_name" id="company_name" placeholder="Companhia" required value="{{ old('company_name') }}">
+                                </div>
                             </div>
-
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
-                                <label for="password"><i class="bi bi-shield-lock input-icon"></i>Crie uma senha segura</label>
-                            </div>
-
-                            <button type="submit" class="btn btn-register">
-                                Criar minha conta <i class="bi bi-check2-circle ms-1"></i>
-                            </button>
-
-                            <p class="terms-text">
-                                Ao se cadastrar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
-                            </p>
-                        </form>
-
-                        <div class="text-center mt-4 pt-3 border-top">
-                            <p class="text-muted" style="font-size: 0.95rem;">
-                                Sua empresa já possui cadastro? <a href="/login" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Faça Login</a>
-                            </p>
                         </div>
 
+                        <div class="field-group">
+                            <label class="field-label" for="email">E-mail profissional</label>
+                            <div class="input-group-custom">
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" name="email" id="email" placeholder="voce@empresa.com" required value="{{ old('email') }}">
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="password">Senha</label>
+                            <div class="input-group-custom">
+                                <i class="bi bi-key"></i>
+                                <input type="password" name="password" id="password" placeholder="Crie uma senha" required minlength="8">
+                                <button type="button" class="toggle-visibility" id="togglePassword" aria-label="Mostrar senha">
+                                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                            </div>
+                            <p class="password-hint">Use pelo menos 8 caracteres.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit">
+                            Criar conta
+                        </button>
+
+                        <p class="terms-text">
+                            Ao se cadastrar, você aceita nossos <a href="#">Termos de Serviço</a> e nossa <a href="#">Política de Privacidade</a>.
+                        </p>
+                    </form>
+
+                    <div class="login-link">
+                        Já tem conta? <a href="{{ url('/login') }}">Entrar</a>
                     </div>
+
                 </div>
             </div>
-        </div>
-    </section
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('togglePasswordIcon');
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            icon.classList.toggle('bi-eye', !isHidden);
+            icon.classList.toggle('bi-eye-slash', isHidden);
+        });
     </script>
 </body>
-
 </html>

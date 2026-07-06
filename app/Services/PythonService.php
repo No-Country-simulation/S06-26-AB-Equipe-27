@@ -9,7 +9,7 @@ class PythonService
 {
     public function execute(array $data): array
     {
-        $process = new Process(
+        /* $process = new Process(
             [
                 'python',
                 base_path('app/scripts/match.py')
@@ -22,7 +22,13 @@ class PythonService
                 'TEMP' => getenv('TEMP'),
                 'TMP' => getenv('TMP'),
             ]
-        );
+        ); */
+
+        $process = new Process([
+            'python3',
+            base_path('app/scripts/match.py')
+        ]);
+
         $process->setInput(json_encode($data, JSON_THROW_ON_ERROR));
         $process->setTimeout(30);
 
