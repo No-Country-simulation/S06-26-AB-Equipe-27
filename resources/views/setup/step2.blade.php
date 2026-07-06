@@ -6,49 +6,131 @@
        SKILLFOCUS — TOKENS (mesma paleta usada em /jobs, /reports,
        /matches, telas de auth e no Passo 1 do setup)
     ========================================================== */
-    .sf-eyebrow { color: #7C3AED; letter-spacing: .08em; }
-    .sf-card { border: 1px solid #E9E5F3; box-shadow: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14); }
-    .sf-option { border: 2px solid #E9E5F3; transition: all .18s ease; }
-    .sf-option:hover { border-color: #A7DED8; background-color: #FBFAFF; }
-    .sf-option.is-selected-shield { border-color: #0D9488; background-color: #E8F8F6; }
-    .sf-checkbox:checked { accent-color: #0D9488; }
-    .sf-priority-panel { border: 1px solid #E9E5F3; background-color: #FBFAFF; border-radius: 16px; }
-    .sf-priority-chip { border: 1px solid #E9E5F3; background-color: #FFFFFF; transition: all .15s ease; cursor: pointer; }
-    .sf-priority-chip:hover { border-color: #C9BEF2; }
-    .sf-priority-chip.is-low { }
-    .sf-priority-chip input:checked + span { font-weight: 700; }
-    .sf-priority-chip.chip-low.is-checked { border-color: #157A47; background-color: #E7F8EF; }
-    .sf-priority-chip.chip-low.is-checked span { color: #157A47; }
-    .sf-priority-chip.chip-medium.is-checked { border-color: #B45309; background-color: #FDF1DF; }
-    .sf-priority-chip.chip-medium.is-checked span { color: #B45309; }
-    .sf-priority-chip.chip-high.is-checked { border-color: #B91C1C; background-color: #FDEAEA; }
-    .sf-priority-chip.chip-high.is-checked span { color: #B91C1C; }
-    .sf-goal-box { background: linear-gradient(135deg, #F3EEFE, #E8F8F6); border: 2px solid #E9E5F3; }
+    .sf-eyebrow {
+        color: #7C3AED;
+        letter-spacing: .08em;
+    }
+
+    .sf-card {
+        border: 1px solid #E9E5F3;
+        box-shadow: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+    }
+
+    .sf-option {
+        border: 2px solid #E9E5F3;
+        transition: all .18s ease;
+    }
+
+    .sf-option:hover {
+        border-color: #A7DED8;
+        background-color: #FBFAFF;
+    }
+
+    .sf-option.is-selected-shield {
+        border-color: #0D9488;
+        background-color: #E8F8F6;
+    }
+
+    .sf-checkbox:checked {
+        accent-color: #0D9488;
+    }
+
+    .sf-priority-panel {
+        border: 1px solid #E9E5F3;
+        background-color: #FBFAFF;
+        border-radius: 16px;
+    }
+
+    .sf-priority-chip {
+        border: 1px solid #E9E5F3;
+        background-color: #FFFFFF;
+        transition: all .15s ease;
+        cursor: pointer;
+    }
+
+    .sf-priority-chip:hover {
+        border-color: #C9BEF2;
+    }
+
+    .sf-priority-chip.is-low {}
+
+    .sf-priority-chip input:checked+span {
+        font-weight: 700;
+    }
+
+    .sf-priority-chip.chip-low.is-checked {
+        border-color: #157A47;
+        background-color: #E7F8EF;
+    }
+
+    .sf-priority-chip.chip-low.is-checked span {
+        color: #157A47;
+    }
+
+    .sf-priority-chip.chip-medium.is-checked {
+        border-color: #B45309;
+        background-color: #FDF1DF;
+    }
+
+    .sf-priority-chip.chip-medium.is-checked span {
+        color: #B45309;
+    }
+
+    .sf-priority-chip.chip-high.is-checked {
+        border-color: #B91C1C;
+        background-color: #FDEAEA;
+    }
+
+    .sf-priority-chip.chip-high.is-checked span {
+        color: #B91C1C;
+    }
+
+    .sf-goal-box {
+        background: linear-gradient(135deg, #F3EEFE, #E8F8F6);
+        border: 2px solid #E9E5F3;
+    }
+
     .sf-btn-continue {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
-        box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+        box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
     }
-    .sf-btn-continue:hover { transform: translateY(-1px); box-shadow: 0 14px 26px -10px rgba(124,58,237,.7); }
-    .sf-btn-back { transition: all .15s ease; }
-    .sf-btn-back:hover { border-color: #C9BEF2; color: #7C3AED; background-color: #FBFAFF; }
-    .sf-step-dot { transition: all .2s ease; }
+
+    .sf-btn-continue:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
+    }
+
+    .sf-btn-back {
+        transition: all .15s ease;
+    }
+
+    .sf-btn-back:hover {
+        border-color: #C9BEF2;
+        color: #7C3AED;
+        background-color: #FBFAFF;
+    }
+
+    .sf-step-dot {
+        transition: all .2s ease;
+    }
 </style>
 
 <!-- Indicador de progresso do wizard -->
 <div class="flex items-center gap-2 mb-8">
     @for ($i = 1; $i <= 4; $i++)
-        <div class="flex items-center gap-2 flex-1">
-            <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
+        <div class="flex items-center gap-2 {{$i < 4 ? 'flex-1' : 'flex-0'}}">
+        <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
                 {{ $i <= 2 ? 'text-white' : 'text-[#9C97B5] bg-[#F3EEFE]' }}"
-                @if($i <= 2) style="background: linear-gradient(155deg, #7C3AED, #5B21B6);" @endif>
-                {{ $i }}
-            </div>
-            @if($i < 4)
-            <div class="h-[2px] flex-1 rounded-full {{ $i <= 1 ? 'bg-[#7C3AED]' : 'bg-[#E9E5F3]' }}"></div>
-            @endif
+            @if($i <=2) style="background: linear-gradient(155deg, #7C3AED, #5B21B6);" @endif>
+            {{ $i }}
         </div>
-    @endfor
+        @if($i < 4)
+            <div class="h-[2px] flex-1 rounded-full {{ $i <= 1 ? 'bg-[#7C3AED]' : 'bg-[#E9E5F3]' }}">
+</div>
+@endif
+</div>
+@endfor
 </div>
 
 <div class="flex items-center gap-1 mb-2">
@@ -125,7 +207,7 @@
             <div class="space-y-3" id="priority-levels">
                 @foreach($diversityGroups as $value => $label)
                 @php
-                    $current = $priorities[$value] ?? 'medium';
+                $current = $priorities[$value] ?? 'medium';
                 @endphp
                 <div class="sf-priority-panel p-4 group-priority-item" data-group-priority="{{ $value }}" style="{{ in_array($value, $selectedGroups) ? '' : 'display: none;' }}">
                     <h4 class="font-semibold text-[#17152A] mb-3 text-sm">{{ $label }}</h4>

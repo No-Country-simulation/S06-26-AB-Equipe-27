@@ -6,9 +6,19 @@
        SKILLFOCUS — TOKENS (mesma paleta usada em /jobs, /reports,
        /matches, telas de auth e nos Passos 1, 2 e 3 do setup)
     ========================================================== */
-    .sf-eyebrow { color: #7C3AED; letter-spacing: .08em; }
-    .sf-card { border: 1px solid #E9E5F3; box-shadow: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14); }
-    .sf-step-dot { transition: all .2s ease; }
+    .sf-eyebrow {
+        color: #7C3AED;
+        letter-spacing: .08em;
+    }
+
+    .sf-card {
+        border: 1px solid #E9E5F3;
+        box-shadow: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+    }
+
+    .sf-step-dot {
+        transition: all .2s ease;
+    }
 
     /* Lista de prioridades arrastável */
     .sf-priority-item {
@@ -17,14 +27,25 @@
         border-radius: 14px;
         transition: border-color .15s ease, box-shadow .15s ease, opacity .15s ease;
     }
-    .sf-priority-item:hover { border-color: #C9BEF2; box-shadow: 0 6px 14px -6px rgba(23,21,42,.14); }
-    .sf-priority-item.dragging { opacity: .4; }
+
+    .sf-priority-item:hover {
+        border-color: #C9BEF2;
+        box-shadow: 0 6px 14px -6px rgba(23, 21, 42, .14);
+    }
+
+    .sf-priority-item.dragging {
+        opacity: .4;
+    }
+
     .sf-rank-badge {
         background-color: #F3EEFE;
         color: #7C3AED;
         font-family: 'Sora', 'Inter', sans-serif;
     }
-    .sf-drag-handle { color: #C9C5DA; }
+
+    .sf-drag-handle {
+        color: #C9C5DA;
+    }
 
     /* Painel de raio de busca (marca) */
     .sf-radius-box {
@@ -32,7 +53,11 @@
         border: 2px solid #E9E5F3;
         border-radius: 18px;
     }
-    .sf-radius-value { font-family: 'Sora', 'Inter', sans-serif; color: #7C3AED; }
+
+    .sf-radius-value {
+        font-family: 'Sora', 'Inter', sans-serif;
+        color: #7C3AED;
+    }
 
     /* Slider customizado, cor de marca no preenchimento e no thumb */
     input[type="range"].sf-range {
@@ -44,6 +69,7 @@
         background: #E9E5F3;
         outline: none;
     }
+
     input[type="range"].sf-range::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -51,16 +77,17 @@
         height: 20px;
         border-radius: 50%;
         background: #7C3AED;
-        box-shadow: 0 2px 8px rgba(124,58,237,.45);
+        box-shadow: 0 2px 8px rgba(124, 58, 237, .45);
         cursor: pointer;
         border: 3px solid #fff;
     }
+
     input[type="range"].sf-range::-moz-range-thumb {
         width: 20px;
         height: 20px;
         border-radius: 50%;
         background: #7C3AED;
-        box-shadow: 0 2px 8px rgba(124,58,237,.45);
+        box-shadow: 0 2px 8px rgba(124, 58, 237, .45);
         cursor: pointer;
         border: 3px solid #fff;
     }
@@ -71,31 +98,47 @@
         border: 2px solid #CFF0EA;
         border-radius: 18px;
     }
-    .sf-remote-checkbox:checked { accent-color: #0D9488; }
+
+    .sf-remote-checkbox:checked {
+        accent-color: #0D9488;
+    }
 
     .sf-btn-final {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
-        box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+        box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
     }
-    .sf-btn-final:hover { transform: translateY(-1px); box-shadow: 0 14px 26px -10px rgba(124,58,237,.7); }
-    .sf-btn-back { transition: all .15s ease; }
-    .sf-btn-back:hover { border-color: #C9BEF2; color: #7C3AED; background-color: #FBFAFF; }
+
+    .sf-btn-final:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
+    }
+
+    .sf-btn-back {
+        transition: all .15s ease;
+    }
+
+    .sf-btn-back:hover {
+        border-color: #C9BEF2;
+        color: #7C3AED;
+        background-color: #FBFAFF;
+    }
 </style>
 
 <!-- Indicador de progresso do wizard -->
 <div class="flex items-center gap-2 mb-8">
     @for ($i = 1; $i <= 4; $i++)
-        <div class="flex items-center gap-2 flex-1">
-            <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                style="background: linear-gradient(155deg, #7C3AED, #5B21B6);">
-                {{ $i }}
-            </div>
-            @if($i < 4)
-            <div class="h-[2px] flex-1 rounded-full bg-[#7C3AED]"></div>
-            @endif
+        <div class="flex items-center gap-2 {{$i < 4 ? 'flex-1' : 'flex-0'}}">
+        <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white"
+            style="background: linear-gradient(155deg, #7C3AED, #5B21B6);">
+            {{ $i }}
         </div>
-    @endfor
+        @if($i < 4)
+            <div class="h-[2px] flex-1 rounded-full bg-[#7C3AED]">
+</div>
+@endif
+</div>
+@endfor
 </div>
 
 <div class="flex items-center gap-1 mb-2">
@@ -209,7 +252,9 @@
             </a>
             <button type="submit" class="sf-btn-final text-white font-semibold py-3 px-8 rounded-xl inline-flex items-center gap-2">
                 Revisão Final
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
             </button>
         </div>
     </form>

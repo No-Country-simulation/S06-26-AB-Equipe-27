@@ -6,37 +6,76 @@
        SKILLFOCUS — TOKENS (mesma paleta usada nas views Bootstrap
        de /jobs, /reports, /matches e nas telas de auth)
     ========================================================== */
-    .sf-eyebrow { color: #7C3AED; letter-spacing: .08em; }
-    .sf-card { border: 1px solid #E9E5F3; box-shadow: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14); }
-    .sf-option { border: 2px solid #E9E5F3; transition: all .18s ease; }
-    .sf-option:hover { border-color: #C9BEF2; background-color: #FBFAFF; }
-    .sf-option.is-selected-primary { border-color: #7C3AED; background-color: #F3EEFE; }
-    .sf-option.is-selected-shield { border-color: #0D9488; background-color: #E8F8F6; }
-    .sf-radio:checked { accent-color: #7C3AED; }
-    .sf-checkbox:checked { accent-color: #0D9488; }
+    .sf-eyebrow {
+        color: #7C3AED;
+        letter-spacing: .08em;
+    }
+
+    .sf-card {
+        border: 1px solid #E9E5F3;
+        box-shadow: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+    }
+
+    .sf-option {
+        border: 2px solid #E9E5F3;
+        transition: all .18s ease;
+    }
+
+    .sf-option:hover {
+        border-color: #C9BEF2;
+        background-color: #FBFAFF;
+    }
+
+    .sf-option.is-selected-primary {
+        border-color: #7C3AED;
+        background-color: #F3EEFE;
+    }
+
+    .sf-option.is-selected-shield {
+        border-color: #0D9488;
+        background-color: #E8F8F6;
+    }
+
+    .sf-radio:checked {
+        accent-color: #7C3AED;
+    }
+
+    .sf-checkbox:checked {
+        accent-color: #0D9488;
+    }
+
     .sf-btn-continue {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
-        box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+        box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
     }
-    .sf-btn-continue:hover { transform: translateY(-1px); box-shadow: 0 14px 26px -10px rgba(124,58,237,.7); }
-    .sf-step-dot { transition: all .2s ease; }
+
+    .sf-btn-continue:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
+    }
+
+    .sf-step-dot {
+        transition: all .2s ease;
+    }
 </style>
 
 <!-- Indicador de progresso do wizard -->
 <div class="flex items-center gap-2 mb-8">
     @for ($i = 1; $i <= 4; $i++)
-        <div class="flex items-center gap-2 flex-1">
-            <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
-                {{ $i === 1 ? 'text-white' : 'text-[#9C97B5] bg-[#F3EEFE]' }}"
-                @if($i === 1) style="background: linear-gradient(155deg, #7C3AED, #5B21B6);" @endif>
-                {{ $i }}
-            </div>
-            @if($i < 4)
-            <div class="h-[2px] flex-1 rounded-full {{ $i === 1 ? 'bg-[#7C3AED]' : 'bg-[#E9E5F3]' }}"></div>
-            @endif
+        <div class="flex items-center gap-2 {{$i < 4 ? 'flex-1' : 'flex-0'}}">
+        <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
+                    {{ $i === 1 ? 'text-white' : 'text-[#9C97B5] bg-[#F3EEFE]' }}"
+            @if($i===1) style="background: linear-gradient(155deg, #7C3AED, #5B21B6);" @endif>
+            {{ $i }}
         </div>
-    @endfor
+
+        @if($i < 4)
+            <div class="h-[2px] flex-1 rounded-full {{ $i === 1 ? 'bg-[#7C3AED]' : 'bg-[#E9E5F3]' }}">
+</div>
+@endif
+</div>
+@endfor
 </div>
 
 <div class="flex items-center gap-1 mb-2">
@@ -170,7 +209,9 @@
         <!-- Continue Button -->
         <div class="flex justify-end items-center gap-3 pt-2 border-t border-[#E9E5F3]">
             <span class="text-xs text-[#9C97B5] mr-auto hidden sm:inline-flex items-center gap-1">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
                 Seus dados ficam protegidos pelo Bias Shield
             </span>
             <button type="submit" class="sf-btn-continue text-white font-semibold py-3 px-8 rounded-xl">
