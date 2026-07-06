@@ -588,11 +588,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="#">
-                            <i class="bi bi-people"></i> Matches
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link-custom active" href="{{ url('/mapa-talentos') }}">
                             <i class="bi bi-map"></i> Mapa de Calor
                         </a>
@@ -628,54 +623,6 @@
 
     {{-- CONTEÚDO PRINCIPAL --}}
     <main class="container my-5">
-
-        <div class="page-heading mb-4">
-            <div class="eyebrow mb-2">Painel geral</div>
-            <h1 class="mb-1">Visão Geral</h1>
-            <p class="mb-0">Acompanhe o panorama dos seus processos seletivos e o impacto em diversidade.</p>
-        </div>
-
-        {{-- Cards de ação rápida --}}
-        <div class="row g-4 mb-5">
-            <div class="col-12 col-md-4">
-                <a href="{{ url('/jobs/create') }}" class="dash-card action-card">
-                    <div class="icon-box icon-purple">
-                        <i class="bi bi-briefcase-fill"></i>
-                    </div>
-                    <div>
-                        <h3>Publicar Vaga</h3>
-                        <p>Criar uma nova oferta</p>
-                    </div>
-                    <i class="bi bi-arrow-right arrow-hint"></i>
-                </a>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <a href="{{ url('/jobs') }}" class="dash-card action-card">
-                    <div class="icon-box icon-blue">
-                        <i class="bi bi-card-list"></i>
-                    </div>
-                    <div>
-                        <h3>Gerenciar Vagas</h3>
-                        <p>Visualizar posições abertas</p>
-                    </div>
-                    <i class="bi bi-arrow-right arrow-hint"></i>
-                </a>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <a href="{{ url('/jobs/reports') }}" class="dash-card action-card">
-                    <div class="icon-box icon-green">
-                        <i class="bi bi-bar-chart-fill"></i>
-                    </div>
-                    <div>
-                        <h3>Relatórios ESG</h3>
-                        <p>Métricas de diversidade</p>
-                    </div>
-                    <i class="bi bi-arrow-right arrow-hint"></i>
-                </a>
-            </div>
-        </div>
 
         {{-- Mapa de calor --}}
         <div class="dash-card heatmap-card mb-5">
@@ -719,11 +666,8 @@
                     <span class="subtitle-badge">Saiba onde encontrar</span>
                     <h2 class="section-title">Geografia da Inclusão</h2>
                     <p class="section-text mb-4">
-                        Mais do que um indicador visual, este mapa reflete nosso compromisso prático com a diversidade e inclusão. Identifique facilmente os polos de talentos diversos e guie sua estratégia de atração para onde a inovação realmente acontece.
+                        Mais do que um indicador visual, este mapa reflete nosso compromisso prático com a diversidade e inclusão.
                     </p>
-                    <a href="{{ url('/jobs/reports') }}" class="btn-section-link">
-                        Acessar métricas <i class="bi bi-arrow-right"></i>
-                    </a>
                 </div>
 
                 <div class="col-12 col-lg-6 d-none d-lg-block">

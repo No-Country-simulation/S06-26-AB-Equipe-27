@@ -662,11 +662,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="#">
-                            <i class="bi bi-people"></i> Matches
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
                             <i class="bi bi-map"></i> Mapa de Calor
                         </a>
@@ -908,7 +903,7 @@
         </div>
 
         {{-- Tabela de vagas e Recomendação de IA --}}
-        <div class="row g-4 mb-4 align-items-stretch">
+        <div class="row g-4 mb-4 align-items-start">
 
             <div class="col-12 col-lg-8">
                 <div class="dash-card table-widget h-100">
@@ -965,7 +960,7 @@
             </div>
 
             <div class="col-12 col-lg-4">
-                <div class="dash-card h-100 ai-card">
+                <div class="dash-card ai-card">
                     <div>
                         <div class="widget-header justify-content-center">
                             <div class="icon-box icon-box-sm icon-amber"><i class="bi bi-stars"></i></div>

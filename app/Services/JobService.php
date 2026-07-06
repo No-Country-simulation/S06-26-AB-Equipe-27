@@ -20,7 +20,7 @@ class JobService
             'company_id' => $company->id,
             'title' => $data['title'],
             'description' => $data['description'],
-            'required_skills' => json_encode($data['required_skills']),
+            'required_skills' => $data['required_skills'],
             'level' => $data['level'],
             'city' => $data['city'],
             'district' => $data['district'],

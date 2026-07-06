@@ -491,11 +491,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="#">
-                            <i class="bi bi-people"></i> Matches
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
                             <i class="bi bi-map"></i> Mapa de Calor
                         </a>

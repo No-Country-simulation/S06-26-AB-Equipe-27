@@ -387,6 +387,75 @@
             color: var(--color-shield);
             font-weight: 600;
         }
+
+        /* ---------------- Seção geografia da inclusão ---------------- */
+        .section-title {
+            color: var(--color-ink);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle-badge {
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.78rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-text {
+            color: var(--color-muted);
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .btn-section-link {
+            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
+            color: #fff;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            padding: 0.65rem 1.35rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .btn-section-link:hover {
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+        }
+
+        .img-box {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border);
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .img-box:hover img { transform: scale(1.03); }
+
+        @media (max-width: 575.98px) {
+            #map-heatmap { height: 340px; }
+            .map-legend { left: 10px; bottom: 10px; padding: 0.5rem 0.65rem; }
+            .map-legend .legend-bar { width: 100px; }
+        }
+
     </style>
 </head>
 <body>
@@ -414,11 +483,6 @@
                     <li class="nav-item">
                         <a class="nav-link-custom" href="{{ url('/jobs') }}">
                             <i class="bi bi-briefcase"></i> Vagas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs/matches') }}">
-                            <i class="bi bi-people"></i> Matches
                         </a>
                     </li>
                     <li class="nav-item">
@@ -564,8 +628,31 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+        {{-- Texto --}}
+        <div class="highlight-card dash-card heatmap-card mb-4 mt-4">
+            <div class="row align-items-center g-4">
+
+                <div class="col-12 col-lg-6">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1599658880436-c61792e70672?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Trabalho em equipe diversificado">
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 pe-lg-5">
+                    <span class="subtitle-badge ">Ideal para o início de uma página de análise.</span>
+                    <h2 class="section-title">Visão Consolidada</h2>
+                    <p class="section-text mb-4">
+                        Painel analítico que integra a distribuição territorial de talentos aos indicadores de performance ESG.
+                    </p>
+
+                </div>
+
+
+            </div>
+        </div>
+
     </main>
 
     <footer class="container pb-4 pt-2">
