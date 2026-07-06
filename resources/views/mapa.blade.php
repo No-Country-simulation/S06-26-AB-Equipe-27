@@ -604,7 +604,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-custom" href="{{ route('esg-progress.index') }}">
-                            <i class="bi bi-shield-check"></i> Bias Shield
+                            <i class="bi bi-shield-check"></i> Progresso
                         </a>
                     </li>
                     <li class="nav-item">
