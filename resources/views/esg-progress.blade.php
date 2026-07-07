@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,31 +41,45 @@
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-card-hover: 0 18px 36px -14px rgba(124,58,237,.28);
-            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-card-hover: 0 18px 36px -14px rgba(124, 58, 237, .28);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%),
-                radial-gradient(circle at 0% 20%, rgba(13,148,136,.045), transparent 40%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 20%, rgba(13, 148, 136, .045), transparent 40%);
             background-attachment: fixed;
             color: var(--color-body);
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
 
-          /* ==========================================================
+        a {
+            text-decoration: none;
+        }
+
+        /* ==========================================================
            NAVBAR
            Estrutura padrão Bootstrap (nav.navbar > .container-fluid),
            que já aplica display:flex + justify-content:space-between
@@ -77,7 +92,7 @@
            causar quando o conteúdo muda de largura.
         ========================================================== */
         .navbar {
-            background-color: rgba(255,255,255,.85);
+            background-color: rgba(255, 255, 255, .85);
             backdrop-filter: saturate(180%) blur(14px);
             -webkit-backdrop-filter: saturate(180%) blur(14px);
             border-bottom: 1px solid var(--color-border);
@@ -102,7 +117,7 @@
             justify-content: center;
             margin-right: 10px;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.55);
+            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
         }
 
         /* O collapse agrupa links + ações. No desktop (>=lg) ele vira uma
@@ -141,7 +156,7 @@
         .nav-link-custom.active {
             background-color: var(--color-primary);
             color: #fff;
-            box-shadow: 0 6px 14px -6px rgba(124,58,237,.55);
+            box-shadow: 0 6px 14px -6px rgba(124, 58, 237, .55);
         }
 
         .navbar-actions {
@@ -156,7 +171,10 @@
             font-size: 1.15rem;
             transition: color .18s ease;
         }
-        .icon-btn:hover { color: var(--color-ink); }
+
+        .icon-btn:hover {
+            color: var(--color-ink);
+        }
 
         .navbar-toggler {
             width: 36px;
@@ -168,7 +186,9 @@
             background-color: var(--color-primary-softer);
         }
 
-        .navbar-toggler:focus { box-shadow: none; }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
 
         .navbar-toggler-icon {
             width: 18px;
@@ -218,18 +238,22 @@
         /* ---------------- Alerta de sucesso ---------------- */
         .success-banner {
             background-color: var(--color-shield-soft);
-            border: 1px solid rgba(13,148,136,.25);
+            border: 1px solid rgba(13, 148, 136, .25);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-card);
             padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .success-banner .icon-wrap {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
             border-radius: 14px;
             background-color: #fff;
             color: var(--color-shield);
-            display: inline-flex; align-items: center; justify-content: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.3rem;
             box-shadow: var(--shadow-card);
         }
@@ -263,7 +287,7 @@
 
         .goal-card:hover {
             box-shadow: var(--shadow-card-hover);
-            border-color: rgba(124,58,237,.2);
+            border-color: rgba(124, 58, 237, .2);
         }
 
         .goal-title {
@@ -374,7 +398,7 @@
 
         .card-divider {
             border-top: 1px dashed var(--color-border);
-            margin: 1.1rem 0;
+            margin: .5rem 0 .5rem 0;
         }
 
         /* ---------------- Modal ---------------- */
@@ -406,7 +430,7 @@
 
         .modal .form-control:focus {
             border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, .12);
         }
 
         .modal .form-control:disabled {
@@ -427,7 +451,11 @@
             border-radius: var(--radius-sm);
             padding: 0.6rem 1.2rem;
         }
-        .btn-cancelar:hover { background-color: var(--color-primary-soft); color: var(--color-ink); }
+
+        .btn-cancelar:hover {
+            background-color: var(--color-primary-soft);
+            color: var(--color-ink);
+        }
 
         .btn-salvar {
             background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
@@ -436,9 +464,13 @@
             border: none;
             border-radius: var(--radius-sm);
             padding: 0.6rem 1.3rem;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         }
-        .btn-salvar:hover { color: #fff; box-shadow: 0 14px 26px -10px rgba(124,58,237,.7); }
+
+        .btn-salvar:hover {
+            color: #fff;
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
+        }
 
         /* ---------------- Estado vazio ---------------- */
         .empty-state {
@@ -453,90 +485,27 @@
             font-size: 2.1rem;
             color: var(--color-primary);
             background-color: var(--color-primary-soft);
-            width: 64px; height: 64px;
+            width: 64px;
+            height: 64px;
             border-radius: 18px;
-            display: inline-flex; align-items: center; justify-content: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 1rem;
         }
     </style>
 </head>
+
 <body>
-
-{{-- NAVBAR SUPERIOR --}}
-    <nav class="navbar navbar-expand-lg sticky-top py-2">
-        <div class="container px-4">
-
-            {{-- START: ícone + nome da empresa --}}
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                Skill<span style="color: var(--color-primary);">Focus</span>
-            </a>
-
-            <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            {{-- END: links de navegação + ações, sempre juntos na ponta direita --}}
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/dashboard') }}">
-                            <i class="bi bi-grid-1x2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs') }}">
-                            <i class="bi bi-briefcase"></i> Vagas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="#">
-                            <i class="bi bi-people"></i> Matches
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
-                            <i class="bi bi-map"></i> Mapa de Calor
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs/reports') }}">
-                            <i class="bi bi-bar-chart"></i> Relatórios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom active" href="{{ route('esg-progress.index') }}">
-                            <i class="bi bi-shield-check"></i> Progresso
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom text-danger" href="{{route('logout')}}">
-                            <i class="bi bi-box-arrow-right me-2"></i> Sair
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="navbar-actions">
-                    <a class="d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-                        <div class="avatar-badge">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+    {{-- NAVBAR SUPERIOR --}}
+    <x-navbar activePage="esg-progress" />
 
     {{-- CONTEÚDO PRINCIPAL --}}
-    <main class="container my-5" style="max-width: 900px;">
-
-        <div class="page-heading mb-4">
-            <div class="eyebrow mb-2">Ambiental, social e governança</div>
-            <h1 class="mb-1">Progresso ESG</h1>
-            <p class="mb-0">Acompanhe o progresso das suas metas ambientais, sociais e de governança</p>
-        </div>
+    <main class="container my-5">
+        <x-pageheader
+            page="Progresso ESG"
+            eyebrow="Recrutamento & seleção"
+            description="Acompanhe o progresso das suas metas ESG e os impactos do seu negócio" />
 
         @if(session('success'))
         <div class="success-banner d-flex align-items-center gap-3 mb-4">
@@ -548,153 +517,94 @@
         @endif
 
         @if($goals->count())
-        <div class="d-flex flex-column gap-4">
+        <div class="row g-4">
             @foreach($goals as $goal)
-            <div class="goal-card">
-                <div class="d-flex justify-content-between align-items-start mb-3 gap-3 flex-wrap">
-                    <div>
-                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                            <h3 class="goal-title mb-0">{{ $goal->title }}</h3>
-                            <span class="tag-tracking-type">{{ ucfirst($goal->tracking_type) }}</span>
-                        </div>
-                        @if($goal->description)
-                        <p class="goal-description mb-0">{{ $goal->description }}</p>
-                        @endif
-                    </div>
-                    <button type="button" class="btn-atualizar flex-shrink-0" data-bs-toggle="modal" data-bs-target="#editModal-{{ $goal->id }}">
-                        <i class="bi bi-pencil me-1"></i>Atualizar
-                    </button>
-                </div>
-
-                <div class="card-divider"></div>
-
-                @if($goal->tracking_type === 'count')
-                <div class="d-flex align-items-center gap-3">
-                    <div class="goal-value">{{ $goal->current_value }}</div>
-                    <div class="goal-value-target">/ {{ $goal->target_value }}</div>
-                    <div class="goal-progress-track">
-                        <div class="goal-progress-fill" style="width: {{ $goal->target_value > 0 ? min(($goal->current_value / $goal->target_value) * 100, 100) : 0 }}%"></div>
-                    </div>
-                </div>
-                @if($goal->notes)
-                <p class="goal-note mt-3 mb-0"><i class="bi bi-sticky me-1"></i>{{ $goal->notes }}</p>
-                @endif
-
-                @elseif($goal->tracking_type === 'percentage')
-                <div class="d-flex align-items-center gap-3">
-                    <div class="goal-value">{{ $goal->current_value }}%</div>
-                    <div class="goal-value-target">/ 100%</div>
-                    <div class="goal-progress-track">
-                        <div class="goal-progress-fill" style="width: {{ $goal->current_value }}%"></div>
-                    </div>
-                </div>
-
-                @elseif($goal->tracking_type === 'status')
-                @php
-                    $statusLabels = [
-                        'NOT_STARTED' => 'Não iniciado',
-                        'IN_PROGRESS' => 'Em andamento',
-                        'COMPLETED' => 'Concluído',
-                        'PENDING' => 'Não iniciado',
-                        'ACHIEVED' => 'Concluído',
-                        'CANCELLED' => 'Não iniciado',
-                    ];
-                    $statusClasses = [
-                        'NOT_STARTED' => 'status-not-started',
-                        'PENDING' => 'status-not-started',
-                        'IN_PROGRESS' => 'status-in-progress',
-                        'COMPLETED' => 'status-completed',
-                        'ACHIEVED' => 'status-completed',
-                        'CANCELLED' => 'status-cancelled',
-                    ];
-                    $statusIcons = [
-                        'NOT_STARTED' => 'bi-dash-circle',
-                        'PENDING' => 'bi-dash-circle',
-                        'IN_PROGRESS' => 'bi-arrow-repeat',
-                        'COMPLETED' => 'bi-check-circle-fill',
-                        'ACHIEVED' => 'bi-check-circle-fill',
-                        'CANCELLED' => 'bi-x-circle',
-                    ];
-                @endphp
-                <span class="badge-status {{ $statusClasses[$goal->status] ?? 'status-not-started' }}">
-                    <i class="bi {{ $statusIcons[$goal->status] ?? 'bi-dash-circle' }}"></i>
-                    {{ $statusLabels[$goal->status] ?? $goal->status }}
-                </span>
-                @endif
-            </div>
-
-            {{-- Modal de edição --}}
-            <div class="modal fade" id="editModal-{{ $goal->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $goal->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <form action="{{ route('esg-progress.update', $goal) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-header border-0 pb-0">
-                                <h5 class="modal-title" id="editModalLabel-{{ $goal->id }}">Atualizar meta: {{ $goal->title }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                            </div>
-                            <div class="modal-body">
-                                @if($goal->tracking_type === 'count')
-                                <div class="mb-3">
-                                    <label class="form-label">Valor alvo (fixo)</label>
-                                    <input type="number" class="form-control" value="{{ $goal->target_value }}" disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Valor atual</label>
-                                    <input type="number" name="current_value" value="{{ $goal->current_value }}" class="form-control" min="0" max="{{ $goal->target_value }}" required>
-                                </div>
-                                <div class="mb-1">
-                                    <label class="form-label">Notas (opcional)</label>
-                                    <textarea name="notes" class="form-control" rows="3">{{ $goal->notes }}</textarea>
-                                </div>
-
-                                @elseif($goal->tracking_type === 'percentage')
-                                <div class="mb-3">
-                                    <label class="form-label">Valor alvo (fixo)</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" value="100" disabled>
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
-                                <div class="mb-1">
-                                    <label class="form-label">Percentual atual</label>
-                                    <div class="input-group">
-                                        <input type="number" name="current_value" value="{{ $goal->current_value }}" class="form-control" min="0" max="100" required>
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
-
-                                @elseif($goal->tracking_type === 'status')
-                                <div class="mb-1">
-                                    <label class="form-label d-block mb-2">Status</label>
-                                    <div class="d-flex flex-column gap-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="NOT_STARTED" id="status-not-started-{{ $goal->id }}" {{ in_array($goal->status, ['NOT_STARTED', 'PENDING']) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="status-not-started-{{ $goal->id }}">Não iniciado</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="IN_PROGRESS" id="status-in-progress-{{ $goal->id }}" {{ $goal->status === 'IN_PROGRESS' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="status-in-progress-{{ $goal->id }}">Em andamento</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="COMPLETED" id="status-completed-{{ $goal->id }}" {{ in_array($goal->status, ['COMPLETED', 'ACHIEVED']) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="status-completed-{{ $goal->id }}">Concluído</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                            <div class="modal-footer border-0 pt-0">
-                                <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn-salvar">Salvar alterações</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="col-lg-4">
+                <x-esg-progress-card
+                    :title="$goal->title"
+                    :description="$goal->description"
+                    :tracking-type="$goal->tracking_type"
+                    :current-value="$goal->current_value"
+                    :target-value="$goal->target_value"
+                    :status="$goal->status"
+                    :notes="$goal->notes"
+                    :goal-id="$goal->id" />
             </div>
             @endforeach
         </div>
+
+        {{-- Modals de edição (outside of grid) --}}
+        @foreach($goals as $goal)
+        <div class="modal fade" id="editModal-{{ $goal->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $goal->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{ route('esg-progress.update', $goal) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header border-0 pb-0">
+                            <h5 class="modal-title" id="editModalLabel-{{ $goal->id }}">Atualizar meta: {{ $goal->title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if($goal->tracking_type === 'count')
+                            <div class="mb-3">
+                                <label class="form-label">Valor alvo (fixo)</label>
+                                <input type="number" class="form-control" value="{{ $goal->target_value }}" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Valor atual</label>
+                                <input type="number" name="current_value" value="{{ $goal->current_value }}" class="form-control" min="0" max="{{ $goal->target_value }}" required>
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label">Notas (opcional)</label>
+                                <textarea name="notes" class="form-control" rows="3">{{ $goal->notes }}</textarea>
+                            </div>
+
+                            @elseif($goal->tracking_type === 'percentage')
+                            <div class="mb-3">
+                                <label class="form-label">Valor alvo (fixo)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" value="100" disabled>
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label">Percentual atual</label>
+                                <div class="input-group">
+                                    <input type="number" name="current_value" value="{{ $goal->current_value }}" class="form-control" min="0" max="100" required>
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+
+                            @elseif($goal->tracking_type === 'status')
+                            <div class="mb-1">
+                                <label class="form-label d-block mb-2">Status</label>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" value="NOT_STARTED" id="status-not-started-{{ $goal->id }}" {{ in_array($goal->status, ['NOT_STARTED', 'PENDING']) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status-not-started-{{ $goal->id }}">Não iniciado</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" value="IN_PROGRESS" id="status-in-progress-{{ $goal->id }}" {{ $goal->status === 'IN_PROGRESS' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status-in-progress-{{ $goal->id }}">Em andamento</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" value="COMPLETED" id="status-completed-{{ $goal->id }}" {{ in_array($goal->status, ['COMPLETED', 'ACHIEVED']) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status-completed-{{ $goal->id }}">Concluído</label>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="modal-footer border-0 pt-0">
+                            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn-salvar">Salvar alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
         @else
         <div class="empty-state">
             <i class="bi bi-bar-chart"></i>
@@ -716,4 +626,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
