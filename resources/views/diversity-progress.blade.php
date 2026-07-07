@@ -6,137 +6,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progresso de Diversidade | SkillFocus</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
         :root {
-            --primary-color: #4A148C;
-            --secondary-color: #FF6D00;
-            --accent-color: #00BFA5;
-            --bg-light: #F9F7F6;
-            --text-dark: #2B2B2B;
+            --color-primary: #7C3AED;
+            --color-primary-dark: #5B21B6;
+            --color-primary-hover: #6D28D9;
+            --color-primary-soft: #F3EEFE;
+            --color-primary-softer: #FBFAFF;
+            --color-shield: #0D9488;
+            --color-shield-soft: #E8F8F6;
+            --color-shield-warn: #B45309;
+            --color-shield-warn-soft: #FEF6E7;
+            --color-danger: #DC2626;
+            --color-danger-soft: #FDEDEC;
+            --color-ink: #17152A;
+            --color-body: #47435C;
+            --color-muted: #77738F;
+            --color-border: #E9E5F3;
+            --color-surface: #FFFFFF;
+            --color-bg: #FAF9FD;
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-card-hover: 0 18px 36px -14px rgba(124, 58, 237, .28);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
+            --font-display: 'Sora', 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-light);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
+            background-color: var(--color-bg);
+            background-image: radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 20%, rgba(13, 148, 136, .045), transparent 40%);
+            background-attachment: fixed;
+            color: var(--color-body);
+            font-family: var(--font-body);
         }
 
         h1,
         h2,
         h3,
-        h4,
-        h5,
-        h6,
-        .btn,
-        .navbar-brand {
-            font-family: 'Poppins', sans-serif;
+        .font-display {
+            font-family: var(--font-display);
         }
 
-        .dash-navbar {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(74, 20, 140, 0.05);
-            border-bottom: 2px solid rgba(74, 20, 140, 0.05);
+        a {
+            text-decoration: none;
         }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
+        .success-banner {
+            background-color: var(--color-shield-soft);
+            border: 1px solid rgba(13, 148, 136, 0.25);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .navbar-brand span {
-            color: var(--secondary-color);
+        .success-banner .icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background-color: #fff;
+            color: var(--color-shield);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-card);
         }
 
         .goal-card {
-            background-color: white;
-            border-radius: 1.5rem;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
             padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow .2s ease, border-color .2s ease;
+            height: 380px;
         }
 
-        .tag-diversity {
-            font-size: 0.75rem;
-            background-color: rgba(74, 20, 140, 0.06);
-            color: var(--primary-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
+        .goal-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-shield));
         }
 
-        $priorityLabels =[ 'low'=>'Baixa',
-        'medium'=>'Regular',
-        'high'=>'Alta'
-        ];
-        $priorityBadges =[ 'low'=>'bg-green-100 text-green-700',
-        'medium'=>'bg-yellow-100 text-yellow-700',
-        'high'=>'bg-red-100 text-red-700'
-        ];
+        .goal-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .empty-state {
+            background-color: var(--color-surface);
+            border: 1px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .priority-pill {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 0.32rem 0.75rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .priority-high {
+            background-color: var(--color-danger-soft);
+            color: var(--color-danger);
+        }
+
+        .priority-medium {
+            background-color: var(--color-shield-warn-soft);
+            color: var(--color-shield-warn);
+        }
+
+        .priority-low {
+            background-color: var(--color-shield-soft);
+            color: var(--color-shield);
+        }
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg dash-navbar sticky-top py-3 px-4 mb-5">
-        <div class="container-fluid max-w-[1920px] mx-auto flex justify-between items-center">
-            <a class="navbar-brand text-2xl" href="{{route('dashboard')}}">Skill<span>Focus</span></a>
-            <div class="dropdown">
-                <a class="text-decoration-none d-flex align-items-center text-dark" href="#" data-bs-toggle="dropdown">
-                    <div class="rounded-circle d-flex align-items-center justify-center me-2 text-white" style="width: 38px; height: 38px; background-color: var(--primary-color);">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-                    @auth
-                    <span class="d-none d-md-inline fw-medium" style="font-size: 0.95rem;">
-                        {{ auth()->user()->name }}
-                    </span>
-                    @endauth
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
-                    <li><a class="dropdown-item py-2" href="{{route('dashboard')}}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
-                    <li><a class="dropdown-item py-2" href="{{route('esg-progress.index')}}"><i class="bi bi-bar-chart-fill me-2 text-muted"></i>Progresso ESG</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/create')}}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs')}}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
-                    <li><a class="dropdown-item py-2" href="{{url('/jobs/reports')}}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
-                    <li><a class="dropdown-item py-2" href="{{route('diversity-progress.index')}}"><i class="bi bi-people-fill me-2 text-muted"></i>Progresso Diversidade</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear-wide me-2 text-muted"></i> Configurações</a></li>
-                    <li><a class="dropdown-item py-2 text-danger" href="{{route('logout')}}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <main class="container mx-auto px-4 pb-12 max-w-4xl">
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold" style="color: var(--primary-color);">Progresso de Diversidade</h1>
-            <p class="text-gray-600 mt-2">Acompanhe o progresso das suas metas de diversidade e inclusão.</p>
-        </div>
+<body>
+    <x-navbar activePage="diversity-progress" />
+
+    <main class="container my-5">
+        <x-pageheader
+            page="Progresso de Diversidade"
+            eyebrow="Recrutamento & seleção"
+            description="Acompanhe o progresso das suas metas de diversidade e inclusão" />
 
         @if(session('success'))
-        <div class="bg-green-50 border-2 border-green-400 rounded-2xl p-6 shadow-sm mb-6">
-            <div class="flex flex-col md:flex-row md:items-center gap-4">
-                <div class="flex-shrink-0 flex justify-center">
-                    <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <div class="flex-1 text-center md:text-left">
-                    <h3 class="text-xl font-bold text-green-800 mb-1">{{ session('success') }}</h3>
-                </div>
+        <div class="success-banner d-flex align-items-center gap-3 mb-6">
+            <div class="icon-wrap flex-shrink-0">
+                <i class="bi bi-check-lg"></i>
             </div>
+            <h3 class="mb-0" style="font-family: var(--font-display); color: var(--color-ink); font-size: 1.05rem; font-weight: 700;">{{ session('success') }}</h3>
         </div>
         @endif
 
-        <div class="grid grid-cols-1 gap-6">
-            @if($goals->count() > 0)
+        @if($goals->count() > 0)
+        <div class="row g-4">
             @php
             $groupLabels = [
             'women' => 'Mulheres',
@@ -153,42 +180,128 @@
             'medium' => 'Regular',
             'high' => 'Alta'
             ];
-            $priorityBadges = [
-            'low' => 'bg-green-100 text-green-700',
-            'medium' => 'bg-yellow-100 text-yellow-700',
-            'high' => 'bg-red-100 text-red-700'
-            ];
             @endphp
             @foreach($goals as $goal)
-            <div class="goal-card">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <div class="flex items-center gap-3 mb-2">
-                            <h3 class="text-xl font-bold" style="color: var(--primary-color);">{{ $groupLabels[$goal->group] ?? ucwords(str_replace('_', ' ', $goal->group)) }}</h3>
-                            <span class="tag-diversity">{{ $priorityLabels[$goal->priority] ?? $goal->priority }}</span>
-                        </div>
-                        @if($goal->target_percentage)
-                        <p class="text-gray-600 text-sm mb-3">Meta: {{ $goal->target_percentage }}% até {{ $goal->target_year ?? 'futuro' }}</p>
-                        @endif
-                    </div>
-                    <button type="button" class="btn btn-sm btn-outline-primary rounded-lg" data-bs-toggle="modal" data-bs-target="#editModal-{{ $goal->id }}">
-                        <i class="bi bi-pencil me-1"></i>Atualizar
-                    </button>
-                </div>
+            <div class="col-lg-4">
+                <!-- First, we need to override the esg-progress-card component for diversity, so let's copy it and make small changes! -->
+                <!-- Wait, actually, let's just create a temporary component here, or we can modify our existing component! -->
+                <!-- Wait, let's just re-use the code for now, and make it use percentage type! -->
+                <div class="goal-card" style="padding: 2rem;">
+                    <style>
+                        .circular-progress {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            width: 230px;
+                            height: 200px;
+                        }
 
-                <div class="flex items-center gap-4">
-                    <div class="text-4xl font-bold" style="color: var(--accent-color);">{{ $goal->current_value ?? 0 }}%</div>
-                    @if($goal->target_percentage)
-                    <div class="text-gray-400 text-xl">/ {{ $goal->target_percentage }}%</div>
-                    @else
-                    <div class="text-gray-400 text-xl">/ 100%</div>
-                    @endif
-                    <div class="flex-1 bg-gray-200 rounded-full h-3">
-                        @php
-                        $maxPercent = $goal->target_percentage ?? 100;
-                        $progressPercent = $maxPercent > 0 ? min(($goal->current_value / $maxPercent) * 100, 100) : 0;
-                        @endphp
-                        <div class="bg-gradient-to-r from-purple-500 to-purple-700 h-3 rounded-full" style="width: {{ $progressPercent }}%"></div>
+                        .circular-progress svg {
+                            transform: rotate(-90deg);
+                        }
+
+                        .circular-progress circle {
+                            fill: none;
+                            stroke-width: 16;
+                            stroke-linecap: round;
+                        }
+
+                        .circular-progress .circle-bg {
+                            stroke: #E9E5F3;
+                        }
+
+                        .circular-progress .circle-progress {
+                            stroke-dasharray: 502.65;
+                            stroke-dashoffset: 502.65;
+                            transition: stroke-dashoffset 0.5s ease;
+                        }
+
+                        .btn-atualizar {
+                            border: 1px solid var(--color-border);
+                            background-color: var(--color-surface);
+                            color: var(--color-primary);
+                            font-weight: 700;
+                            font-size: 0.82rem;
+                            padding: 0.45rem 0.9rem;
+                            border-radius: var(--radius-sm);
+                            transition: all .15s ease;
+                            white-space: nowrap;
+                        }
+
+                        .btn-atualizar:hover {
+                            background-color: var(--color-primary);
+                            border-color: var(--color-primary);
+                            color: #fff;
+                        }
+
+                        .card-divider {
+                            border-top: 1px dashed var(--color-border);
+                            margin: 1.1rem 0;
+                        }
+
+                        .goal-title {
+                            font-family: var(--font-display);
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: var(--color-ink);
+                        }
+                    </style>
+                    <div class="d-flex justify-content-between align-items-start mb-4 gap-3 flex-wrap">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                <h3 class="goal-title mb-0">{{ $groupLabels[$goal->group] ?? ucwords(str_replace('_', ' ', $goal->group)) }}</h3>
+                                @php
+                                $priorityClass = ['low' => 'priority-low', 'medium' => 'priority-medium', 'high' => 'priority-high'];
+                                @endphp
+                                <span class="priority-pill {{ $priorityClass[$goal->priority] ?? 'priority-low' }}">
+                                    {{ $priorityLabels[$goal->priority] ?? $goal->priority }}
+                                </span>
+                            </div>
+                            @if($goal->target_percentage)
+                            <p style="color: var(--color-muted); font-size: 0.87rem;">Meta: {{ $goal->target_percentage }}% até {{ $goal->target_year ?? 'futuro' }}</p>
+                            @endif
+                        </div>
+                        <button type="button" class="btn-atualizar flex-shrink-0" data-bs-toggle="modal" data-bs-target="#editModal-{{ $goal->id }}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    @php
+                    $target = $goal->target_percentage ?? 100;
+                    $current = $goal->current_value ?? 0;
+                    $percentage = $target > 0 ? min(($current / $target) * 100, 100) : 0;
+                    @endphp
+
+                    <div class="text-center">
+                        <div class="circular-progress mx-auto mb-3">
+                            <svg viewBox="0 0 180 180">
+                                <circle class="circle-bg" cx="90" cy="90" r="74"></circle>
+                                <circle
+                                    class="circle-progress"
+                                    cx="90"
+                                    cy="90"
+                                    r="74"
+                                    style="
+                                        stroke: url(#progressGradient-{{ $goal->id }});
+                                        stroke-dashoffset: {{ 502.65 - (502.65 * $percentage / 100) }};">
+                                </circle>
+                                <defs>
+                                    <linearGradient id="progressGradient-{{ $goal->id }}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#7C3AED" />
+                                        <stop offset="100%" stop-color="#0D9488" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                                <span style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--color-ink);">{{ round($percentage) }}%</span>
+                                <div style="font-size: 1rem; color: var(--color-muted); font-weight: 500;">de progresso</div>
+                            </div>
+                        </div>
+                        <div class="mb-3" style="font-size: 0.95rem; color: var(--color-muted);">
+                            Meta: {{ $target }}%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,47 +309,48 @@
             <!-- Edit Modal -->
             <div class="modal fade" id="editModal-{{ $goal->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $goal->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-2xl">
+                    <div class="modal-content" style="border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-pop);">
                         <form action="{{ route('diversity-progress.update', $goal) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="modal-header border-0 pb-0">
-                                <h5 class="modal-title font-bold" id="editModalLabel-{{ $goal->id }}" style="color: var(--primary-color);">Atualizar Meta: {{ $groupLabels[$goal->group] ?? ucwords(str_replace('_', ' ', $goal->group)) }}</h5>
+                                <h5 class="modal-title" style="font-family: var(--font-display); color: var(--color-ink); font-weight: 700; font-size: 1.1rem;" id="editModalLabel-{{ $goal->id }}">Atualizar Meta: {{ $groupLabels[$goal->group] ?? ucwords(str_replace('_', ' ', $goal->group)) }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 @if($goal->target_percentage)
                                 <div class="mb-4">
-                                    <label class="form-label font-medium text-gray-700">Meta (Fixa)</label>
-                                    <input type="number" class="form-control rounded-xl border-gray-300" value="{{ $goal->target_percentage }}" disabled>
-                                    <span class="text-sm text-gray-500">%</span>
+                                    <label class="form-label" style="font-weight: 600; font-size: 0.85rem; color: var(--color-body);">Meta (Fixa)</label>
+                                    <input type="number" class="form-control" value="{{ $goal->target_percentage }}" disabled style="border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.9rem;">
+                                    <span style="font-size: 0.8rem; color: var(--color-muted);">%</span>
                                 </div>
                                 @endif
                                 <div class="mb-4">
-                                    <label class="form-label font-medium text-gray-700">Progresso Atual</label>
+                                    <label class="form-label" style="font-weight: 600; font-size: 0.85rem; color: var(--color-body);">Progresso Atual</label>
                                     <div class="input-group">
-                                        <input type="number" name="current_value" value="{{ $goal->current_value ?? 0 }}" class="form-control rounded-xl border-gray-300 focus:border-purple-500" min="0" max="100" step="0.01" required>
-                                        <span class="input-group-text rounded-r-xl">%</span>
+                                        <input type="number" name="current_value" value="{{ $goal->current_value ?? 0 }}" class="form-control" style="border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.9rem;" min="0" max="100" step="0.01" required>
+                                        <span class="input-group-text" style="border-radius: var(--radius-sm); border-top-left-radius: 0; border-bottom-left-radius: 0;">%</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer border-0 pt-0">
-                                <button type="button" class="btn btn-light rounded-xl" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn text-white rounded-xl" style="background-color: var(--primary-color);">Salvar Alterações</button>
+                                <button type="button" class="btn" style="background-color: var(--color-primary-softer); color: var(--color-body); font-weight: 600; border: none; border-radius: var(--radius-sm); padding: 0.6rem 1.2rem;" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn" style="background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark)); color: #fff; font-weight: 600; border: none; border-radius: var(--radius-sm); padding: 0.6rem 1.3rem; box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);">Salvar Alterações</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
             @endforeach
-            @else
-            <div class="bg-white rounded-2xl shadow-sm p-12 text-center border border-gray-200">
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhuma meta de diversidade definida</h3>
-                <p class="text-gray-500 mb-6">Complete o setup inicial para definir suas metas de diversidade!</p>
-                <a href="{{route('setup.step1')}}" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Iniciar Setup</a>
-            </div>
-            @endif
         </div>
+        @else
+        <div class="empty-state" style="background-color: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius-lg); padding: 3.5rem 1.5rem; text-align: center;">
+            <i class="bi bi-people" style="font-size: 2.1rem; color: var(--color-primary); background-color: var(--color-primary-soft); width: 64px; height: 64px; border-radius: 18px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;"></i>
+            <h3 style="font-family: var(--font-display); color: var(--color-ink); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Nenhuma meta de diversidade definida</h3>
+            <p style="color: var(--color-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Complete o setup inicial para definir suas metas de diversidade!</p>
+            <a href="{{route('setup.step1')}}" style="background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark)); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: var(--radius-sm); padding: 0.875rem; box-shadow: 0 10px 22px -10px rgba(124,58,237,.6); display: inline-block; text-decoration: none; transition: all .3s ease;">Iniciar Setup</a>
+        </div>
+        @endif
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
