@@ -30,16 +30,6 @@
             $progress = $steps[$currentStep] ?? 25;
             @endphp
 
-            <div class="mb-8">
-                <div class="flex justify-between mb-2">
-                    <span class="text-sm font-medium text-gray-700">Passo {{ array_search($currentStep, array_keys($steps)) + 1 }} de {{ count($steps) }}</span>
-                    <span class="text-sm font-medium text-purple-700">{{ $progress }}%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-3">
-                    <div class="bg-gradient-to-r from-purple-500 to-purple-700 h-3 rounded-full transition-all duration-300" style="width: {{ $progress }}%"></div>
-                </div>
-            </div>
-
             <!-- Content -->
             <div class="bg-white rounded-2xl shadow-2xl p-8">
                 @yield('content')
