@@ -46,9 +46,9 @@
         <p class="mb-0">{{ $description }}</p>
     </div>
 
-    @if($actionBtn)
+    @isset($actionBtn)
     <a href="{{ $actionBtnUrl ?? '#' }}" class="btn btn-nova-vaga d-inline-flex align-items-center gap-2">
-        @if($actionBtnIcon)
+        @isset($actionBtnIcon)
         <i class="bi {{ $actionBtnIcon }}"></i>
         @endif
         {{ $actionBtn }}
