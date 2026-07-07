@@ -83,6 +83,7 @@ class JobPostingController extends Controller
 
         $job->title = $request->title;
         $job->description = $request->description;
+        $job->level = $request->level;
         $job->city = $request->city;
         $job->district = $request->district;
         $job->required_skills = $request->required_skills;
