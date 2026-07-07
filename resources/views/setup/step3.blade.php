@@ -88,20 +88,56 @@
         box-shadow: 0 0 0 2px #1D4ED8 inset;
     }
 
+    /* Custom Radio & Checkbox Styles */
+    .sf-checkbox-env,
+    .sf-checkbox-social,
+    .sf-checkbox-gov {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #E9E5F3;
+        background-color: #FFFFFF;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.15s ease;
+        flex-shrink: 0;
+        border-radius: 6px;
+    }
+
     .sf-checkbox-env:checked {
-        accent-color: #157A47;
+        border-color: #157A47;
+        background-color: #157A47;
     }
 
     .sf-checkbox-social:checked {
-        accent-color: #7C3AED;
+        border-color: #7C3AED;
+        background-color: #7C3AED;
     }
 
     .sf-checkbox-gov:checked {
-        accent-color: #1D4ED8;
+        border-color: #1D4ED8;
+        background-color: #1D4ED8;
+    }
+
+    .sf-checkbox-env:checked::after,
+    .sf-checkbox-social:checked::after,
+    .sf-checkbox-gov:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 12px;
+        height: 12px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .sf-custom-goal-box {
-        border: 2px dashed #E9E5F3;
+        border: 2px solid #E9E5F3;
         border-radius: 18px;
         background-color: #FBFAFF;
     }
@@ -134,6 +170,70 @@
 
     .sf-add-goal-btn:hover {
         color: #5B21B6;
+    }
+
+    /* Collapsible Goal Section */
+    .goal-collapsible {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .goal-collapsible.open {
+        max-height: 200px;
+    }
+
+    .goal-toggle-btn {
+        cursor: pointer;
+        color: #77738F;
+        transition: transform 0.2s ease, color 0.2s ease;
+        margin-left: auto;
+    }
+
+    .goal-toggle-btn.open {
+        transform: rotate(180deg);
+        color: #7C3AED;
+    }
+
+    .target-input-wrapper {
+        background-color: #F3EEFE;
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
+    }
+
+    .target-input {
+        background-color: #FFFFFF;
+        border: 1px solid #E9E5F3;
+        border-radius: 10px;
+        padding: 0.5rem 0.8rem;
+        text-align: center;
+        width: 80px;
+        font-weight: 600;
+    }
+
+    .target-input:focus {
+        outline: none;
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+
+    .target-qty-btn {
+        background-color: #FFFFFF;
+        border: 1px solid #E9E5F3;
+        border-radius: 8px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .target-qty-btn:hover {
+        background-color: #7C3AED;
+        border-color: #7C3AED;
+        color: white;
     }
 </style>
 
@@ -244,23 +344,37 @@
             </h3>
             <div class="space-y-2">
                 @foreach($category['goals'] as $goalKey => $goalData)
-                <div class="goal-item" data-goal-key="{{ $goalKey }}" data-goal-title="{{ $goalData['title'] }}" data-tracking-type="{{ $goalData['tracking_type'] }}">
-                    <label class="sf-goal-card {{ in_array($goalData['title'], $selectedEsgGoals) ? 'is-checked-'.$category['accent'] : '' }} flex items-start p-3 cursor-pointer">
-                        <input type="checkbox" name="esg_goals[]" value="{{ $goalKey }}" class="sf-checkbox-{{ $category['accent'] }} goal-checkbox mr-3 mt-1 w-4 h-4" {{ in_array($goalData['title'], $selectedEsgGoals) ? 'checked' : '' }}>
-                        <span class="text-sm text-[#47435C]">{{ $goalData['title'] }}</span>
+                @php
+                $isChecked = in_array($goalData['title'], $selectedEsgGoals);
+                $existingGoal=$esgGoals->where('title', $goalData['title'])->first();
+                $existingValue=$existingGoal ? $existingGoal->target_value : '' ;
+                @endphp
+                <div class="goal-item" data-goal-key="{{ $goalKey }}">
+                    <label class="sf-goal-card {{ $isChecked ? 'is-checked-'.$category['accent'] : '' }} flex items-start p-3 cursor-pointer">
+                        <input type="checkbox" name="esg_goals[]" value="{{ $goalKey }}" class="sf-checkbox-{{ $category['accent'] }} goal-checkbox mr-3 mt-1 w-5 h-5" {{ $isChecked ? 'checked' : '' }}>
+                        <span class="text-sm text-[#47435C] flex-1">{{ $goalData['title'] }}</span>
+                        @if($goalData['tracking_type'] !== 'status')
+                        <button type="button" class="goal-toggle-btn {{ $isChecked ? 'open' : '' }}" data-toggle="goal-{{ $goalKey }}">
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        @endif
                     </label>
+
                     @if($goalData['tracking_type'] !== 'status')
-                    <div class="mt-2 pl-7">
-                        <label class="text-xs font-medium text-[#77738F] mb-1 block">Valor Alvo</label>
-                        @php
-                        // Get existing value if available
-                        $existingGoal = $esgGoals->where('title', $goalData['title'])->first();
-                        $existingValue = $existingGoal ? $existingGoal->target_value : '';
-                        @endphp
-                        <div class="flex items-center gap-2">
-                            <input type="number" name="target_value_{{ $goalKey }}" value="{{ old('target_value_' . $goalKey, $existingValue) }}" class="px-3 py-1.5 bg-white border border-[#E9E5F3] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/30 focus:border-[#7C3AED] w-[calc(100%-24px)]">
-                            <div class="w-4 text-xs text-[#9C97B5] font-semibold">
-                                {{$goalData['tracking_type'] === 'percentage' ? '%' : ''}}
+                    <div class="goal-collapsible {{ $isChecked ? 'open' : '' }}" id="goal-{{ $goalKey }}">
+                        <div class="target-input-wrapper mt-2 pl-7">
+                            <div class="text-xs font-medium text-[#77738F] mb-2">Valor Alvo</div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" class="target-qty-btn" onclick="changeGoalValue('{{ $goalKey }}', -1)">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                                <input type="number" name="target_value_{{ $goalKey }}" id="input-{{ $goalKey }}" value="{{ old('target_value_' . $goalKey, $existingValue) }}" class="target-input" min="0">
+                                <button type="button" class="target-qty-btn" onclick="changeGoalValue('{{ $goalKey }}', 1)">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                                @if($goalData['tracking_type'] === 'percentage')
+                                <span class="text-sm text-[#77738F] font-semibold">%</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -331,95 +445,47 @@
     </div>
 </form>
 
-<!-- <script>
-    let selectedGoalKey = null;
-    const esgGoalConfigs = {}; // Stores: key -> { trackingType, targetValue, deadline }
-
-
-    // Helper to escape quotes
-    function escapeHtml(unsafe) {
-        if (unsafe == null) return '';
-        return String(unsafe)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    // Helper to format goal config form
-    function buildGoalConfigForm(goalKey, goalTitle, trackingType) {
-        const config = esgGoalConfigs[goalKey] || {
-            trackingType: trackingType,
-            targetValue: '',
-            deadline: ''
-        };
-        let formHtml = `
-            <h4 class="font-bold text-lg text-purple-800 mb-4">${escapeHtml(goalTitle)}</h4>
-            <input type="hidden" name="goal_keys[]" value="${goalKey}">
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Medição</label>
-                <select name="tracking_type_${goalKey}" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500">
-                    <option value="count" ${config.trackingType === 'count' ? 'selected' : ''}>Contagem</option>
-                    <option value="percentage" ${config.trackingType === 'percentage' ? 'selected' : ''}>Percentual</option>
-                    <option value="status" ${config.trackingType === 'status' ? 'selected' : ''}>Status</option>
-                </select>
-            </div>
-        `;
-
-        formHtml += `
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Meta</label>
-                <input type="number" name="target_value_${goalKey}" value="${escapeHtml(config.targetValue)}" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500">
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Prazo</label>
-                <input type="month" name="deadline_${goalKey}" value="${escapeHtml(config.deadline)}" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500">
-            </div>
-        `;
-
-        return formHtml;
-    }
-
-    // Open config panel
-    document.querySelectorAll('.goal-item').forEach((item) => {
-        item.addEventListener('click', () => {
-            selectedGoalKey = item.dataset.goalKey;
-            const goalTitle = item.dataset.goalTitle;
-            const trackingType = item.dataset.trackingType;
-
-            // Show config panel
-            const configPanel = document.getElementById('config-panel');
-            const configPanelTitle = document.getElementById('config-panel-title');
-            const configPanelContent = document.getElementById('config-panel-content');
-            configPanelTitle.textContent = `Configurar: ${goalTitle}`;
-            configPanelContent.innerHTML = buildGoalConfigForm(selectedGoalKey, goalTitle, trackingType);
-            configPanel.style.display = 'block';
-
-            // Add active state
-            document.querySelectorAll('.goal-item').forEach(el => el.classList.remove('ring-4', 'ring-purple-300'));
-            item.classList.add('ring-4', 'ring-purple-300');
-        });
-    });
-
-    // Close config panel
-    document.getElementById('close-config').addEventListener('click', () => {
-        document.getElementById('config-panel').style.display = 'none';
-        selectedGoalKey = null;
-        document.querySelectorAll('.goal-item').forEach(el => el.classList.remove('ring-4', 'ring-purple-300'));
-    });
-</script> -->
-
 <script>
-    // Realce visual do card ao marcar/desmarcar (independente do painel
-    // lateral, que permanece desativado conforme o script original acima).
+    // Function to change goal value with + / - buttons
+    function changeGoalValue(goalKey, delta) {
+        const input = document.getElementById(`input-${goalKey}`);
+        if (!input) return;
+        let currentValue = parseInt(input.value) || 0;
+        currentValue = Math.max(0, currentValue + delta);
+        input.value = currentValue;
+    }
+
+    // Realce visual do card ao marcar/desmarcar e toggle collapsible
     document.querySelectorAll('.goal-checkbox').forEach((checkbox) => {
         checkbox.addEventListener('change', function() {
             const card = this.closest('.sf-goal-card');
+            const goalItem = this.closest('.goal-item');
             const accentClass = Array.from(this.classList).find(c => c.startsWith('sf-checkbox-'));
-            if (!card || !accentClass) return;
+            if (!card || !accentClass || !goalItem) return;
             const accent = accentClass.replace('sf-checkbox-', '');
             card.classList.toggle('is-checked-' + accent, this.checked);
+
+            const collapsible = goalItem.querySelector('.goal-collapsible');
+            const toggleBtn = goalItem.querySelector('.goal-toggle-btn');
+            if (collapsible && toggleBtn) {
+                collapsible.classList.toggle('open', this.checked);
+                toggleBtn.classList.toggle('open', this.checked);
+            }
+        });
+    });
+
+    // Handle toggle button clicks to open/close collapsible
+    document.querySelectorAll('.goal-toggle-btn').forEach((btn) => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const targetId = this.dataset.toggle;
+            const collapsible = document.getElementById(targetId);
+            if (collapsible) {
+                collapsible.classList.toggle('open');
+                this.classList.toggle('open');
+            }
         });
     });
 </script>
