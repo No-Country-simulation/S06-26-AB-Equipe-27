@@ -128,6 +128,50 @@
      .dropdown-menu {
          border: 1px solid var(--color-border);
          box-shadow: var(--shadow-pop);
+         border-radius: 12px;
+         padding: 0.5rem 0;
+         margin-top: 0.5rem !important;
+         top: 83% !important;
+     }
+
+     .dropdown-item {
+         color: var(--color-body);
+         font-weight: 500;
+         transition: all 0.15s ease;
+         padding: 0.5rem 1.25rem;
+         font-size: .85rem;
+     }
+
+     .dropdown-item:hover {
+         background-color: var(--color-primary-soft);
+         color: var(--color-primary-dark);
+     }
+
+     .dropdown-item.active {
+         background-color: var(--color-primary);
+         color: #FFFFFF;
+     }
+
+     @media (min-width: 992px) {
+         .nav-item.dropdown {
+             position: relative;
+         }
+
+         .nav-item.dropdown .dropdown-menu {
+             display: none;
+         }
+
+         .nav-item.dropdown:hover .dropdown-menu {
+             display: block;
+         }
+
+         .nav-item.dropdown .dropdown-toggle::after {
+             transition: transform 0.2s ease;
+         }
+
+         .nav-item.dropdown:hover .dropdown-toggle::after {
+             transform: rotate(180deg);
+         }
      }
  </style>
 
@@ -153,12 +197,7 @@
                  </li>
                  <li class="nav-item">
                      <a class="nav-link-custom {{ $activePage === 'jobs' ? 'active' : '' }}" href="{{ url('/jobs') }}">
-                         <i class="bi bi-briefcase"></i> Vagas
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'matches' ? 'active' : '' }}" href="#">
-                         <i class="bi bi-people"></i> Matches
+                         <i class="bi bi-grid-1x2"></i> Vagas
                      </a>
                  </li>
                  <li class="nav-item">
@@ -171,10 +210,14 @@
                          <i class="bi bi-bar-chart"></i> Relatórios
                      </a>
                  </li>
-                 <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'esg-progress' ? 'active' : '' }}" href="{{ route('esg-progress.index') }}">
+                 <li class="nav-item dropdown">
+                     <a class="nav-link-custom dropdown-toggle {{ $activePage === 'esg-progress' || $activePage === 'diversity-progress' ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                          <i class="bi bi-shield-check"></i> Progresso
                      </a>
+                     <ul class="dropdown-menu">
+                         <li><a class="dropdown-item {{ $activePage === 'esg-progress' ? 'active' : '' }}" href="{{ route('esg-progress.index') }}">Progresso ESG</a></li>
+                         <li><a class="dropdown-item {{ $activePage === 'diversity-progress' ? 'active' : '' }}" href="{{ route('diversity-progress.index') }}">Progresso de Diversidade</a></li>
+                     </ul>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link-custom text-danger" href="{{ route('logout') }}">
@@ -203,3 +246,15 @@
          </div>
      </div>
  </nav>
+
+ <script>
+     // Wait for Bootstrap to be loaded, then initialize dropdowns if needed
+     document.addEventListener('DOMContentLoaded', function() {
+         const dropdownToggles = document.querySelectorAll('.nav-item.dropdown .dropdown-toggle');
+         if (typeof bootstrap !== 'undefined') {
+             dropdownToggles.forEach(toggle => {
+                 new bootstrap.Dropdown(toggle);
+             });
+         }
+     });
+ </script>
