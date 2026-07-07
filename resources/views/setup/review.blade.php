@@ -148,7 +148,7 @@
             ];
             $priorityLabels = [
             'low' => 'Baixa',
-            'medium' => 'Média',
+            'medium' => 'Regular',
             'high' => 'Alta'
             ];
             @endphp

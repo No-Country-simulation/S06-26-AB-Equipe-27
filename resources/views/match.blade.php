@@ -14,7 +14,8 @@
     <style>
         /* ==========================================================
            SKILLFOCUS — DESIGN TOKENS
-           (mesmos tokens usados em /jobs, /reports e nas telas de auth)
+           (mesmos tokens usados em /jobs, /reports e nas telas de auth —
+           nenhum valor foi alterado aqui, apenas reaproveitado)
         ========================================================== */
         :root {
             --color-primary: #7C3AED;
@@ -170,7 +171,7 @@
             color: var(--color-primary);
         }
         .page-heading h1 {
-            font-size: 1.75rem;
+            font-size: 1.85rem;
             font-weight: 700;
             color: var(--color-ink);
             letter-spacing: -0.02em;
@@ -195,6 +196,56 @@
             border: 1px solid rgba(13,148,136,.18);
             border-radius: var(--radius-sm);
             font-size: 0.9rem;
+        }
+
+        /* ---------------- Barra de resumo (estatísticas do processo) ---------------- */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background-color: var(--color-border);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+        .stat-cell {
+            background-color: var(--color-surface);
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .stat-cell .stat-value {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: var(--color-ink);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+        .stat-cell .stat-value small {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-muted);
+        }
+        .stat-cell .stat-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .stat-cell .stat-label i { color: var(--color-primary); font-size: 0.85rem; }
+        .stat-cell.is-shield .stat-label i { color: var(--color-shield); }
+
+        @media (max-width: 767.98px) {
+            .stats-strip { grid-template-columns: repeat(2, 1fr); }
         }
 
         /* ---------------- Card principal (container dos matches) ---------------- */
@@ -237,32 +288,74 @@
             cursor: not-allowed;
         }
 
-        .btn-shield {
-            background-color: var(--color-shield);
-            color: #fff;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            padding: 0.6rem 1.25rem;
-            border: none;
-            transition: opacity .2s ease, transform .15s ease;
-        }
-        .btn-shield:hover {
-            opacity: .92;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
         /* ---------------- Estado vazio ---------------- */
-        .empty-state-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--color-primary-soft);
+        .empty-state {
+            background-color: var(--color-surface);
+            border: 1px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 1.5rem;
+            text-align: center;
+        }
+        .empty-state i {
+            font-size: 2.1rem;
             color: var(--color-primary);
+            background-color: var(--color-primary-soft);
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ---------------- Toolbar de filtro (client-side, sem tocar backend) ---------------- */
+        .toolbar-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.15rem;
+            box-shadow: var(--shadow-card);
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+        .search-container input {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            width: 100%;
+            background: transparent;
+            color: var(--color-ink);
+            font-size: 0.95rem;
+        }
+        .search-container input::placeholder { color: #ACA8C2; }
+        .filter-divider {
+            width: 1px;
+            align-self: stretch;
+            background-color: var(--color-border);
+        }
+        .filter-chip {
+            border: 1px solid var(--color-border);
+            background-color: var(--color-surface);
+            color: var(--color-body);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            white-space: nowrap;
+            transition: all .15s ease;
+            cursor: pointer;
+        }
+        .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+        .filter-chip.active { background-color: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+
+        @media (max-width: 575.98px) {
+            .toolbar-card { flex-direction: column; align-items: stretch !important; }
+            .filter-divider { display: none; }
+            .filter-scroll { overflow-x: auto; padding-bottom: 0.25rem; }
         }
 
         /* ---------------- Match card ---------------- */
@@ -273,6 +366,15 @@
             transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            animation: match-in .45s ease forwards;
+        }
+        @keyframes match-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .match-item-card { animation: none; opacity: 1; }
         }
 
         .match-item-card::before {
@@ -298,6 +400,26 @@
         }
         .match-item-card.selected::before { opacity: 1; }
 
+        /* Selo "melhor compatibilidade", exibido apenas no 1º card —
+           assume-se que o backend já retorna os matches ordenados por score */
+        .top-ribbon {
+            position: absolute;
+            top: 0;
+            right: 1.75rem;
+            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.85rem;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 6px 14px -6px rgba(124,58,237,.55);
+        }
+
         .candidate-name {
             font-family: var(--font-display);
             font-weight: 700;
@@ -306,17 +428,50 @@
             letter-spacing: -0.01em;
         }
 
-        /* Badges */
-        .badge-match {
-            background-color: var(--color-primary-soft);
-            color: var(--color-primary);
-            font-weight: 700;
-            font-size: 0.75rem;
-            padding: 0.35rem 0.85rem;
-            border-radius: 999px;
-            display: inline-flex;
+        /* Anel de compatibilidade — elemento de assinatura da tela:
+           reaproveita o vocabulário visual do "Bias Shield" (ver jobs.blade)
+           só que aplicado ao candidato, não à vaga. */
+        .score-ring {
+            --score: 0%; /* 1. Adicionado o % como valor padrão de fallback */
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            /* 2. Removido o calc() e trocado o 0 final por 0deg */
+            background: conic-gradient(var(--color-primary) var(--score), var(--color-border) 0deg);
+            display: flex;
             align-items: center;
+            justify-content: center;
+            position: relative;
         }
+
+        .score-ring-inner {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background-color: var(--color-surface);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .score-ring-inner .score-value {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-ink);
+            letter-spacing: -0.02em;
+        }
+        .score-ring-inner .score-tag {
+            font-size: 0.58rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-muted);
+            margin-top: 0.1rem;
+        }
+
         .badge-diversity {
             background-color: var(--level-senior-bg);
             color: var(--level-senior-fg);
@@ -352,10 +507,17 @@
             background-color: var(--color-primary-softer);
             border-left: 3px solid var(--color-primary);
             padding: 0.85rem 1.1rem;
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             font-size: 0.88rem;
             color: var(--color-body);
             margin: 1rem 0;
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+        }
+        .ai-recommendation-box i {
+            color: var(--color-primary);
+            font-size: 0.95rem;
+            margin-top: 0.15rem;
         }
         .ai-recommendation-box strong { color: var(--color-ink); }
 
@@ -372,7 +534,7 @@
             color: #fff;
             border-radius: var(--radius-sm);
             font-weight: 600;
-            padding: 0.55rem 1rem;
+            padding: 0.6rem 1rem;
             border: none;
             transition: opacity .2s ease, transform .15s ease;
         }
@@ -435,13 +597,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs') }}">
+                        <a class="nav-link-custom active" href="{{ url('/jobs') }}">
                             <i class="bi bi-briefcase"></i> Vagas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom active" href="#">
-                            <i class="bi bi-people"></i> Matches
                         </a>
                     </li>
                     <li class="nav-item">
@@ -451,7 +608,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-custom" href="{{ route('esg-progress.index') }}">
-                            <i class="bi bi-shield-check"></i> Progresso 
+                            <i class="bi bi-shield-check"></i> Progresso
                         </a>
                     </li>
                     <li class="nav-item">
@@ -499,6 +656,36 @@
         </div>
         @endif
 
+        @if(!$matches->isEmpty())
+        @php
+            $totalMatches = $matches->count();
+            $avgScore = round($matches->avg('score_match'));
+            $selectedCount = $matches->where('status', 'selecionado')->count();
+            $pendingCount = $totalMatches - $selectedCount;
+        @endphp
+
+        {{-- RESUMO DO PROCESSO --}}
+        <div class="stats-strip mb-4">
+            <div class="stat-cell">
+                <span class="stat-label"><i class="bi bi-people-fill"></i> Candidatos</span>
+                <span class="stat-value">{{ $totalMatches }}</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-label"><i class="bi bi-star-fill"></i> Match médio</span>
+                <span class="stat-value">{{ $avgScore }}<small>%</small></span>
+            </div>
+            <div class="stat-cell is-shield">
+                <span class="stat-label"><i class="bi bi-check-circle-fill"></i> Selecionados</span>
+                <span class="stat-value">{{ $selectedCount }}</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-label"><i class="bi bi-hourglass-split"></i> Aguardando ação</span>
+                <span class="stat-value">{{ $pendingCount }}</span>
+            </div>
+        </div>
+
+        @endif
+
         <div class="main-card">
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-4 gap-3" style="border-bottom: 1px solid var(--color-border);">
@@ -526,50 +713,61 @@
             </div>
 
             @if($matches->isEmpty())
-            <div class="text-center py-5">
-                <div class="empty-state-icon mb-3">
-                    <i class="bi bi-search"></i>
-                </div>
-                <h5 class="fw-bold" style="color: var(--color-ink);">Nenhum talento encontrado ainda</h5>
+            <div class="empty-state">
+                <i class="bi bi-search"></i>
+                <h5 class="fw-bold mb-2" style="color: var(--color-ink); font-family: var(--font-display);">Nenhum talento encontrado ainda</h5>
                 <p class="text-muted mb-0">Clique em "Gerar Matches com IA" para processar o banco de currículos.</p>
             </div>
             @else
-            <div class="row g-4">
+            <div class="row g-4" id="matchList">
                 @foreach ($matches as $match)
-                <div class="col-12">
+                <div class="col-12 match-row" data-status="{{ $match->status }}" data-search="{{ strtolower(($match->seniority ?? '') . ' ' . (is_array($match->skills ?? null) ? implode(' ', $match->skills) : '')) }}" style="animation-delay: {{ $loop->index * 0.05 }}s;">
                     <div class="match-item-card p-4 {{ $match->status === 'selecionado' ? 'selected' : '' }}">
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-4">
 
-                            <div class="flex-grow-1 w-100">
-                                <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-                                    <span class="candidate-name me-2">
-                                        Candidato Mascarado #{{ $loop->iteration }}
-                                    </span>
-                                    <span class="badge-match">
-                                        <i class="bi bi-star-fill me-1" style="color:#F59E0B;"></i> {{ $match->score_match }}% Match
-                                    </span>
-                                    <span class="badge-diversity">
-                                        <i class="bi bi-award-fill me-1"></i> {{ $match->badge_diversidade }}
-                                    </span>
+                        @if($loop->first)
+                        <span class="top-ribbon"><i class="bi bi-trophy-fill"></i> Melhor compatibilidade</span>
+                        @endif
+
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-4 {{ $loop->first ? 'pt-2' : '' }}">
+
+                            <div class="d-flex gap-3 gap-md-4 flex-grow-1 w-100">
+
+                                <div class="score-ring" style="--score: {{ $match->score_match }}%;">
+                                    <div class="score-ring-inner">
+                                        <span class="score-value">{{ round($match->score_match) }}%</span>
+                                        <span class="score-tag">match</span>
+                                    </div>
                                 </div>
 
-                                <div class="seniority-line mb-2">
-                                    <i class="bi bi-person-badge"></i> <strong style="color: var(--color-ink);">Senioridade:</strong> {{ $match->seniority }}
-                                </div>
+                                <div class="flex-grow-1" style="min-width: 0;">
+                                    <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+                                        <span class="candidate-name me-1">
+                                            Candidato Mascarado #{{ $loop->iteration }}
+                                        </span>
+                                        <span class="badge-diversity">
+                                            <i class="bi bi-award-fill me-1"></i> {{ $match->badge_diversidade }}
+                                        </span>
+                                    </div>
 
-                                <div class="ai-recommendation-box">
-                                    <strong>Resumo da IA:</strong> {{ $match->recomendacao }}
-                                </div>
+                                    <div class="seniority-line mb-2">
+                                        <i class="bi bi-person-badge"></i> <strong style="color: var(--color-ink);">Senioridade:</strong> {{ $match->seniority }}
+                                    </div>
 
-                                <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
-                                    <span class="text-muted small fw-medium me-1">Skills detectadas:</span>
-                                    @if(!empty($match->skills))
-                                        @foreach($match->skills as $skill)
-                                        <span class="skill-badge">{{ $skill }}</span>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted small">Nenhuma skill mapeada.</span>
-                                    @endif
+                                    <div class="ai-recommendation-box">
+                                        <i class="bi bi-stars"></i>
+                                        <div><strong>Resumo da IA:</strong> {{ $match->recomendacao }}</div>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+                                        <span class="text-muted small fw-medium me-1">Skills detectadas:</span>
+                                        @if(!empty($match->skills))
+                                            @foreach($match->skills as $skill)
+                                            <span class="skill-badge">{{ $skill }}</span>
+                                            @endforeach
+                                        @else
+                                            <span class="text-muted small">Nenhuma skill mapeada.</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -597,6 +795,12 @@
                 </div>
                 @endforeach
             </div>
+
+            <div id="noResultsState" class="empty-state d-none">
+                <i class="bi bi-emoji-neutral"></i>
+                <h5 class="fw-bold mb-2" style="color: var(--color-ink); font-family: var(--font-display);">Nenhum candidato encontrado</h5>
+                <p class="text-muted mb-0">Ajuste a busca ou o filtro selecionado para ver outros resultados.</p>
+            </div>
             @endif
         </div>
     </main>
@@ -609,5 +813,46 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filtro e busca 100% client-side: apenas mostra/esconde os cards
+        // já renderizados pelo servidor. Não altera nenhuma rota ou dado.
+        (function () {
+            var rows = document.querySelectorAll('.match-row');
+            var chips = document.querySelectorAll('.filter-chip');
+            var searchInput = document.getElementById('matchSearch');
+            var noResults = document.getElementById('noResultsState');
+            var activeFilter = 'todos';
+
+            function applyFilters() {
+                var term = (searchInput ? searchInput.value : '').trim().toLowerCase();
+                var visibleCount = 0;
+
+                rows.forEach(function (row) {
+                    var matchesStatus = activeFilter === 'todos' || row.dataset.status === activeFilter;
+                    var matchesSearch = !term || row.dataset.search.indexOf(term) !== -1;
+                    var show = matchesStatus && matchesSearch;
+                    row.classList.toggle('d-none', !show);
+                    if (show) visibleCount++;
+                });
+
+                if (noResults) {
+                    noResults.classList.toggle('d-none', visibleCount !== 0);
+                }
+            }
+
+            chips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    chips.forEach(function (c) { c.classList.remove('active'); });
+                    chip.classList.add('active');
+                    activeFilter = chip.dataset.filter;
+                    applyFilters();
+                });
+            });
+
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -531,11 +531,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="#">
-                            <i class="bi bi-people"></i> Matches
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
                             <i class="bi bi-map"></i> Mapa de Calor
                         </a>
@@ -588,13 +583,15 @@
                 <i class="bi bi-search text-muted"></i>
                 <input type="text" placeholder="Buscar por título ou área...">
             </div>
+            {{--
+            BOTÕES DE FILTRO
             <div class="filter-divider d-none d-sm-block"></div>
             <div class="d-flex gap-2 filter-scroll">
                 <button type="button" class="filter-chip active">Todas</button>
                 <button type="button" class="filter-chip">Tecnologia</button>
                 <button type="button" class="filter-chip">Operações</button>
                 <button type="button" class="filter-chip">Comercial</button>
-            </div>
+            </div> --}}
         </div>
 
         @if ($jobs->count())
@@ -678,7 +675,7 @@
                                 {{ $job->candidates_count ?? rand(10, 99) }} candidatos
                             </div>
 
-                            <a href="/jobs/{{$job->id}}" class="btn-ver-detalhes">
+                            <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
                                 Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
                             </a>
                         </div>
@@ -693,7 +690,7 @@
             <h2 class="job-title mb-2">Nenhuma vaga aberta</h2>
             <p class="text-muted mb-4">Crie a primeira vaga para começar a receber candidaturas com triagem justa.</p>
             <a href="{{ url('/jobs/create') }}" class="btn btn-nova-vaga d-inline-flex align-items-center gap-2">
-                <i class="bi bi-plus-lg"></i> Nova vaga
+                Criar nova vaga!
             </a>
         </div>
         @endif

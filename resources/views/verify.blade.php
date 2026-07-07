@@ -111,7 +111,7 @@
         <!-- Títulos -->
         <h1 class="fs-3 fw-bold mb-3">Verifique seu e-mail</h1>
         <p class="text-muted mb-4" style="line-height: 1.6;">
-            Antes de começar a construir processos seletivos mais plurais e inclusivos, precisamos confirmar sua identidade. Enviamos um link de ativação para o seu e-mail.
+            Antes de começar a construir processos seletivos mais inclusivos, precisamos confirmar sua identidade. Enviamos um link de ativação para o seu e-mail.
         </p>
 
         <!-- Mensagem de Sucesso (Exemplo de condicional Blade) -->
