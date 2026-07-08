@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,27 +44,34 @@
             --color-bg: #FAF9FD;
 
             /* Níveis de vaga */
-            --level-junior-bg: #E7F8EF;   --level-junior-fg: #157A47;
-            --level-pleno-bg: #F3EEFE;    --level-pleno-fg: #6D28D9;
-            --level-senior-bg: #E9F1FE;   --level-senior-fg: #1D4ED8;
-            --level-gestao-bg: #FDF1DF;   --level-gestao-fg: #B45309;
+            --level-junior-bg: #E7F8EF;
+            --level-junior-fg: #157A47;
+            --level-pleno-bg: #F3EEFE;
+            --level-pleno-fg: #6D28D9;
+            --level-senior-bg: #E9F1FE;
+            --level-senior-fg: #1D4ED8;
+            --level-gestao-bg: #FDF1DF;
+            --level-gestao-fg: #B45309;
 
             /* Raios e sombras */
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-card-hover: 0 18px 36px -14px rgba(124,58,237,.28);
-            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-card-hover: 0 18px 36px -14px rgba(124, 58, 237, .28);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
 
             /* Tipografia */
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
 
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
@@ -71,15 +79,22 @@
             font-family: var(--font-body);
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%),
-                radial-gradient(circle at 0% 20%, rgba(13,148,136,.045), transparent 40%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 20%, rgba(13, 148, 136, .045), transparent 40%);
             background-attachment: fixed;
             color: var(--color-body);
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
 
-        a { text-decoration: none; }
+        a {
+            text-decoration: none;
+        }
 
         /* ==========================================================
            NAVBAR
@@ -94,7 +109,7 @@
            causar quando o conteúdo muda de largura.
         ========================================================== */
         .navbar {
-            background-color: rgba(255,255,255,.85);
+            background-color: rgba(255, 255, 255, .85);
             backdrop-filter: saturate(180%) blur(14px);
             -webkit-backdrop-filter: saturate(180%) blur(14px);
             border-bottom: 1px solid var(--color-border);
@@ -119,7 +134,7 @@
             justify-content: center;
             margin-right: 10px;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.55);
+            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
         }
 
         /* O collapse agrupa links + ações. No desktop (>=lg) ele vira uma
@@ -158,7 +173,7 @@
         .nav-link-custom.active {
             background-color: var(--color-primary);
             color: #fff;
-            box-shadow: 0 6px 14px -6px rgba(124,58,237,.55);
+            box-shadow: 0 6px 14px -6px rgba(124, 58, 237, .55);
         }
 
         .navbar-actions {
@@ -173,7 +188,10 @@
             font-size: 1.15rem;
             transition: color .18s ease;
         }
-        .icon-btn:hover { color: var(--color-ink); }
+
+        .icon-btn:hover {
+            color: var(--color-ink);
+        }
 
         .navbar-toggler {
             width: 36px;
@@ -185,7 +203,9 @@
             background-color: var(--color-primary-softer);
         }
 
-        .navbar-toggler:focus { box-shadow: none; }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
 
         .navbar-toggler-icon {
             width: 18px;
@@ -240,14 +260,14 @@
             border-radius: var(--radius-sm);
             padding: 0.65rem 1.35rem;
             border: none;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
         }
 
         .btn-nova-vaga:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         /* ---------------- Toolbar (busca + filtros) ---------------- */
@@ -278,7 +298,9 @@
             font-size: 0.95rem;
         }
 
-        .search-container input::placeholder { color: #ACA8C2; }
+        .search-container input::placeholder {
+            color: #ACA8C2;
+        }
 
         .filter-divider {
             width: 1px;
@@ -333,10 +355,12 @@
         .job-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-card-hover);
-            border-color: rgba(124,58,237,.25);
+            border-color: rgba(124, 58, 237, .25);
         }
 
-        .job-card:hover::before { opacity: 1; }
+        .job-card:hover::before {
+            opacity: 1;
+        }
 
         .job-title {
             font-family: var(--font-display);
@@ -354,7 +378,10 @@
             gap: 0.55rem;
         }
 
-        .job-info-text i { color: #B7B2CF; font-size: 0.95rem; }
+        .job-info-text i {
+            color: #B7B2CF;
+            font-size: 0.95rem;
+        }
 
         .card-divider {
             border-top: 1px dashed var(--color-border);
@@ -393,7 +420,9 @@
             color: var(--color-shield-warn);
         }
 
-        .shield-score i { font-size: 0.85rem; }
+        .shield-score i {
+            font-size: 0.85rem;
+        }
 
         .btn-ver-detalhes {
             color: var(--color-primary);
@@ -417,6 +446,7 @@
             background: transparent;
             border-radius: var(--radius-sm);
         }
+
         .dropdown-actions .btn:hover {
             color: var(--color-ink);
             background-color: var(--color-primary-softer);
@@ -494,75 +524,28 @@
         }
 
         @media (max-width: 575.98px) {
-            .toolbar-card { flex-direction: column; align-items: stretch !important; }
-            .filter-divider { display: none; }
-            .filter-scroll { overflow-x: auto; padding-bottom: 0.25rem; }
+            .toolbar-card {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+
+            .filter-divider {
+                display: none;
+            }
+
+            .filter-scroll {
+                overflow-x: auto;
+                padding-bottom: 0.25rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
+
     {{-- NAVBAR SUPERIOR --}}
-    <nav class="navbar navbar-expand-lg sticky-top py-2">
-        <div class="container px-4">
-
-            {{-- START: ícone + nome da empresa --}}
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                Skill<span style="color: var(--color-primary);">Focus</span>
-            </a>
-
-            <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            {{-- END: links de navegação + ações, sempre juntos na ponta direita --}}
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/dashboard') }}">
-                            <i class="bi bi-grid-1x2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom active" href="{{ url('/jobs') }}">
-                            <i class="bi bi-briefcase"></i> Vagas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
-                            <i class="bi bi-map"></i> Mapa de Calor
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs/reports') }}">
-                            <i class="bi bi-bar-chart"></i> Relatórios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ route('esg-progress.index') }}">
-                            <i class="bi bi-shield-check"></i> Progresso
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom text-danger" href="{{route('logout')}}">
-                            <i class="bi bi-box-arrow-right me-2"></i> Sair
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="navbar-actions">
-                    <a class="d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-                        <div class="avatar-badge">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+    <x-navbar activePage="jobs" />
 
     {{-- CONTEÚDO PRINCIPAL --}}
     <main class="container my-5">
@@ -598,90 +581,92 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach ($jobs as $job)
 
-                {{-- Cores das tags por nível --}}
-                @php
-                    $levelLower = strtolower($job->level);
-                    $badgeBg = '#F3F4F6'; $badgeColor = '#4B5563';
+            {{-- Cores das tags por nível --}}
+            @php
+            $levelLower = strtolower($job->level);
+            $badgeBg = '#F3F4F6'; $badgeColor = '#4B5563';
 
-                    if (str_contains($levelLower, 'pleno')) {
-                        $badgeBg = 'var(--level-pleno-bg)'; $badgeColor = 'var(--level-pleno-fg)';
-                    } elseif (str_contains($levelLower, 'sênior') || str_contains($levelLower, 'senior')) {
-                        $badgeBg = 'var(--level-senior-bg)'; $badgeColor = 'var(--level-senior-fg)';
-                    } elseif (str_contains($levelLower, 'júnior') || str_contains($levelLower, 'junior')) {
-                        $badgeBg = 'var(--level-junior-bg)'; $badgeColor = 'var(--level-junior-fg)';
-                    } elseif (str_contains($levelLower, 'gerência') || str_contains($levelLower, 'coordenação')) {
-                        $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
-                    }
+            if (str_contains($levelLower, 'pleno')) {
+            $badgeBg = 'var(--level-pleno-bg)'; $badgeColor = 'var(--level-pleno-fg)';
+            } elseif (str_contains($levelLower, 'sênior') || str_contains($levelLower, 'senior')) {
+            $badgeBg = 'var(--level-senior-bg)'; $badgeColor = 'var(--level-senior-fg)';
+            } elseif (str_contains($levelLower, 'júnior') || str_contains($levelLower, 'junior')) {
+            $badgeBg = 'var(--level-junior-bg)'; $badgeColor = 'var(--level-junior-fg)';
+            } elseif (str_contains($levelLower, 'gerência') || str_contains($levelLower, 'coordenação')) {
+            $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
+            }
 
-                    // Índice do Bias Shield — usa o valor real do job quando existir,
-                    // caso contrário mantém o placeholder de demonstração.
-                    $shieldScore = $job->bias_score ?? rand(72, 98);
-                    $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
-                    $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
-                @endphp
+            // Índice do Bias Shield — usa o valor real do job quando existir,
+            // caso contrário mantém o placeholder de demonstração.
+            $shieldScore = $job->bias_score ?? rand(72, 98);
+            $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
+            $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
+            @endphp
 
-                <div class="col">
-                    <div class="job-card p-4 h-100 d-flex flex-column">
+            <div class="col">
+                <div class="job-card p-4 h-100 d-flex flex-column">
 
-                        <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
-                            <h2 class="job-title mb-0">{{ $job->title }}</h2>
+                    <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
+                        <h2 class="job-title mb-0">{{ $job->title }}</h2>
 
-                            <div class="dropdown dropdown-actions flex-shrink-0">
-                                <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end border-0" style="border-radius: 10px;">
-                                    <li><a class="dropdown-item small py-2" href="/match/{{$job->id}}"><i class="bi bi-person-bounding-box me-2" style="color: var(--color-shield);"></i> Ver Matches</a></li>
-                                    <li><a class="dropdown-item small py-2" href="/jobs/{{$job->id}}/edit"><i class="bi bi-pencil me-2" style="color: var(--level-gestao-fg);"></i> Editar Vaga</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form action="/jobs/{{$job->id}}/delete" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta vaga?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="dropdown-item small py-2 text-danger" type="submit">
-                                                <i class="bi bi-trash me-2"></i> Excluir Vaga
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="dropdown dropdown-actions flex-shrink-0">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0" style="border-radius: 10px;">
+                                <li><a class="dropdown-item small py-2" href="/match/{{$job->id}}"><i class="bi bi-person-bounding-box me-2" style="color: var(--color-shield);"></i> Ver Matches</a></li>
+                                <li><a class="dropdown-item small py-2" href="/jobs/{{$job->id}}/edit"><i class="bi bi-pencil me-2" style="color: var(--level-gestao-fg);"></i> Editar Vaga</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form action="/jobs/{{$job->id}}/delete" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta vaga?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="dropdown-item small py-2 text-danger" type="submit">
+                                            <i class="bi bi-trash me-2"></i> Excluir Vaga
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
-
-                        <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
-                            <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
-                                {{ $job->level }}
-                            </span>
-                            <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
-                                <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
-                            </span>
-                        </div>
-
-                        <div class="mb-1 flex-grow-1">
-                            <div class="job-info-text mb-2">
-                                <i class="bi bi-building"></i>
-                                {{ $job->area ?? 'Departamento/Área' }}
-                            </div>
-                            <div class="job-info-text">
-                                <i class="bi bi-geo-alt"></i>
-                                {{ $job->city }}, {{ $job->district }}
-                            </div>
-                        </div>
-
-                        <div class="card-divider"></div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="job-info-text mb-0">
-                                <i class="bi bi-people"></i>
-                                {{ $job->candidates_count ?? rand(10, 99) }} candidatos
-                            </div>
-
-                            <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
-                                Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
-                            </a>
-                        </div>
-
                     </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                        <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
+                            {{ $job->level }}
+                        </span>
+                        <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
+                            <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
+                        </span>
+                    </div>
+
+                    <div class="mb-1 flex-grow-1">
+                        <div class="job-info-text mb-2">
+                            <i class="bi bi-building"></i>
+                            {{ $job->area ?? 'Departamento/Área' }}
+                        </div>
+                        <div class="job-info-text">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ $job->city }}, {{ $job->district }}
+                        </div>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="job-info-text mb-0">
+                            <i class="bi bi-people"></i>
+                            {{ $job->candidates_count ?? rand(10, 99) }} candidatos
+                        </div>
+
+                        <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
+                            Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
+                        </a>
+                    </div>
+
                 </div>
+            </div>
             @endforeach
         </div>
         @else
@@ -706,4 +691,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
