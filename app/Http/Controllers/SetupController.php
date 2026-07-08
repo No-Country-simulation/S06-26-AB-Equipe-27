@@ -87,9 +87,11 @@ class SetupController extends Controller
         $validated = $request->validate([
             'esg_goals' => 'array',
             'goal_keys' => 'array',
-            'custom_title' => 'nullable|string',
-            'custom_target' => 'nullable|integer',
-            'custom_deadline' => 'nullable|date',
+            'custom_goals' => 'array',
+            'custom_goals.*.title' => 'nullable|string',
+            'custom_goals.*.pillar' => 'nullable|in:environmental,social,governance',
+            'custom_goals.*.target_value' => 'nullable|integer',
+            'custom_goals.*.deadline' => 'nullable|date',
         ]);
 
         $company = Auth::user()->company;
@@ -148,16 +150,21 @@ class SetupController extends Controller
             }
         }
 
-        // Criar uma personalizada
-        if ($validated['custom_title']) {
-            $company->esgGoals()->create([
-                'title' => $validated['custom_title'],
-                'pillar' => 'custom',
-                'tracking_type' => 'count',
-                'target_value' => $validated['custom_target'] ?? null,
-                'deadline' => $validated['custom_deadline'] ?? null,
-                'status' => 'PENDING',
-            ]);
+        // Criar metas personalizadas
+        if (isset($validated['custom_goals'])) {
+            foreach ($validated['custom_goals'] as $customGoal) {
+                if (!empty($customGoal['title'])) {
+                    $deadline = !empty($customGoal['deadline']) ? $customGoal['deadline'] . '-01' : null;
+                    $company->esgGoals()->create([
+                        'title' => $customGoal['title'],
+                        'pillar' => $customGoal['pillar'] ?? 'social',
+                        'tracking_type' => 'count',
+                        'target_value' => $customGoal['target_value'] ?? null,
+                        'deadline' => $deadline,
+                        'status' => 'IN_PROGRESS',
+                    ]);
+                }
+            }
         }
 
         return redirect()->route('setup.step4');
