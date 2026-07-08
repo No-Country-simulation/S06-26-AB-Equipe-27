@@ -52,6 +52,8 @@
         background: linear-gradient(135deg, #F3EEFE, #FBFAFF);
         border: 2px solid #E9E5F3;
         border-radius: 18px;
+        padding: 1rem;
+        height: 11rem;
     }
 
     .sf-radius-value {
@@ -97,16 +99,54 @@
         background: linear-gradient(135deg, #E8F8F6, #FBFAFF);
         border: 2px solid #CFF0EA;
         border-radius: 18px;
+        padding: 1rem;
+        height: 11rem;
+    }
+
+    /* Custom Radio & Checkbox Styles */
+    .sf-remote-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #E9E5F3;
+        background-color: #FFFFFF;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.15s ease;
+        flex-shrink: 0;
+        border-radius: 6px;
     }
 
     .sf-remote-checkbox:checked {
-        accent-color: #0D9488;
+        border-color: #0D9488;
+        background-color: #0D9488;
+    }
+
+    .sf-remote-checkbox:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 14px;
+        height: 14px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .sf-btn-final {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
         box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .sf-btn-final:hover {
@@ -116,12 +156,45 @@
 
     .sf-btn-back {
         transition: all .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .sf-btn-back:hover {
         border-color: #C9BEF2;
         color: #7C3AED;
         background-color: #FBFAFF;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+
+        .sf-btn-final,
+        .sf-btn-back {
+            padding: 0.625rem 1rem !important;
+            font-size: 0.875rem !important;
+        }
+
+        .sf-priority-item {
+            padding: 0.75rem !important;
+        }
+
+        .sf-radius-box,
+        .sf-remote-box {
+            padding: 1rem !important;
+        }
+
+        .mb-9 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .mb-8 {
+            margin-bottom: 1.25rem !important;
+        }
     }
 </style>
 
@@ -199,7 +272,7 @@
                 ];
                 @endphp
                 @foreach($currentPriority as $index => $item)
-                <div class="sf-priority-item flex items-center p-4 cursor-grab active:cursor-grabbing" draggable="true">
+                <div class="sf-priority-item flex items-center p-3.5 cursor-grab active:cursor-grabbing" draggable="true">
                     <span class="sf-rank-badge flex items-center justify-center w-8 h-8 rounded-full font-bold mr-4 flex-shrink-0">{{ $index + 1 }}</span>
                     <span class="font-medium text-[#47435C] flex-1">{{ $priorityLabels[$item] }}</span>
                     <input type="hidden" name="matching_priority[]" value="{{ $item }}">
@@ -214,7 +287,7 @@
         <!-- Candidate Radius & Remote -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-9">
             <div class="sf-radius-box p-6">
-                <div class="flex items-center gap-2 mb-4">
+                <div class="flex items-center gap-2 mb-2">
                     <span class="w-8 h-8 rounded-lg bg-white text-[#7C3AED] inline-flex items-center justify-center flex-shrink-0 shadow-sm">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
@@ -247,10 +320,10 @@
 
         <!-- Navigation -->
         <div class="flex justify-between items-center pt-2 border-t border-[#E9E5F3]">
-            <a href="{{ route('setup.step3') }}" class="sf-btn-back text-[#47435C] font-semibold py-3 px-6 rounded-xl border-2 border-[#E9E5F3]">
+            <a href="{{ route('setup.step3') }}" class="sf-btn-back text-[#47435C] font-semibold rounded-xl border-2 border-[#E9E5F3]">
                 Voltar
             </a>
-            <button type="submit" class="sf-btn-final text-white font-semibold py-3 px-8 rounded-xl inline-flex items-center gap-2">
+            <button type="submit" class="sf-btn-final text-white font-semibold rounded-xl inline-flex items-center gap-2">
                 Revisão Final
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />

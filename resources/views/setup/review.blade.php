@@ -6,61 +6,172 @@
        SKILLFOCUS — TOKENS (mesma paleta usada em /jobs, /reports,
        /matches, telas de auth e nos 4 passos do setup)
     ========================================================== */
-    .sf-eyebrow { color: #7C3AED; letter-spacing: .08em; }
-    .sf-card { border: 1px solid #E9E5F3; box-shadow: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14); border-radius: 20px; }
-    .sf-step-dot { transition: all .2s ease; }
+    .sf-eyebrow {
+        color: #7C3AED;
+        letter-spacing: .08em;
+    }
+
+    .sf-card {
+        border: 1px solid #E9E5F3;
+        box-shadow: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+        border-radius: 20px;
+    }
+
+    .sf-step-dot {
+        transition: all .2s ease;
+    }
 
     /* Cabeçalho de cada bloco de revisão, com acento de cor próprio
        reaproveitando as famílias de tokens já usadas no restante do app */
-    .sf-review-header { display: flex; align-items: center; gap: .65rem; padding-bottom: .9rem; margin-bottom: 1.1rem; border-bottom: 1px solid #F0EEF7; }
-    .sf-review-header h3 { font-weight: 700; font-size: 1.05rem; color: #17152A; }
-    .sf-review-icon { width: 36px; height: 36px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sf-review-header {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        padding-bottom: .9rem;
+        margin-bottom: 1.1rem;
+        border-bottom: 1px solid #F0EEF7;
+    }
 
-    .sf-icon-purple { background-color: #F3EEFE; color: #7C3AED; }
-    .sf-icon-blue   { background-color: #E9F1FE; color: #1D4ED8; }
-    .sf-icon-shield { background-color: #E8F8F6; color: #0D9488; }
-    .sf-icon-gold   { background-color: #FDF1DF; color: #B45309; }
+    .sf-review-header h3 {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #17152A;
+    }
 
-    .sf-pill { display: inline-flex; align-items: center; gap: .3rem; padding: .35rem .85rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
-    .sf-pill-purple { background-color: #F3EEFE; color: #6D28D9; }
-    .sf-pill-shield { background-color: #E8F8F6; color: #0D9488; }
-    .sf-pill-gold   { background-color: #FDF1DF; color: #B45309; }
+    .sf-review-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
-    .sf-row { background-color: #FBFAFF; border: 1px solid #F0EEF7; border-radius: 12px; }
+    .sf-icon-purple {
+        background-color: #F3EEFE;
+        color: #7C3AED;
+    }
 
-    .sf-priority-badge-low    { background-color: #E7F8EF; color: #157A47; }
-    .sf-priority-badge-medium { background-color: #FDF1DF; color: #B45309; }
-    .sf-priority-badge-high   { background-color: #FDEAEA; color: #B91C1C; }
+    .sf-icon-blue {
+        background-color: #E9F1FE;
+        color: #1D4ED8;
+    }
 
-    .sf-quote-box { background-color: #FBFAFF; border-left: 3px solid #7C3AED; border-radius: 0 12px 12px 0; }
+    .sf-icon-shield {
+        background-color: #E8F8F6;
+        color: #0D9488;
+    }
+
+    .sf-icon-gold {
+        background-color: #FDF1DF;
+        color: #B45309;
+    }
+
+    .sf-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: .3rem;
+        padding: .35rem .85rem;
+        border-radius: 999px;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .sf-pill-purple {
+        background-color: #F3EEFE;
+        color: #6D28D9;
+    }
+
+    .sf-pill-shield {
+        background-color: #E8F8F6;
+        color: #0D9488;
+    }
+
+    .sf-pill-gold {
+        background-color: #FDF1DF;
+        color: #B45309;
+    }
+
+    .sf-row {
+        background-color: #FBFAFF;
+        border: 1px solid #F0EEF7;
+        border-radius: 12px;
+    }
+
+    .sf-priority-badge-low {
+        background-color: #E7F8EF;
+        color: #157A47;
+    }
+
+    .sf-priority-badge-medium {
+        background-color: #FDF1DF;
+        color: #B45309;
+    }
+
+    .sf-priority-badge-high {
+        background-color: #FDEAEA;
+        color: #B91C1C;
+    }
+
+    .sf-quote-box {
+        background-color: #FBFAFF;
+        border-left: 3px solid #7C3AED;
+        border-radius: 0 12px 12px 0;
+    }
 
     .sf-btn-finish {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
-        box-shadow: 0 12px 26px -10px rgba(124,58,237,.6);
+        box-shadow: 0 12px 26px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem .75rem;
     }
-    .sf-btn-finish:hover { transform: translateY(-1px); box-shadow: 0 16px 30px -10px rgba(124,58,237,.7); }
-    .sf-btn-back { transition: all .15s ease; }
-    .sf-btn-back:hover { border-color: #C9BEF2; color: #7C3AED; background-color: #FBFAFF; }
+
+    .sf-btn-finish:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 30px -10px rgba(124, 58, 237, .7);
+    }
+
+    .sf-btn-back {
+        transition: all .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sf-btn-back:hover {
+        border-color: #C9BEF2;
+        color: #7C3AED;
+        background-color: #FBFAFF;
+    }
 </style>
 
 <!-- Indicador de progresso do wizard — todas as etapas concluídas -->
 <div class="flex items-center gap-2 mb-8">
     @for ($i = 1; $i <= 4; $i++)
         <div class="flex items-center gap-2 flex-1">
-            <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-white"
-                style="background: linear-gradient(155deg, #7C3AED, #5B21B6);">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-            </div>
-            <div class="h-[2px] flex-1 rounded-full bg-[#7C3AED]"></div>
+        <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-white"
+            style="background: linear-gradient(155deg, #7C3AED, #5B21B6);">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
         </div>
-    @endfor
-    <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
-        style="background: linear-gradient(155deg, #0D9488, #0B7A70);">
-        <i class="text-sm">✓</i>
-    </div>
+        <div class="h-[2px] flex-1 rounded-full bg-[#7C3AED]"></div>
+</div>
+@endfor
+<div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
+    style="background: linear-gradient(155deg, #0D9488, #0B7A70);">
+    <i class="text-sm">✓</i>
+</div>
 </div>
 
 <div class="flex items-center gap-1 mb-2">
@@ -90,7 +201,15 @@
             </div>
             <div>
                 <span class="text-sm text-[#77738F]">Modelo de Trabalho:</span>
-                <span class="ml-2 font-semibold text-[#17152A]">{{ ucfirst($company->work_model) }}</span>
+                <span class="ml-2 font-semibold text-[#17152A]">
+                    @if ($company->work_model === 'remote')
+                    Remoto
+                    @elseif ($company->work_model === 'hybrid')
+                    Híbrido
+                    @elseif ($company->work_model === 'on-site')
+                    Presencial
+                    @endif
+                </span>
             </div>
         </div>
 
@@ -244,12 +363,12 @@
 
 <!-- Navigation -->
 <div class="flex justify-between items-center pt-2">
-    <a href="{{ route('setup.step4') }}" class="sf-btn-back text-[#47435C] font-semibold py-3 px-6 rounded-xl border-2 border-[#E9E5F3]">
+    <a href="{{ route('setup.step4') }}" class="sf-btn-back text-[#47435C] font-semibold rounded-xl border-2 border-[#E9E5F3]">
         Editar
     </a>
     <form method="POST" action="{{ route('setup.finish') }}">
         @csrf
-        <button type="submit" class="sf-btn-finish text-white font-semibold py-3 px-10 rounded-xl inline-flex items-center gap-2">
+        <button type="submit" class="sf-btn-finish text-white font-semibold rounded-xl inline-flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>

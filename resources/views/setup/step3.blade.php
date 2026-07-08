@@ -70,6 +70,7 @@
         border-radius: 12px;
         box-shadow: 0 1px 2px rgba(23, 21, 42, .04);
         transition: all .15s ease;
+        padding: 0.9rem !important;
     }
 
     .sf-goal-card:hover {
@@ -146,6 +147,9 @@
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
         box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
         transition: transform .15s ease, box-shadow .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 120px;
     }
 
     .sf-btn-continue:hover {
@@ -155,6 +159,12 @@
 
     .sf-btn-back {
         transition: all .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .sf-btn-back:hover {
@@ -196,19 +206,21 @@
     }
 
     .target-input-wrapper {
-        background-color: #F3EEFE;
         border-radius: 12px;
-        padding: 0.8rem 1rem;
+        background-color: #fbf9ff;
+        align-items: center;
+        padding: .5rem 1rem;
     }
 
     .target-input {
         background-color: #FFFFFF;
         border: 1px solid #E9E5F3;
         border-radius: 10px;
-        padding: 0.5rem 0.8rem;
         text-align: center;
-        width: 80px;
         font-weight: 600;
+        width: 65px;
+        display: flex;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
     }
 
     .target-input:focus {
@@ -234,6 +246,36 @@
         background-color: #7C3AED;
         border-color: #7C3AED;
         color: white;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+
+        .sf-btn-continue,
+        .sf-btn-back {
+            padding: 0.625rem 1rem !important;
+            font-size: 0.875rem !important;
+        }
+
+        .sf-board-col {
+            padding: 0.75rem !important;
+        }
+
+        .sf-goal-card {
+            padding: 0.9rem !important;
+        }
+
+        .sf-custom-goal-box {
+            padding: 1rem !important;
+        }
+
+        .mb-9 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .mb-8 {
+            margin-bottom: 1.25rem !important;
+        }
     }
 </style>
 
@@ -290,7 +332,7 @@
     @endif
 
     <!-- ESG Board -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
         @php
         $selectedEsgGoals = $esgGoals->pluck('title')->toArray();
         $esgCategories = [
@@ -363,8 +405,8 @@
                     @if($goalData['tracking_type'] !== 'status')
                     <div class="goal-collapsible {{ $isChecked ? 'open' : '' }}" id="goal-{{ $goalKey }}">
                         <div class="target-input-wrapper mt-2 pl-7">
-                            <div class="text-xs font-medium text-[#77738F] mb-2">Valor Alvo</div>
-                            <div class="flex items-center gap-2">
+                            <div class="text-xs font-medium text-[#77738F] mb-2 text-center pr-2 {{$goalData['tracking_type'] === 'percentage' ? 'pr-6' : ''}}">Valor alvo</div>
+                            <div class="flex items-center justify-center">
                                 <button type="button" class="target-qty-btn" onclick="changeGoalValue('{{ $goalKey }}', -1)">
                                     <i class="bi bi-dash"></i>
                                 </button>
@@ -373,7 +415,7 @@
                                     <i class="bi bi-plus"></i>
                                 </button>
                                 @if($goalData['tracking_type'] === 'percentage')
-                                <span class="text-sm text-[#77738F] font-semibold">%</span>
+                                <span class="text-sm text-[#77738F] font-bold pl-1.5">%</span>
                                 @endif
                             </div>
                         </div>
@@ -397,18 +439,26 @@
             <h3 class="font-bold text-lg text-[#17152A]">Criar Meta Personalizada</h3>
         </div>
         <div id="esg-goals-container">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="esg-goals-1">
+            <div class="custom-goal-item grid grid-cols-1 md:grid-cols-4 gap-4 mb-4" data-index="0">
                 <div>
                     <label class="block text-sm font-medium text-[#47435C] mb-2">Título da Meta</label>
-                    <input type="text" name="custom_title" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="Contratar 30 profissionais sub-representados">
+                    <input type="text" name="custom_goals[0][title]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="Contratar 30 profissionais sub-representados">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-[#47435C] mb-2">Tipo de Meta</label>
+                    <select name="custom_goals[0][pillar]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10">
+                        <option value="environmental">Ambiental</option>
+                        <option value="social" selected>Social</option>
+                        <option value="governance">Governança</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-[#47435C] mb-2">Meta</label>
-                    <input type="number" name="custom_target" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="30">
+                    <input type="number" name="custom_goals[0][target_value]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="30">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-[#47435C] mb-2">Prazo</label>
-                    <input type="month" name="custom_deadline" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10">
+                    <input type="month" name="custom_goals[0][deadline]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10">
                 </div>
             </div>
         </div>
@@ -419,10 +469,10 @@
 
     <!-- Navigation -->
     <div class="flex justify-between items-center pt-2 border-t border-[#E9E5F3]">
-        <a href="{{ route('setup.step2') }}" class="sf-btn-back text-[#47435C] font-semibold py-3 px-6 rounded-xl border-2 border-[#E9E5F3]">
+        <a href="{{ route('setup.step2') }}" class="sf-btn-back text-[#47435C] font-semibold rounded-xl border-2 border-[#E9E5F3]">
             Voltar
         </a>
-        <button type="submit" class="sf-btn-continue text-white font-semibold py-3 px-8 rounded-xl">
+        <button type="submit" class="sf-btn-continue text-white font-semibold rounded-xl">
             Continuar
         </button>
     </div>
@@ -487,6 +537,42 @@
                 this.classList.toggle('open');
             }
         });
+    });
+
+    // Handle adding new custom goals
+    document.getElementById('add-esg-goal-btn').addEventListener('click', function() {
+        const container = document.getElementById('esg-goals-container');
+        const lastItem = container.querySelector('.custom-goal-item:last-child');
+        const nextIndex = lastItem ? parseInt(lastItem.dataset.index) + 1 : 0;
+
+        const newGoalItem = document.createElement('div');
+        newGoalItem.className = 'custom-goal-item grid grid-cols-1 md:grid-cols-4 gap-4 mb-4';
+        newGoalItem.dataset.index = nextIndex;
+
+        newGoalItem.innerHTML = `
+            <div>
+                <label class="block text-sm font-medium text-[#47435C] mb-2">Título da Meta</label>
+                <input type="text" name="custom_goals[${nextIndex}][title]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="Contratar 30 profissionais sub-representados">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-[#47435C] mb-2">Tipo de Meta</label>
+                <select name="custom_goals[${nextIndex}][pillar]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10">
+                    <option value="environmental">Ambiental</option>
+                    <option value="social" selected>Social</option>
+                    <option value="governance">Governança</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-[#47435C] mb-2">Meta</label>
+                <input type="number" name="custom_goals[${nextIndex}][target_value]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10" placeholder="30">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-[#47435C] mb-2">Prazo</label>
+                <input type="month" name="custom_goals[${nextIndex}][deadline]" class="w-full px-4 py-2 bg-white border-2 border-[#E9E5F3] rounded-lg focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10">
+            </div>
+        `;
+
+        container.appendChild(newGoalItem);
     });
 </script>
 @endsection

@@ -31,8 +31,83 @@
         background-color: #E8F8F6;
     }
 
+    /* Custom Radio & Checkbox Styles */
+    .sf-radio,
+    .sf-checkbox,
+    .sf-priority-chip input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #E9E5F3;
+        background-color: #FFFFFF;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.15s ease;
+        flex-shrink: 0;
+    }
+
+    .sf-radio,
+    .sf-priority-chip input[type="radio"] {
+        border-radius: 50%;
+    }
+
+    .sf-checkbox {
+        border-radius: 6px;
+    }
+
+    .sf-radio:checked,
     .sf-checkbox:checked {
-        accent-color: #0D9488;
+        border-color: #7C3AED;
+        background-color: #7C3AED;
+    }
+
+    .sf-priority-chip.chip-low input[type="radio"]:checked {
+        border-color: #157A47;
+        background-color: #157A47;
+    }
+
+    .sf-priority-chip.chip-medium input[type="radio"]:checked {
+        border-color: #B45309;
+        background-color: #B45309;
+    }
+
+    .sf-priority-chip.chip-high input[type="radio"]:checked {
+        border-color: #B91C1C;
+        background-color: #B91C1C;
+    }
+
+    .sf-radio:checked::after,
+    .sf-priority-chip input[type="radio"]:checked::after,
+    .sf-checkbox:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .sf-radio:checked::after,
+    .sf-priority-chip input[type="radio"]:checked::after {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    .sf-checkbox:checked::after {
+        width: 12px;
+        height: 12px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    /* Shield color for specific checkboxes */
+    .sf-checkbox.shield:checked {
+        border-color: #0D9488;
+        background-color: #0D9488;
     }
 
     .sf-priority-panel {
@@ -85,6 +160,21 @@
         color: #B91C1C;
     }
 
+    .sf-priority-chip.chip-low input[type="radio"]:focus-visible {
+        outline: 3px solid rgba(21, 122, 71, 0.18);
+        outline-offset: 2px;
+    }
+
+    .sf-priority-chip.chip-medium input[type="radio"]:focus-visible {
+        outline: 3px solid rgba(180, 83, 9, 0.18);
+        outline-offset: 2px;
+    }
+
+    .sf-priority-chip.chip-high input[type="radio"]:focus-visible {
+        outline: 3px solid rgba(185, 28, 28, 0.18);
+        outline-offset: 2px;
+    }
+
     .sf-goal-box {
         background: linear-gradient(135deg, #F3EEFE, #E8F8F6);
         border: 2px solid #E9E5F3;
@@ -93,6 +183,12 @@
     .sf-btn-continue {
         background: linear-gradient(155deg, #7C3AED, #5B21B6);
         box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
+        height: 48px;
+        width: 100%;
+        max-width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: transform .15s ease, box-shadow .15s ease;
     }
 
@@ -103,6 +199,12 @@
 
     .sf-btn-back {
         transition: all .15s ease;
+        height: 48px;
+        width: 100%;
+        max-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .sf-btn-back:hover {
@@ -114,10 +216,40 @@
     .sf-step-dot {
         transition: all .2s ease;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+
+        .sf-btn-continue,
+        .sf-btn-back {
+            padding: 0.625rem 1rem !important;
+            font-size: 0.875rem !important;
+        }
+
+        .sf-option {
+            padding: 0.625rem !important;
+        }
+
+        .sf-priority-chip {
+            padding: 0.5rem 0.875rem !important;
+        }
+
+        .sf-goal-box {
+            padding: 1rem !important;
+        }
+
+        .mb-9 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .mb-8 {
+            margin-bottom: 1.25rem !important;
+        }
+    }
 </style>
 
 <!-- Indicador de progresso do wizard -->
-<div class="flex items-center gap-2 mb-8">
+<div class="flex items-center gap-2 mb-10">
     @for ($i = 1; $i <= 4; $i++)
         <div class="flex items-center gap-2 {{$i < 4 ? 'flex-1' : 'flex-0'}}">
         <div class="sf-step-dot w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
@@ -194,9 +326,9 @@
                 $priorities = $goals->pluck('priority', 'group')->toArray();
                 @endphp
                 @foreach($diversityGroups as $value => $label)
-                <label class="sf-option flex items-center p-4 rounded-xl cursor-pointer
+                <label class="sf-option flex items-center p-3.5 rounded-xl cursor-pointer
                     {{ in_array($value, $selectedGroups) ? 'is-selected-shield' : '' }}">
-                    <input type="checkbox" name="groups[]" value="{{ $value }}" class="sf-checkbox group-checkbox mr-3 w-4 h-4"
+                    <input type="checkbox" name="groups[]" value="{{ $value }}" class="sf-checkbox shield group-checkbox mr-3 w-5 h-5"
                         {{ in_array($value, $selectedGroups) ? 'checked' : '' }} data-group="{{ $value }}">
                     <span class="text-sm font-medium {{ in_array($value, $selectedGroups) ? 'text-[#0D9488]' : 'text-[#47435C]' }}">{{ $label }}</span>
                 </label>
@@ -252,10 +384,10 @@
 
         <!-- Navigation -->
         <div class="flex justify-between items-center pt-2 border-t border-[#E9E5F3]">
-            <a href="{{ route('setup.step1') }}" class="sf-btn-back text-[#47435C] font-semibold py-3 px-6 rounded-xl border-2 border-[#E9E5F3]">
+            <a href="{{ route('setup.step1') }}" class="sf-btn-back text-[#47435C] font-semibold rounded-xl border-2 border-[#E9E5F3]">
                 Voltar
             </a>
-            <button type="submit" class="sf-btn-continue text-white font-semibold py-3 px-8 rounded-xl">
+            <button type="submit" class="sf-btn-continue text-white font-semibold rounded-xl">
                 Continuar
             </button>
         </div>

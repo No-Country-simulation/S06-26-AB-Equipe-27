@@ -11,12 +11,12 @@
 </head>
 
 <body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-4xl mx-auto">
+    <div class="container mx-auto px-4 py-4 md:py-8">
+        <div class="max-w-5xl mx-auto">
             <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-purple-800 mb-2">SkillFocus</h1>
-                <p class="text-lg text-gray-600">Configuração de Diversidade & ESG</p>
+            <div class="text-center mb-6 md:mb-8">
+                <h1 class="text-2xl md:text-4xl font-bold text-purple-800 mb-2">SkillFocus</h1>
+                <p class="text-sm md:text-lg text-gray-600">Configuração de Diversidade & ESG</p>
             </div>
 
             <!-- Progress Bar -->
@@ -33,7 +33,7 @@
             @endphp
 
             <!-- Content -->
-            <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <div class="bg-white rounded-2xl shadow-2xl p-4 md:p-8">
                 @yield('content')
             </div>
         </div>
