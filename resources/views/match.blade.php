@@ -856,7 +856,7 @@
                                 @if($match->status === 'pendente')
                                 <form action="{{ route('match.select', $match->id) }}" method="POST" class="w-100">
                                     @csrf
-                                    <button type="submit" class="btn btn-select w-100 mb-2">
+                                    <button type="submit" class="btn-sucess btn-select w-100 mb-2">
                                         <i class="bi bi-person-plus-fill me-2"></i> Selecionar
                                     </button>
                                 </form>
