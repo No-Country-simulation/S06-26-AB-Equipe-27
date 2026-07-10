@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('ai_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->json('matching_priority')->nullable(); // ordered list: technical_skills, diversity_goals, location, experience, education
+            $table->json('matching_priority')->nullable(); // ordered list: technical_skills, diversity_goals, experience
             $table->integer('candidate_radius')->default(50); // km
             $table->boolean('include_remote')->default(true);
             $table->timestamps();

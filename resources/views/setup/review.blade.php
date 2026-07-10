@@ -332,9 +332,7 @@
                     $priorityLabels = [
                     'technical_skills' => 'Habilidades Técnicas',
                     'diversity_goals' => 'Metas de Diversidade',
-                    'location' => 'Localização',
                     'experience' => 'Experiência',
-                    'education' => 'Educação'
                     ];
                     @endphp
                     @foreach($preferences->matching_priority as $index => $item)
