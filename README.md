@@ -330,14 +330,14 @@ python api.py
 ## ✅ Escopo do MVP
 
 - [x] Publicação de vaga com skills, nível e região
-- [ ] Endpoint `/match` com shortlist + score de compatibilidade + badge de diversidade
-- [ ] Interface responsiva com tela de shortlist
+- [x] Endpoint `/match` com shortlist + score de compatibilidade + badge de diversidade
+- [x] Interface responsiva com tela de shortlist
 - [x] Métricas básicas de diversidade
 - [x] Score de match via IA generativa (Gemini)
 - [x] Mascaramento de dados sensíveis (anti-viés)
 - [x] Badge de diversidade declarativo
 - [x] Processamento geográfico via dataset VISENT CDRView
-- [ ] Leitura de currículo em PDF integrada ao fluxo principal
+- [x] Leitura de currículo em PDF integrada ao fluxo principal
 - [x] README com instruções de execução local e exemplos de request/response
 
 <br>
