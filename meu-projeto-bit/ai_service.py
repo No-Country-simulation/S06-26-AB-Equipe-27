@@ -13,25 +13,82 @@ chave_secreta = os.getenv("GEMINI_API_KEY")
 
 client = genai.Client(api_key=chave_secreta)
 
-def extrair_texto_pdf(caminho_pdf):
-    '''
-Observação: Como não será usada a função PDF, deixei ela aqui,
-para uma futura funcionalidade de upload de currículo.
-'''
-
+def extrair_texto_pdf(arquivo_pdf):
     texto = ""
-    
-    try:
-        with open(caminho_pdf, 'rb') as ficheiro:
-            leitor = PyPDF2.PdfReader(ficheiro)
-            for pagina in leitor.pages:
-                if pagina. extract_text():
-                    texto += pagina.extract_text()
-        
-        return texto
-    except FileNotFoundError:
-        return 'Erro: Ficheiro PDF não encontrado.'
 
+    leitor = PyPDF2.PdfReader(arquivo_pdf)
+    for pagina in leitor.pages:
+        texto_pagina = pagina.extract_text()
+
+        if texto_pagina:
+            texto += texto_pagina
+        
+    return texto
+    
+def extrair_dados_candidato(texto_curriculo):
+    prompt = f"""
+    Você é um sistema especializado em extração de informações de currículos.
+
+    Analise o currículo abaixo e extraia as seguintes informações:
+
+    - Nome completo
+    - Idade
+    - Data de nascimento
+    - Gênero
+    - Raça
+    - E-mail
+    - Telefone
+    - Cidade
+    - Estado
+    - Formação acadêmica
+    - Nome da instituição de ensino
+    - Skills e competências profissionais
+    
+    Se alguma informação não estiver presente no currículo,
+    retorne uma string vazia ou uma lista vazia para esse campo.
+    Não invente informações.
+    
+    CURRÍCULO:
+    {texto_curriculo}
+
+    Responda APENAS com um JSON válido no seguinte formato:
+    {{
+    "nome": "nome completo",
+    "idade": "idade",
+    "nascimento": "nascimento",
+    "genero": "genero",
+    "raca": "raca",
+    "email": "email",
+    "telefone": "telefone",
+    "cidade": "cidade",
+    "estado": "estado",
+    "formacao": ["formacao encontrada"],
+    "instituicao": ["instituicao encontrada"],
+    "skills": ["skill 1", "skill 2", "skill 3"]
+    }}
+    Não escreva nenhum texto antes ou depois do JSON
+    """
+    response = client.models.generate_content(model='gemini-2.5-flash', 
+            contents=prompt)
+    texto_resposta = response.text.strip()
+    texto_limpo = texto_resposta.replace("```json", "").replace("```", "").strip()
+
+    try:
+        dados_candidato = json.loads(texto_limpo)
+        
+        return dados_candidato
+            
+    except json.JSONDecodeError:
+        return {"nome": "", "idade": "", "nascimento": "","genero": "", "raca": "", "email": "", "telefone": "",                
+    "cidade": "","estado": "", "formacao": [],"instituicao": [], "skills": [],
+    "erro": "Erro ao processar os dados do currículo." }
+    
+def criar_perfil_protegido(dados_candidato):
+    perfil_protegido = {"estado": dados_candidato.get("estado", ""), 
+                        "formacao": dados_candidato.get("formacao", []),
+                        "skills": dados_candidato.get("skills", [])}
+    
+    return perfil_protegido
 
 def calcular_match_ia(candidato, vaga):
     prompt = f"""
@@ -65,19 +122,19 @@ sem nenhum texto antes ou depois:
         return resultado        
     except json.JSONDecodeError:
         return {"score": 0, "justificativa": "Erro ao processar resposta da IA."}
+    
 
 if __name__ == '__main__':
-    candidato_teste = {
-        'seniority': 'Pleno',
-        'skills': ['React', 'Node.js', 'SQL']
-    }
+    caminho_pdf_teste = os.path.join(caminho_script, 'uploads', 'curriculo_teste.pdf')
     
-    vaga_teste = {
-        'titulo': 'Desenvolvedor(a) Front-end',
-        'seniority': 'Pleno',
-        'skills_obrigatorias': ['React', 'TypeScript', 'Node.js', 'CSS-in-JS'],
-        'skills_desejaveis': ['UI/UX', 'Scrum', 'TailwindCSS']
-    }
+    with open(caminho_pdf_teste, 'rb') as arquivo_pdf:
+        texto_curriculo = extrair_texto_pdf(arquivo_pdf)
     
-    resultado = calcular_match_ia(candidato_teste, vaga_teste)
-    print(resultado)
+    dados_candidato = extrair_dados_candidato(texto_curriculo)
+    perfil_protegido = criar_perfil_protegido(dados_candidato)
+
+    print("DADOS DO CANDIDATO: ")
+    print(dados_candidato)
+
+    print("\nPERFIL PROTEGIDO: ")
+    print(perfil_protegido)
