@@ -54,7 +54,7 @@ class AuthController extends Controller
             return redirect()->route('verification-notice-candidato');
         }
 
-        return redirect()->route('candidato.dashboard');
+        return redirect()->route('candidato-dashboard');
     }
 
     // tenta user normal

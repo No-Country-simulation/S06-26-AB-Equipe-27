@@ -54,6 +54,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
+Route::get('/candidato-dashboard', function () {return view('candidato-dashboard');})->name('candidato-dashboard');
 # --------------------------------------------------------------------------
 # 2. Rotas que Exigem Apenas Autenticação Base (Utilizadores Logados)
 # --------------------------------------------------------------------------
