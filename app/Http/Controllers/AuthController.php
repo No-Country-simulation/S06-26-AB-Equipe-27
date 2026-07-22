@@ -7,6 +7,9 @@ use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
+use App\Services\CandidatoService;
+use App\Models\Candidato;
+use App\Http\Controllers\CandidatoController;
 
 class AuthController extends Controller
 {
@@ -39,30 +42,47 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        #tentativa de autenticação.
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+       $credentials = $request->only('email', 'password');
 
-            // Cheque se o setup é exigido
-            $user = Auth::user();
-            $company = $user->company; #VERIFICAR DEPOIS.
+    // tenta candidato primeiro (ou escolha uma ordem fixa)
+    if (Auth::guard('candidato')->attempt($credentials)) {
+        $request->session()->regenerate();
 
-            $user = auth()->user();
+        $candidato = Auth::guard('candidato')->user();
 
-            if (!$user->hasVerifiedEmail()) {
-                return redirect()->route('verification.notice');
-            }
-
-            if (!$user->company || !$user->company->setup_completed) {
-                return redirect()->route('setup.step1');
-            }
-
-            return redirect()->route('dashboard');
+        if (!$candidato->hasVerifiedEmail()) {
+            return redirect()->route('verification-notice-candidato');
         }
-        return back()->withErrors([
-            'email' => 'Credenciais inválidas',
-        ]);
+
+        return redirect()->route('candidato.dashboard');
     }
+
+    // tenta user normal
+    if (Auth::guard('web')->attempt($credentials)) {
+        $request->session()->regenerate();
+
+        $user = Auth::guard('web')->user();
+
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        if (!$user->company || !$user->company->setup_completed) {
+            return redirect()->route('setup.step1');
+        }
+
+        return redirect()->route('dashboard');
+    }
+
+    return back()->withErrors([
+        'email' => 'Credenciais inválidas',
+    ]);
+
+    // Falha geral
+    return back()->withErrors([
+        'email' => 'Credenciais inválidas',
+    ]);
+}
 
     # Logout.
     public function logout(Request $request)

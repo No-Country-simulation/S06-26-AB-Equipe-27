@@ -42,6 +42,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'candidato' => [
+            'driver' => 'session',
+            'provider' => 'candidatos', // ✔️ TEM que bater
+        ],
     ],
 
     /*
@@ -62,15 +67,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', User::class),
-        ],
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
+    ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    'candidatos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Candidato::class,
+        ],
     ],
 
     /*
