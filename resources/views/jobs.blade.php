@@ -543,6 +543,7 @@
 
 <body>
 
+
     {{-- NAVBAR SUPERIOR --}}
     <x-navbar activePage="jobs" />
 
@@ -582,20 +583,20 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach ($jobs as $job)
 
-                {{-- Cores das tags por nível --}}
-                @php
-                    $levelLower = strtolower($job->level);
-                    $badgeBg = '#F3F4F6'; $badgeColor = '#4B5563';
+            {{-- Cores das tags por nível --}}
+            @php
+            $levelLower = strtolower($job->level);
+            $badgeBg = '#F3F4F6'; $badgeColor = '#4B5563';
 
-                    if (str_contains($levelLower, 'pleno')) {
-                        $badgeBg = 'var(--level-pleno-bg)'; $badgeColor = 'var(--level-pleno-fg)';
-                    } elseif (str_contains($levelLower, 'sênior') || str_contains($levelLower, 'senior')) {
-                        $badgeBg = 'var(--level-senior-bg)'; $badgeColor = 'var(--level-senior-fg)';
-                    } elseif (str_contains($levelLower, 'júnior') || str_contains($levelLower, 'junior')) {
-                        $badgeBg = 'var(--level-junior-bg)'; $badgeColor = 'var(--level-junior-fg)';
-                    } elseif (str_contains($levelLower, 'gerência') || str_contains($levelLower, 'coordenação')) {
-                        $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
-                    }
+            if (str_contains($levelLower, 'pleno')) {
+            $badgeBg = 'var(--level-pleno-bg)'; $badgeColor = 'var(--level-pleno-fg)';
+            } elseif (str_contains($levelLower, 'sênior') || str_contains($levelLower, 'senior')) {
+            $badgeBg = 'var(--level-senior-bg)'; $badgeColor = 'var(--level-senior-fg)';
+            } elseif (str_contains($levelLower, 'júnior') || str_contains($levelLower, 'junior')) {
+            $badgeBg = 'var(--level-junior-bg)'; $badgeColor = 'var(--level-junior-fg)';
+            } elseif (str_contains($levelLower, 'gerência') || str_contains($levelLower, 'coordenação')) {
+            $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
+            }
 
                     // Índice do Bias Shield — usa o valor real do job quando existir,
                     // caso contrário mantém o placeholder de demonstração.
@@ -611,11 +612,11 @@
                     }
                 @endphp
 
-                <div class="col">
-                    <div class="job-card p-4 h-100 d-flex flex-column">
+            <div class="col">
+                <div class="job-card p-4 h-100 d-flex flex-column">
 
-                        <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
-                            <h2 class="job-title mb-0">{{ $job->title }}</h2>
+                    <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
+                        <h2 class="job-title mb-0">{{ $job->title }}</h2>
 
                             @if($isCompanyUser)
                             <div class="dropdown dropdown-actions flex-shrink-0">
@@ -689,7 +690,42 @@
                         </div>
 
                     </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                        <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
+                            {{ $job->level }}
+                        </span>
+                        <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
+                            <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
+                        </span>
+                    </div>
+
+                    <div class="mb-1 flex-grow-1">
+                        <div class="job-info-text mb-2">
+                            <i class="bi bi-building"></i>
+                            {{ $job->area ?? 'Departamento/Área' }}
+                        </div>
+                        <div class="job-info-text">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ $job->city }}, {{ $job->district }}
+                        </div>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="job-info-text mb-0">
+                            <i class="bi bi-people"></i>
+                            {{ $job->candidates_count ?? rand(10, 99) }} candidatos
+                        </div>
+
+                        <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
+                            Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
+                        </a>
+                    </div>
+
                 </div>
+            </div>
             @endforeach
         </div>
         @else

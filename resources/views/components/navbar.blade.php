@@ -201,7 +201,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'heatmap' ? 'active' : '' }}" href="{{ url('/mapa-talentos') }}">
+                     <a class="nav-link-custom {{ $activePage === 'mapa-talentos' ? 'active' : '' }}" href="{{ url('/mapa-talentos') }}">
                          <i class="bi bi-map"></i> Mapa de Calor
                      </a>
                  </li>

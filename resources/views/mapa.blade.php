@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,44 +37,62 @@
             --color-surface: #FFFFFF;
             --color-bg: #FAF9FD;
 
-            --level-junior-bg: #E7F8EF;   --level-junior-fg: #157A47;
-            --level-pleno-bg: #F3EEFE;    --level-pleno-fg: #6D28D9;
-            --level-senior-bg: #E9F1FE;   --level-senior-fg: #1D4ED8;
-            --level-gestao-bg: #FDF1DF;   --level-gestao-fg: #B45309;
+            --level-junior-bg: #E7F8EF;
+            --level-junior-fg: #157A47;
+            --level-pleno-bg: #F3EEFE;
+            --level-pleno-fg: #6D28D9;
+            --level-senior-bg: #E9F1FE;
+            --level-senior-fg: #1D4ED8;
+            --level-gestao-bg: #FDF1DF;
+            --level-gestao-fg: #B45309;
 
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-card-hover: 0 18px 36px -14px rgba(124,58,237,.28);
-            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-card-hover: 0 18px 36px -14px rgba(124, 58, 237, .28);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%),
-                radial-gradient(circle at 0% 20%, rgba(13,148,136,.045), transparent 40%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 20%, rgba(13, 148, 136, .045), transparent 40%);
             background-attachment: fixed;
             color: var(--color-body);
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         /* ==========================================================
            NAVBAR — estrutura padrão reaproveitada de jobs.blade.php
         ========================================================== */
         .navbar {
-            background-color: rgba(255,255,255,.85);
+            background-color: rgba(255, 255, 255, .85);
             backdrop-filter: saturate(180%) blur(14px);
             -webkit-backdrop-filter: saturate(180%) blur(14px);
             border-bottom: 1px solid var(--color-border);
@@ -98,10 +117,12 @@
             justify-content: center;
             margin-right: 10px;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.55);
+            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
         }
 
-        .navbar-collapse { gap: 1.5rem; }
+        .navbar-collapse {
+            gap: 1.5rem;
+        }
 
         @media (min-width: 992px) {
             .navbar-collapse {
@@ -131,7 +152,7 @@
         .nav-link-custom.active {
             background-color: var(--color-primary);
             color: #fff;
-            box-shadow: 0 6px 14px -6px rgba(124,58,237,.55);
+            box-shadow: 0 6px 14px -6px rgba(124, 58, 237, .55);
         }
 
         .navbar-actions {
@@ -146,7 +167,10 @@
             font-size: 1.15rem;
             transition: color .18s ease;
         }
-        .icon-btn:hover { color: var(--color-ink); }
+
+        .icon-btn:hover {
+            color: var(--color-ink);
+        }
 
         .navbar-toggler {
             width: 36px;
@@ -157,7 +181,10 @@
             border-radius: 10px;
             background-color: var(--color-primary-softer);
         }
-        .navbar-toggler:focus { box-shadow: none; }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
 
         .navbar-toggler-icon {
             width: 18px;
@@ -192,8 +219,16 @@
                 max-height: 75vh;
                 overflow-y: auto;
             }
-            .navbar-nav { width: 100%; gap: 0.35rem; }
-            .nav-link-custom { width: 100%; }
+
+            .navbar-nav {
+                width: 100%;
+                gap: 0.35rem;
+            }
+
+            .nav-link-custom {
+                width: 100%;
+            }
+
             .navbar-actions {
                 width: 100%;
                 justify-content: flex-start;
@@ -255,9 +290,12 @@
         .action-card:hover {
             box-shadow: var(--shadow-card-hover);
             transform: translateY(-3px);
-            border-color: rgba(124,58,237,.25);
+            border-color: rgba(124, 58, 237, .25);
         }
-        .action-card:hover::before { opacity: 1; }
+
+        .action-card:hover::before {
+            opacity: 1;
+        }
 
         .action-card h3 {
             font-family: var(--font-display);
@@ -279,6 +317,7 @@
             font-size: 1.1rem;
             transition: color .18s ease, transform .18s ease;
         }
+
         .action-card:hover .arrow-hint {
             color: var(--color-primary);
             transform: translateX(3px);
@@ -295,14 +334,27 @@
             flex-shrink: 0;
         }
 
-        .icon-purple { background-color: var(--color-primary-soft); color: var(--color-primary); }
-        .icon-blue   { background-color: var(--level-senior-bg);    color: var(--level-senior-fg); }
-        .icon-green  { background-color: var(--color-shield-soft);  color: var(--color-shield); }
+        .icon-purple {
+            background-color: var(--color-primary-soft);
+            color: var(--color-primary);
+        }
+
+        .icon-blue {
+            background-color: var(--level-senior-bg);
+            color: var(--level-senior-fg);
+        }
+
+        .icon-green {
+            background-color: var(--color-shield-soft);
+            color: var(--color-shield);
+        }
 
         /* ==========================================================
            MAPA DE CALOR — seção de destaque do dashboard
         ========================================================== */
-        .heatmap-card { padding: 1.5rem 1.5rem 1.75rem; }
+        .heatmap-card {
+            padding: 1.5rem 1.5rem 1.75rem;
+        }
 
         .heatmap-head {
             display: flex;
@@ -345,14 +397,22 @@
             height: 7px;
             border-radius: 50%;
             background-color: var(--color-shield);
-            box-shadow: 0 0 0 0 rgba(13,148,136,.55);
+            box-shadow: 0 0 0 0 rgba(13, 148, 136, .55);
             animation: pulse-dot 1.8s infinite;
         }
 
         @keyframes pulse-dot {
-            0%   { box-shadow: 0 0 0 0 rgba(13,148,136,.5); }
-            70%  { box-shadow: 0 0 0 7px rgba(13,148,136,0); }
-            100% { box-shadow: 0 0 0 0 rgba(13,148,136,0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(13, 148, 136, .5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 7px rgba(13, 148, 136, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(13, 148, 136, 0);
+            }
         }
 
         /* Faixa de estatísticas rápidas, calculada a partir dos próprios
@@ -381,7 +441,10 @@
             font-weight: 700;
         }
 
-        .heatmap-stat-chip i { color: var(--color-primary); font-size: 0.95rem; }
+        .heatmap-stat-chip i {
+            color: var(--color-primary);
+            font-size: 0.95rem;
+        }
 
         /* Contêiner do mapa: moldura + estado de carregamento + legenda
            flutuante, tudo dentro do mesmo raio/sombra do design system. */
@@ -430,7 +493,7 @@
             left: 14px;
             bottom: 14px;
             z-index: 2;
-            background-color: rgba(255,255,255,.92);
+            background-color: rgba(255, 255, 255, .92);
             backdrop-filter: blur(6px);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-sm);
@@ -472,7 +535,9 @@
             margin: 0.6rem 0.8rem !important;
         }
 
-        .leaflet-popup-content strong { font-family: var(--font-display); }
+        .leaflet-popup-content strong {
+            font-family: var(--font-display);
+        }
 
         /* ---------------- Seção geografia da inclusão ---------------- */
         .section-title {
@@ -509,14 +574,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
         }
 
         .btn-section-link:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         .img-box {
@@ -534,12 +599,24 @@
             display: block;
         }
 
-        .img-box:hover img { transform: scale(1.03); }
+        .img-box:hover img {
+            transform: scale(1.03);
+        }
 
         @media (max-width: 575.98px) {
-            #map-heatmap { height: 340px; }
-            .map-legend { left: 10px; bottom: 10px; padding: 0.5rem 0.65rem; }
-            .map-legend .legend-bar { width: 100px; }
+            #map-heatmap {
+                height: 340px;
+            }
+
+            .map-legend {
+                left: 10px;
+                bottom: 10px;
+                padding: 0.5rem 0.65rem;
+            }
+
+            .map-legend .legend-bar {
+                width: 100px;
+            }
         }
 
         /* ---------------- Footer ---------------- */
@@ -556,9 +633,9 @@
             color: var(--color-shield);
             font-weight: 600;
         }
-
     </style>
 </head>
+
 <body>
 
     {{-- NAVBAR SUPERIOR --}}
@@ -634,7 +711,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Dados vindos do Controller Laravel
             const pointsData = @json($heatPoints ?? []);
 
@@ -643,13 +720,15 @@
                 [-23.5505, -46.6333, 0.8], // São Paulo
                 [-22.9068, -43.1729, 0.6], // Rio de Janeiro
                 [-19.9167, -43.9345, 0.5], // Belo Horizonte
-                [-30.0346, -51.2177, 0.4]  // Porto Alegre
+                [-30.0346, -51.2177, 0.4] // Porto Alegre
             ];
 
             // ---- Mapa ----
             // Zoom inicial neutro; o foco real acontece depois de calcular
             // onde está a maior concentração de pontos (ver mais abaixo).
-            const mapInstance = L.map('map-heatmap', { scrollWheelZoom: false }).setView([-14.5, -48], 4);
+            const mapInstance = L.map('map-heatmap', {
+                scrollWheelZoom: false
+            }).setView([-14.5, -48], 4);
 
             // Tile claro e minimalista (CARTO Positron), combina melhor com
             // o restante da identidade visual do que o OSM colorido padrão.
@@ -662,7 +741,9 @@
             // máxima do heatmap. Sem isso, se os pesos reais nunca chegam a
             // 1.0, a cor nunca atinge o tom mais forte do gradiente — é
             // exatamente por isso que estava parecendo "fraco".
-            const maxWeight = Math.max(...points.map(function (p) { return p[2]; }));
+            const maxWeight = Math.max(...points.map(function(p) {
+                return p[2];
+            }));
 
             // Gradiente de calor nos tons de azul (pedido), com o roxo da
             // marca só como pico de intensidade máxima — mais saturado e
@@ -684,15 +765,22 @@
 
             // ---- Foco automático na área de maior concentração ----
             // 1) Enquadra todos os pontos primeiro, pra dar contexto geral.
-            const bounds = L.latLngBounds(points.map(function (p) { return [p[0], p[1]]; }));
-            mapInstance.fitBounds(bounds, { padding: [30, 30], maxZoom: 6 });
+            const bounds = L.latLngBounds(points.map(function(p) {
+                return [p[0], p[1]];
+            }));
+            mapInstance.fitBounds(bounds, {
+                padding: [30, 30],
+                maxZoom: 6
+            });
 
             // 2) Calcula o centróide ponderado pelo peso de cada ponto —
             //    ou seja, o "centro de massa" de onde há mais gente — e
             //    aproxima suavemente o mapa até lá.
             function weightedCentroid(pts) {
-                let sumWeight = 0, sumLat = 0, sumLng = 0;
-                pts.forEach(function (p) {
+                let sumWeight = 0,
+                    sumLat = 0,
+                    sumLng = 0;
+                pts.forEach(function(p) {
                     sumLat += p[0] * p[2];
                     sumLng += p[1] * p[2];
                     sumWeight += p[2];
@@ -702,13 +790,15 @@
 
             if (points.length > 1) {
                 const centroid = weightedCentroid(points);
-                setTimeout(function () {
-                    mapInstance.flyTo(centroid, 6, { duration: 1.1 });
+                setTimeout(function() {
+                    mapInstance.flyTo(centroid, 6, {
+                        duration: 1.1
+                    });
                 }, 700);
             }
 
             // Esconde o overlay de carregamento assim que os tiles chegam
-            mapInstance.whenReady(function () {
+            mapInstance.whenReady(function() {
                 document.getElementById('mapLoading').classList.add('is-hidden');
             });
 
@@ -733,4 +823,5 @@
         });
     </script>
 </body>
+
 </html>

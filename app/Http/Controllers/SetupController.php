@@ -189,7 +189,7 @@ class SetupController extends Controller
         $company->aiPreferences()->updateOrCreate(
             ['company_id' => $company->id],
             [
-                'matching_priority' => $validated['matching_priority'] ?? ['technical_skills', 'diversity_goals', 'location', 'experience', 'education'],
+                'matching_priority' => $validated['matching_priority'] ?? ['technical_skills', 'diversity_goals', 'experience'],
                 'candidate_radius' => $validated['candidate_radius'],
                 'include_remote' => $request->has('include_remote')
             ]

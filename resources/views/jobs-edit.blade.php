@@ -180,7 +180,10 @@
 </head>
 
 <body>
-    <x-navbar />
+
+    {{-- NAVBAR SUPERIOR --}}
+    <x-navbar activePage="jobs" />
+
     <div class="main-container">
         <div class="form-card">
             <h1 class="fw-bold mb-1 font-display" style="font-size: 1.85rem; color: var(--color-ink);">

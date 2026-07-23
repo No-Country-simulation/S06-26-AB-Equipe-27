@@ -261,14 +261,12 @@
 
             <div class="space-y-2" id="priority-list">
                 @php
-                $defaultPriority = ['technical_skills', 'diversity_goals', 'location', 'experience', 'education'];
+                $defaultPriority = ['technical_skills', 'diversity_goals', 'experience'];
                 $currentPriority = $preferences->matching_priority ?? $defaultPriority;
                 $priorityLabels = [
                 'technical_skills' => 'Habilidades Técnicas',
                 'diversity_goals' => 'Metas de Diversidade',
-                'location' => 'Localização',
                 'experience' => 'Experiência',
-                'education' => 'Educação',
                 ];
                 @endphp
                 @foreach($currentPriority as $index => $item)
