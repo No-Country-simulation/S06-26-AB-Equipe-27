@@ -59,10 +59,7 @@
         a { text-decoration: none; }
 
         /* ==========================================================
-           LAYOUT — split screen (mesma estrutura do login)
-           Aqui o painel esquerdo troca a mensagem de "confiança" pela
-           de "onboarding": os 3 passos que a pessoa vai dar depois de
-           criar a conta, já que é o momento de decisão de cadastro.
+           LAYOUT — split screen
         ========================================================== */
         .login-shell {
             min-height: 100vh;
@@ -149,9 +146,6 @@
             line-height: 1.6;
         }
 
-        /* Passos de onboarding — numerados de propósito aqui: é uma
-           sequência real (o que acontece 1º, 2º, 3º depois do cadastro),
-           diferente da lista de features do login. */
         .aside-steps {
             list-style: none;
             padding: 0;
@@ -273,7 +267,7 @@
         .form-subtitle {
             color: var(--color-muted);
             font-size: 0.88rem;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -286,6 +280,69 @@
             background-color: var(--color-shield);
             flex-shrink: 0;
         }
+
+        /* ==========================================================
+           NOVO: SELETOR DE TIPO DE CONTA (CARDS)
+        ========================================================== */
+        .type-selector-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .type-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 0.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-surface);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--color-muted);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .type-card:hover {
+            border-color: #C4B5FD;
+            background-color: var(--color-bg);
+            color: var(--color-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .type-card.active {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary-softer);
+            color: var(--color-primary-dark);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
+        }
+
+        .type-card i {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: inherit;
+        }
+
+        .type-card span {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: inherit;
+        }
+
+        /* Oculta o input radio, mantendo-o acessível e submetível */
+        .type-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* -------------------------------------------------------- */
 
         .field-row {
             display: grid;
@@ -425,6 +482,7 @@
 
         @media (max-width: 420px) {
             .login-card { padding: 1.75rem 1.35rem; }
+            .type-selector-wrapper { grid-template-columns: 1fr; } /* Em telas muito pequenas empilha os botões */
         }
     </style>
 </head>
@@ -483,6 +541,22 @@
 
                     <h1 class="form-title">Crie sua conta</h1>
                     <p class="form-subtitle"><span class="free-dot"></span>É totalmente gratuito</p>
+
+                    <!-- SELETOR DE PERFIL -->
+                    <div class="type-selector-wrapper">
+                        <!-- Card Empresa (Estado ativo e Input de verdade para submit, oculto via CSS) -->
+                        <label class="type-card active">
+                            <input type="radio" name="account_type" value="empresa" checked>
+                            <i class="bi bi-building"></i>
+                            <span>Sou Empresa</span>
+                        </label>
+
+                        <!-- Card Candidato (Apenas um link estilizado igual ao card) -->
+                        <a href="{{url('/registerCandidato')}}" class="type-card">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Sou Candidato</span>
+                        </a>
+                    </div>
 
                     @if ($errors->any())
                     <div class="alert-soft-danger">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar | SkillFocus</title>
+    <title>Criar conta de Candidato | SkillFocus</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -14,9 +14,6 @@
     <style>
         /* ==========================================================
            SKILLFOCUS — DESIGN TOKENS
-           Idênticos aos usados em jobs.blade.php. Manter esse bloco
-           igual em toda view nova é o que garante a identidade única
-           do produto — não duplicar com valores "parecidos".
         ========================================================== */
         :root {
             --color-primary: #7C3AED;
@@ -62,19 +59,12 @@
 
         /* ==========================================================
            LAYOUT — split screen
-           Uma tela de login genérica é só um cartão centralizado; aqui
-           o lado esquerdo carrega a proposta real do produto (a
-           pontuação Bias Shield que aparece em cada vaga na view de
-           gerenciamento), então quem chega já entende o diferencial
-           antes mesmo de entrar. Em telas pequenas o painel some e
-           sobra só o essencial: marca + formulário.
         ========================================================== */
         .login-shell {
             min-height: 100vh;
             display: flex;
         }
 
-        /* ---- Painel esquerdo (só >=lg) ---- */
         .login-aside {
             width: 44%;
             flex-shrink: 0;
@@ -155,34 +145,47 @@
             line-height: 1.6;
         }
 
-        .aside-feature-list {
+        .aside-steps {
             list-style: none;
             padding: 0;
-            margin: 1.75rem 0 0;
+            margin: 1.9rem 0 0;
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
+            gap: 1.15rem;
         }
 
-        .aside-feature-list li {
+        .aside-steps li {
             display: flex;
             align-items: flex-start;
-            gap: 0.7rem;
-            font-size: 0.87rem;
-            color: #E3E1F0;
+            gap: 0.85rem;
         }
 
-        .aside-feature-list .feat-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            background-color: rgba(13,148,136,.22);
-            color: #5EEAD4;
+        .aside-steps .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.18);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 0.85rem;
+        }
+
+        .aside-steps .step-text {
+            font-size: 0.87rem;
+            color: #E3E1F0;
+            line-height: 1.5;
+        }
+
+        .aside-steps .step-text strong {
+            display: block;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
         }
 
         .login-aside .trust-line {
@@ -210,14 +213,12 @@
             background-image: radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%);
         }
 
-        .mobile-brand {
-            display: none;
-        }
+        .mobile-brand { display: none; }
 
         .login-card {
             background: var(--color-surface);
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-card);
             border: 1px solid var(--color-border);
@@ -251,9 +252,7 @@
             color: #fff;
         }
 
-        .auth-toggle .btn-toggle:not(.active):hover {
-            color: var(--color-ink);
-        }
+        .auth-toggle .btn-toggle:not(.active):hover { color: var(--color-ink); }
 
         .form-title {
             font-family: var(--font-display);
@@ -267,8 +266,82 @@
         .form-subtitle {
             color: var(--color-muted);
             font-size: 0.88rem;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
+
+        .form-subtitle .free-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--color-shield);
+            flex-shrink: 0;
+        }
+
+        /* ==========================================================
+           SELETOR DE TIPO DE CONTA (CARDS)
+        ========================================================== */
+        .type-selector-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .type-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 0.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-surface);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--color-muted);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .type-card:hover {
+            border-color: #C4B5FD;
+            background-color: var(--color-bg);
+            color: var(--color-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Na view de candidato, o estilo ativo muda para dar ênfase no perfil pessoal */
+        .type-card.active {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary-softer);
+            color: var(--color-primary-dark);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
+        }
+
+        .type-card i {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: inherit;
+        }
+
+        .type-card span {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: inherit;
+        }
+
+        .type-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* -------------------------------------------------------- */
 
         .field-label {
             font-size: 0.8rem;
@@ -278,6 +351,8 @@
             display: block;
         }
 
+        .field-group { margin-bottom: 1.1rem; }
+
         .input-group-custom {
             background-color: var(--color-bg);
             border: 1px solid var(--color-border);
@@ -285,7 +360,6 @@
             display: flex;
             align-items: center;
             padding: 0 0.9rem;
-            margin-bottom: 1.1rem;
             transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
         }
 
@@ -320,34 +394,11 @@
         }
         .toggle-visibility:hover { color: var(--color-ink); }
 
-        .form-meta-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.4rem;
+        .password-hint {
+            font-size: 0.76rem;
+            color: var(--color-muted);
+            margin-top: 0.4rem;
         }
-
-        .remember-check {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.83rem;
-            color: var(--color-body);
-        }
-
-        .remember-check input {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--color-primary);
-            cursor: pointer;
-        }
-
-        .forgot-password {
-            color: var(--color-primary);
-            font-size: 0.83rem;
-            font-weight: 600;
-        }
-        .forgot-password:hover { color: var(--color-primary-hover); text-decoration: underline; }
 
         .alert-soft-danger {
             background-color: #FDEEEE;
@@ -358,7 +409,6 @@
             font-size: 0.83rem;
             margin-bottom: 1.1rem;
         }
-
         .alert-soft-danger ul { margin-bottom: 0; padding-left: 1.1rem; }
 
         .btn-submit {
@@ -372,6 +422,7 @@
             width: 100%;
             box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
             transition: transform .15s ease, box-shadow .15s ease;
+            margin-top: 0.25rem;
         }
 
         .btn-submit:hover {
@@ -380,18 +431,24 @@
             box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
         }
 
-        .register-link {
+        .terms-text {
+            font-size: 0.76rem;
+            color: var(--color-muted);
+            text-align: center;
+            margin-top: 1.1rem;
+            line-height: 1.5;
+        }
+        .terms-text a { color: var(--color-primary); font-weight: 600; }
+        .terms-text a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .login-link {
             text-align: center;
             font-size: 0.88rem;
             color: var(--color-body);
-            margin-top: 1.5rem;
+            margin-top: 1.4rem;
         }
-
-        .register-link a {
-            color: var(--color-primary);
-            font-weight: 700;
-        }
-        .register-link a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+        .login-link a { color: var(--color-primary); font-weight: 700; }
+        .login-link a:hover { color: var(--color-primary-hover); text-decoration: underline; }
 
         /* ---------------- Responsivo ---------------- */
         @media (max-width: 991.98px) {
@@ -411,6 +468,7 @@
 
         @media (max-width: 420px) {
             .login-card { padding: 1.75rem 1.35rem; }
+            .type-selector-wrapper { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -418,7 +476,7 @@
 
     <div class="login-shell">
 
-        {{-- PAINEL ESQUERDO — proposta de valor (Bias Shield), some no mobile --}}
+        {{-- PAINEL ESQUERDO — Focado na jornada do Candidato --}}
         <aside class="login-aside">
             <div class="brand-row">
                 <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
@@ -426,34 +484,34 @@
             </div>
 
             <div class="aside-content">
-                <div class="eyebrow">Recrutamento sem viés</div>
-                <h1>Toda vaga, com uma triagem mais justa.</h1>
-                <p class="lede">Centralize suas vagas, acompanhe candidatos e monitore o índice de equidade de cada processo seletivo em um só lugar.</p>
+                <div class="eyebrow">Para Candidatos</div>
+                <h1>O seu talento em primeiro lugar.</h1>
+                <p class="lede">Participe de processos seletivos justos, onde as empresas olham para o que realmente importa: as suas habilidades e o seu potencial.</p>
 
-                <ul class="aside-feature-list">
+                <ul class="aside-steps">
                     <li>
-                        <span class="feat-icon"><i class="bi bi-shield-check"></i></span>
-                        Pontuação Bias Shield calculada para cada vaga aberta
+                        <span class="step-num"><i class="bi bi-person-fill"></i></span>
+                        <span class="step-text"><strong>Crie seu perfil</strong>Preencha seus dados básicos e contato.</span>
                     </li>
                     <li>
-                        <span class="feat-icon"><i class="bi bi-graph-up"></i></span>
-                        Métricas de diversidade acompanhadas em tempo real
+                        <span class="step-num"><i class="bi bi-stars"></i></span>
+                        <span class="step-text"><strong>Destaque sua experiência</strong>Adicione suas habilidades e histórico profissional.</span>
                     </li>
                     <li>
-                        <span class="feat-icon"><i class="bi bi-lock"></i></span>
-                        Dados de candidatos armazenados com segurança
+                        <span class="step-num"><i class="bi bi-briefcase-fill"></i></span>
+                        <span class="step-text"><strong>Encontre a vaga ideal</strong>Seja notado por empresas que valorizam a diversidade.</span>
                     </li>
                 </ul>
             </div>
 
             <div class="trust-line">
-                <i class="bi bi-lock-fill"></i> Dados protegidos · Bias Shield ativo
+                <i class="bi bi-shield-check" style="font-size: 1.1rem;"></i> Privacidade garantida · Seleção sem vieses
             </div>
         </aside>
 
-        {{-- PAINEL DIREITO — formulário --}}
+        {{-- PAINEL DIREITO — Formulário --}}
         <main class="login-form-panel">
-            <div style="width: 100%; max-width: 420px;">
+            <div style="width: 100%; max-width: 440px;">
 
                 <div class="mobile-brand">
                     <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
@@ -463,12 +521,28 @@
                 <div class="login-card">
 
                     <div class="auth-toggle">
-                        <a href="{{ url('/login') }}" class="btn-toggle active">Entrar</a>
-                        <a href="{{ url('/register') }}" class="btn-toggle">Criar conta</a>
+                        <a href="{{ url('/login') }}" class="btn-toggle">Entrar</a>
+                        <a href="{{ url('/register') }}" class="btn-toggle active">Criar conta</a>
                     </div>
 
-                    <h1 class="form-title">Bem-vindo de volta</h1>
-                    <p class="form-subtitle">Acesse sua conta para continuar</p>
+                    <h1 class="form-title">Para candidatos</h1>
+                    <p class="form-subtitle"><span class="free-dot"></span>Encontre os melhores trabalhos</p>
+
+                    <!-- SELETOR DE PERFIL (Invertido para Candidato) -->
+                    <div class="type-selector-wrapper">
+                        <!-- Card Empresa (Agora é um link) -->
+                        <a href="{{ url('/register') }}" class="type-card">
+                            <i class="bi bi-building"></i>
+                            <span>Sou Empresa</span>
+                        </a>
+
+                        <!-- Card Candidato (Estado ativo e Input de verdade) -->
+                        <label class="type-card active">
+                            <input type="radio" name="account_type" value="candidato" checked>
+                            <i class="bi bi-person-badge"></i>
+                            <span>Sou Candidato</span>
+                        </label>
+                    </div>
 
                     @if ($errors->any())
                     <div class="alert-soft-danger">
@@ -480,39 +554,48 @@
                     </div>
                     @endif
 
-                    <form method="POST" action="/login">
+                    <form method="POST" action="/registerCandidato">
                         @csrf
 
-                        <label class="field-label" for="email">E-mail</label>
-                        <div class="input-group-custom">
-                            <i class="bi bi-envelope"></i>
-                            <input type="email" name="email" id="email" placeholder="seu@email.com" required value="{{ old('email') }}">
+                        <div class="field-group">
+                            <label class="field-label" for="name">Nome completo</label>
+                            <div class="input-group-custom">
+                                <i class="bi bi-person"></i>
+                                <input type="text" name="name" id="name" placeholder="Seu nome" required value="{{ old('name') }}">
+                            </div>
                         </div>
 
-                        <label class="field-label" for="password">Senha</label>
-                        <div class="input-group-custom">
-                            <i class="bi bi-key"></i>
-                            <input type="password" name="password" id="password" placeholder="Sua senha" required>
-                            <button type="button" class="toggle-visibility" id="togglePassword" aria-label="Mostrar senha">
-                                <i class="bi bi-eye" id="togglePasswordIcon"></i>
-                            </button>
+                        <div class="field-group">
+                            <label class="field-label" for="email">Seu melhor e-mail</label>
+                            <div class="input-group-custom">
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" name="email" id="email" placeholder="voce@contato.com" required value="{{ old('email') }}">
+                            </div>
                         </div>
 
-                        <div class="form-meta-row">
-                            <label class="remember-check">
-                                <input type="checkbox" name="remember">
-                                Lembrar de mim
-                            </label>
-                            <a href="{{ route('password.request') }}" class="forgot-password">Esqueceu a senha?</a>
+                        <div class="field-group">
+                            <label class="field-label" for="password">Senha</label>
+                            <div class="input-group-custom">
+                                <i class="bi bi-key"></i>
+                                <input type="password" name="password" id="password" placeholder="Crie uma senha" required minlength="8">
+                                <button type="button" class="toggle-visibility" id="togglePassword" aria-label="Mostrar senha">
+                                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                            </div>
+                            <p class="password-hint">Use pelo menos 8 caracteres.</p>
                         </div>
 
                         <button type="submit" class="btn btn-submit">
-                            Entrar na plataforma
+                            Criar conta
                         </button>
+
+                        <p class="terms-text">
+                            Ao se cadastrar, você aceita nossos <a href="#">Termos de Serviço</a> e nossa <a href="#">Política de Privacidade</a>.
+                        </p>
                     </form>
 
-                    <div class="register-link">
-                        Não tem conta? <a href="{{ url('/register') }}">Criar agora</a>
+                    <div class="login-link">
+                        Já tem conta? <a href="{{ url('/login') }}">Entrar</a>
                     </div>
 
                 </div>
@@ -523,7 +606,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Alternar visibilidade da senha — apenas UX, não altera o envio do formulário.
         document.getElementById('togglePassword').addEventListener('click', function () {
             const input = document.getElementById('password');
             const icon = document.getElementById('togglePasswordIcon');

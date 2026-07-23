@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EsgProgressController;
 use App\Http\Controllers\DiversityProgressController;
@@ -31,11 +32,21 @@ Route::middleware('guest')->group(function () {
     });
     Route::post('/register', [AuthController::class, 'register']);
 
+    Route::get('/registerCandidato', function(){
+        return view('registerCandidato');
+    });
+
+    Route::post('/registerCandidato', [CandidatoController::class, 'register']);
+
     # Login
     Route::get('/login', function () {
         return view('login');
     })->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::get('/verification-notice-candidato', function(){
+        return view('verificationNoticeCandidato');
+    })->name('verification-notice-candidato');
 
     # Recuperação de Senha
     Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
@@ -44,6 +55,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
+Route::get('/candidato-dashboard', function () {return view('candidato-dashboard');})->name('candidato-dashboard');
 # --------------------------------------------------------------------------
 # 2. Rotas que Exigem Apenas Autenticação Base (Utilizadores Logados)
 # --------------------------------------------------------------------------
@@ -56,6 +68,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email/verify', function () {
         return view('verify');
     })->name('verification.notice');
+
+    # aslasa
+
+    Route::get('/verify-email-candidato/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+        return redirect()->route('candidato.dashboard');
+    })->middleware(['auth:candidato', 'signed'])->name('verification.verify.candidato');
 
     # Processamento do Link de Verificação
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
