@@ -13,10 +13,38 @@ class DashboardController extends Controller
     # Método essencial para percorrer array em View e plotar o mapa de calor
     public function index(DiversityScoreService $diversityScoreService)
     {
+        $user = auth()->user();
+
+        // Candidate user dashboard
+        if ($user->candidate()->exists() && !$user->company()->exists()) {
+            $candidate = $user->candidate;
+
+            // Get recommended jobs (all jobs for now)
+            $jobs = JobPosting::latest()->take(3)->get();
+
+            // Get user's applications (matchings with candidate_id)
+            $applications = Matching::where('candidate_id', $candidate->id)->latest()->take(5)->get();
+
+            // Calculate profile progress
+            $profileProgress = $candidate->profileProgressPercentage();
+            $profileFields = $candidate->profileProgressFields();
+
+            return view('dashboard', [
+                'isCompanyUser' => false,
+                'candidate' => $candidate,
+                'jobs' => $jobs,
+                'applications' => $applications,
+                'profileProgress' => $profileProgress,
+                'profileFields' => $profileFields,
+                'matchScore' => rand(80, 95), // placeholder
+            ]);
+        }
+
+        // Company user dashboard (original logic)
         // 1. Mantém a busca original das vagas (Não mexer aqui)
-        $jobs = JobPosting::where('company_id', auth()->user()->company->id)->latest()->get();
+        $jobs = JobPosting::where('company_id', $user->company->id)->latest()->get();
         // Calculate diversity score
-        $company = auth()->user()->company;
+        $company = $user->company;
 
         $diversityGoals = $company->diversityGoals;
         $esgGoals = $company->esgGoals;
@@ -57,6 +85,15 @@ class DashboardController extends Controller
             ->get();
 
         // 3. Inclui a nova variável 'heatPoints' no compact()
-        return view('dashboard', compact('jobs', 'diversityScore', 'esgGoals', 'diversityGoals', 'company', 'highScoreMatchings', 'topRegions'));
+        return view('dashboard', [
+            'isCompanyUser' => true,
+            'jobs' => $jobs,
+            'diversityScore' => $diversityScore,
+            'esgGoals' => $esgGoals,
+            'diversityGoals' => $diversityGoals,
+            'company' => $company,
+            'highScoreMatchings' => $highScoreMatchings,
+            'topRegions' => $topRegions,
+        ]);
     }
 }
