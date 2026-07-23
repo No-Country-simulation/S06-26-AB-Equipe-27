@@ -636,71 +636,7 @@
 <body>
 
     {{-- NAVBAR SUPERIOR --}}
-    <nav class="navbar navbar-expand-lg sticky-top py-2">
-        <div class="container px-4">
-
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('/dashboard') }}">
-                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                Skill<span style="color: var(--color-primary);">Focus</span>
-            </a>
-
-            <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
-                    <li class="nav-item">
-                        <a class="nav-link-custom active" href="{{ url('/dashboard') }}">
-                            <i class="bi bi-grid-1x2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs') }}">
-                            <i class="bi bi-briefcase"></i> Vagas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/mapa-talentos') }}">
-                            <i class="bi bi-map"></i> Mapa de Calor
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/jobs/reports') }}">
-                            <i class="bi bi-bar-chart"></i> Relatórios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ route('esg-progress.index') }}">
-                            <i class="bi bi-shield-check"></i> Progresso
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link-custom text-danger" href="{{ route('logout') }}">
-                            <i class="bi bi-box-arrow-right me-2"></i> Sair
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="navbar-actions">
-                    <div class="avatar-badge">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-end mt-2">
-                        <li><a class="dropdown-item py-2" href="{{ route('dashboard') }}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ route('esg-progress.index') }}"><i class="bi bi-bar-chart-fill me-2 text-muted"></i>Progresso ESG</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ url('/jobs/create') }}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ url('/jobs') }}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ url('/jobs/reports') }}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+    <x-navbar activePage="dashboard" />
 
     {{-- CONTEÚDO PRINCIPAL --}}
     <main class="container my-5">

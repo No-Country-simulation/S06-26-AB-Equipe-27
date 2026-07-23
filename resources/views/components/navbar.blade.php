@@ -4,6 +4,8 @@
 
  @php
  $activePage = $activePage ?? 'home';
+ $user = auth()->user();
+ $isCompany = $user && $user->company()->exists();
  @endphp
 
  <style>
@@ -36,10 +38,6 @@
          box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
      }
 
-     /* O collapse agrupa links + ações. No desktop (>=lg) ele vira uma
-           linha flex alinhada ao fim, então os dois blocos ficam sempre
-           colados um ao outro na ponta direita — nunca "soltos" ou
-           puxados pro centro. No mobile ele vira um painel empilhado. */
      .navbar-collapse {
          gap: 1.5rem;
      }
@@ -178,7 +176,7 @@
  {{-- NAVBAR SUPERIOR --}}
  <nav class="navbar navbar-expand-lg sticky-top py-2">
      <div class="container px-4">
-         <a class="navbar-brand   d-flex align-items-center" href="{{ url('/dashboard') }}">
+         <a class="navbar-brand d-flex align-items-center" href="{{ url($isCompany ? '/dashboard' : '/jobs') }}">
              <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
              Skill<span style="color: var(--color-primary);">Focus</span>
          </a>
@@ -189,6 +187,8 @@
 
          <div class="collapse navbar-collapse" id="navbarNav">
 
+             @if ($isCompany)
+             {{-- Company Navigation --}}
              <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
                  <li class="nav-item">
                      <a class="nav-link-custom {{ $activePage === 'dashboard' ? 'active' : '' }}" href="{{ url('/dashboard') }}">
@@ -197,7 +197,7 @@
                  </li>
                  <li class="nav-item">
                      <a class="nav-link-custom {{ $activePage === 'jobs' ? 'active' : '' }}" href="{{ url('/jobs') }}">
-                         <i class="bi bi-grid-1x2"></i> Vagas
+                         <i class="bi bi-briefcase"></i> Vagas
                      </a>
                  </li>
                  <li class="nav-item">
@@ -206,7 +206,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'reports' ? 'active' : '' }}" href="{{ url('/jobs/reports') }}">
+                     <a class="nav-link-custom {{ $activePage === 'reports' ? 'active' : '' }}" href="{{ url('/reports') }}">
                          <i class="bi bi-bar-chart"></i> Relatórios
                      </a>
                  </li>
@@ -219,23 +219,44 @@
                          <li><a class="dropdown-item {{ $activePage === 'diversity-progress' ? 'active' : '' }}" href="{{ route('diversity-progress.index') }}">Progresso de Diversidade</a></li>
                      </ul>
                  </li>
+             </ul>
+             @else
+             {{-- Candidate Navigation --}}
+             <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
                  <li class="nav-item">
-                     <a class="nav-link-custom text-danger" href="{{ route('logout') }}">
-                         <i class="bi bi-box-arrow-right me-2"></i> Sair
+                     <a class="nav-link-custom {{ $activePage === 'dashboard' ? 'active' : '' }}" href="{{ url('/dashboard') }}">
+                         <i class="bi bi-grid-1x2"></i> Dashboard
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link-custom {{ $activePage === 'jobs' ? 'active' : '' }}" href="{{ url('/jobs') }}">
+                         <i class="bi bi-briefcase"></i> Vagas
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link-custom {{ $activePage === 'match' ? 'active' : '' }}" href="{{ url('/jobs') }}#matches">
+                         <i class="bi bi-star"></i> Matches
                      </a>
                  </li>
              </ul>
+             @endif
 
              <div class="navbar-actions">
-                 <div class="avatar-badge">
+                 <div class="avatar-badge" data-bs-toggle="dropdown" aria-expanded="false" role="button">
                      <i class="bi bi-person-fill"></i>
                  </div>
                  <ul class="dropdown-menu dropdown-menu-end mt-2">
+                     @if ($isCompany)
                      <li><a class="dropdown-item py-2" href="{{ route('dashboard') }}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Dashboard</a></li>
                      <li><a class="dropdown-item py-2" href="{{ route('esg-progress.index') }}"><i class="bi bi-bar-chart-fill me-2 text-muted"></i>Progresso ESG</a></li>
                      <li><a class="dropdown-item py-2" href="{{ url('/jobs/create') }}"><i class="bi bi-plus-circle-fill me-2 text-muted"></i>Criar vaga</a></li>
                      <li><a class="dropdown-item py-2" href="{{ url('/jobs') }}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
-                     <li><a class="dropdown-item py-2" href="{{ url('/jobs/reports') }}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
+                     <li><a class="dropdown-item py-2" href="{{ url('/reports') }}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
+                     @else
+                     <li><a class="dropdown-item py-2" href="{{ url('/jobs') }}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Vagas</a></li>
+                     <li><a class="dropdown-item py-2" href="{{ route('candidate-setup.step1') }}"><i class="bi bi-person-fill me-2 text-muted"></i>Perfil</a></li>
+                     <li><a class="dropdown-item py-2" href="{{ route('candidate-setup.step1') }}"><i class="bi bi-gear-fill me-2 text-muted"></i>Configurações</a></li>
+                     @endif
                      <li>
                          <hr class="dropdown-divider">
                      </li>
@@ -248,7 +269,6 @@
  </nav>
 
  <script>
-     // Wait for Bootstrap to be loaded, then initialize dropdowns if needed
      document.addEventListener('DOMContentLoaded', function() {
          const dropdownToggles = document.querySelectorAll('.nav-item.dropdown .dropdown-toggle');
          if (typeof bootstrap !== 'undefined') {

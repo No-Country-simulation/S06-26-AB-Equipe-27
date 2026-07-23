@@ -75,7 +75,8 @@ Route::middleware(['auth'])->group(function () {
 # --------------------------------------------------------------------------
 # 3. Wizard de Configuração (Exige Auth e Email Verificado)
 # --------------------------------------------------------------------------
-Route::middleware(['auth', 'verified'])->group(function () {
+// Company setup routes
+Route::middleware(['auth', 'verified', 'is.company'])->group(function () {
     Route::get('/setup/step1', [SetupController::class, 'step1'])->name('setup.step1');
     Route::post('/setup/step1', [SetupController::class, 'postStep1'])->name('setup.step1.post');
 
@@ -90,8 +91,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/setup/review', [SetupController::class, 'review'])->name('setup.review');
     Route::post('/setup/finish', [SetupController::class, 'finish'])->name('setup.finish');
+});
 
-    // Candidate setup routes
+// Candidate setup routes
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/candidate-setup/step1', [CandidateSetupController::class, 'step1'])->name('candidate-setup.step1');
     Route::post('/candidate-setup/step1', [CandidateSetupController::class, 'postStep1'])->name('candidate-setup.step1.post');
 
@@ -117,12 +120,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 # --------------------------------------------------------------------------
 # 4. Aplicação Principal (Exige Auth, Email Verificado e Setup Concluído)
 # --------------------------------------------------------------------------
-Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
-
-    # Dashboards
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    /* Route::get('/dashboard/jobs', [JobsDashboardController::class, 'index']); */
-
+// Company-only routes
+Route::middleware(['auth', 'verified', 'setup.complete', 'is.company'])->group(function () {
     # ESG Progress
     Route::get('/esg-progress', [EsgProgressController::class, 'index'])->name('esg-progress.index');
     Route::put('/esg-progress/{goal}', [EsgProgressController::class, 'update'])->name('esg-progress.update');
@@ -131,30 +130,37 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
     Route::get('/diversity-progress', [DiversityProgressController::class, 'index'])->name('diversity-progress.index');
     Route::put('/diversity-progress/{goal}', [DiversityProgressController::class, 'update'])->name('diversity-progress.update');
 
-    # CRUD de Vagas (Mantendo os URLs originais para compatibilidade com as tuas Views)
-    Route::get('/jobs', [JobPostingController::class, 'index']);
-    Route::get('/jobs/create', function () {
-        return view('job-posting');
-    });
+    # CRUD de Vagas (Company features)
+    Route::get('/jobs/create', [JobPostingController::class, 'create']);
     Route::post('/jobs', [JobPostingController::class, 'store']);
     Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);
     Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']);
     Route::delete('/jobs/{id}/delete', [JobPostingController::class, 'delete']);
-
-    Route::get('/mapa-talentos', function () {
-        return view('mapa');
-    });
-    Route::get('/mapa-talentos', [MapaController::class, 'index']);
     Route::get('/jobs/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/jobs/reports/download-pdf', [ReportController::class, 'downloadPdf'])->name('reports.download-pdf');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports-download-pdf', [ReportController::class, 'downloadPdf'])->name('reports.download-pdf');
+
+    Route::get('/mapa-talentos', [MapaController::class, 'index']);
+});
+
+// Routes accessible by both company and candidate users (jobs index, job details, apply)
+Route::middleware(['auth', 'verified'])->group(function () {
+    # Dashboards
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    # Jobs
+    Route::get('/jobs', [JobPostingController::class, 'index']);
+    Route::get('/jobs/{jobPosting}', [JobPostingController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/{jobPosting}/apply', [JobPostingController::class, 'apply'])->name('jobs.apply');
 });
 
 
 # ====================================
-# Matches
+# Matches (Company-only)
 # ====================================
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'is.company'])->group(function () {
     Route::get('/match/{jobId}', [MatchController::class, 'show'])->name('match.show');
     Route::post('/match/{jobId}/generate', [MatchController::class, 'generate'])->name('match.generate');
     Route::post('/match/{matching}/select', [App\Http\Controllers\MatchController::class, 'selectCandidate'])->name('match.select');
