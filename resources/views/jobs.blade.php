@@ -551,7 +551,7 @@
 
         <div class="page-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
             <div>
-                <div class="eyebrow mb-2">{{ $isCompanyUser ? 'Recrutamento &amp; seleção' : 'Oportunidades' }}</div>
+                <div class="eyebrow mb-2">{{ $isCompanyUser ? 'Recrutamento & seleção' : 'Oportunidades' }}</div>
                 <h1 class="mb-1">Vagas</h1>
                 <p class="mb-0">{{ $isCompanyUser ? 'Gerencie as posições abertas e acompanhe o índice de equidade de cada processo' : 'Encontre a vaga perfeita para você' }}</p>
             </div>

@@ -261,7 +261,7 @@
                 <span class="brand-icon"></span>
                 <span class="brand-name">Skill<span>Focus</span></span>
             </div>
-            <div class="eyebrow">Recrutamento &amp; seleção</div>
+            <div class="eyebrow">Recrutamento & seleção</div>
             <h1>Relatório Analítico de Diversidade</h1>
         </div>
         <div class="report-meta">

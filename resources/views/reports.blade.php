@@ -468,7 +468,7 @@
 
         <div class="page-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
             <div>
-                <div class="eyebrow mb-2">Diversidade &amp; ESG</div>
+                <div class="eyebrow mb-2">Diversidade & ESG</div>
                 <h1 class="mb-1">Relatórios Analíticos</h1>
                 <p class="mb-0">Visão consolidada de diversidade, metas e métricas ESG</p>
             </div>
