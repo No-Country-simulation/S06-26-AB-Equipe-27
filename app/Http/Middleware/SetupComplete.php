@@ -16,15 +16,20 @@ class SetupComplete
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Como o middleware 'auth' já rodou antes, Auth::user() é garantido.
-        $company = Auth::user()->company;
+        $user = Auth::user();
 
-        // Se não tiver empresa ou o setup não estiver completo, manda pro início do setup.
-        if (!$company || !$company->setup_completed) {
+        if ($user->company()->exists()) {
+            if (!$user->company->setup_completed) {
+                return redirect()->route('setup.step1');
+            }
+        } elseif ($user->candidate()->exists()) {
+            if (!$user->candidate->setup_completed) {
+                return redirect()->route('candidate-setup.step1');
+            }
+        } else {
             return redirect()->route('setup.step1');
         }
 
-        // Se estiver tudo certo, deixa a requisição seguir para o Dashboard/Vagas.
         return $next($request);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\JobsDashboardController;
 use App\Http\Controllers\SetupController;
+use App\Http\Controllers\CandidateSetupController;
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -89,6 +90,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/setup/review', [SetupController::class, 'review'])->name('setup.review');
     Route::post('/setup/finish', [SetupController::class, 'finish'])->name('setup.finish');
+
+    // Candidate setup routes
+    Route::get('/candidate-setup/step1', [CandidateSetupController::class, 'step1'])->name('candidate-setup.step1');
+    Route::post('/candidate-setup/step1', [CandidateSetupController::class, 'postStep1'])->name('candidate-setup.step1.post');
+
+    Route::get('/candidate-setup/step2', [CandidateSetupController::class, 'step2'])->name('candidate-setup.step2');
+    Route::post('/candidate-setup/step2', [CandidateSetupController::class, 'postStep2'])->name('candidate-setup.step2.post');
+
+    Route::get('/candidate-setup/step3', [CandidateSetupController::class, 'step3'])->name('candidate-setup.step3');
+    Route::post('/candidate-setup/step3', [CandidateSetupController::class, 'postStep3'])->name('candidate-setup.step3.post');
+
+    Route::get('/candidate-setup/step4', [CandidateSetupController::class, 'step4'])->name('candidate-setup.step4');
+    Route::post('/candidate-setup/step4', [CandidateSetupController::class, 'postStep4'])->name('candidate-setup.step4.post');
+
+    Route::get('/candidate-setup/step5', [CandidateSetupController::class, 'step5'])->name('candidate-setup.step5');
+    Route::post('/candidate-setup/step5', [CandidateSetupController::class, 'postStep5'])->name('candidate-setup.step5.post');
+
+    Route::get('/candidate-setup/step6', [CandidateSetupController::class, 'step6'])->name('candidate-setup.step6');
+    Route::post('/candidate-setup/step6', [CandidateSetupController::class, 'postStep6'])->name('candidate-setup.step6.post');
+
+    Route::get('/candidate-setup/finish', [CandidateSetupController::class, 'finish'])->name('candidate-setup.finish');
 });
 
 
@@ -123,8 +145,6 @@ Route::middleware(['auth', 'verified', 'setup.complete'])->group(function () {
         return view('mapa');
     });
     Route::get('/mapa-talentos', [MapaController::class, 'index']);
-    Route::get('/jobs/reports', [ReportController::class, 'index'])->name('reports.index');
-    Route::get('/jobs/reports/download-pdf', [ReportController::class, 'downloadPdf'])->name('reports.download-pdf');
 });
 
 
@@ -145,6 +165,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/test', function () {
     return view('tests');
 });
+
+// Quick test route for candidate setup
+Route::get('/candidate-setup', function () {
+    return redirect()->route('candidate-setup.step1');
+})->middleware('auth');
 
 Route::get('/seed-matchings', function () {
     $company = auth()->user()->company;
