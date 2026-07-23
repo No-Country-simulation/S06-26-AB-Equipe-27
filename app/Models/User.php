@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Company;
+use App\Models\Candidate;
 
 
 #[Fillable(['name', 'email', 'password'])]
@@ -23,6 +24,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function company()
     {
         return $this->hasOne(\App\Models\Company::class);
+    }
+
+    public function candidate()
+    {
+        return $this->hasOne(\App\Models\Candidate::class);
     }
 
     protected function casts(): array
