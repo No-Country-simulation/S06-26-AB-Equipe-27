@@ -32,21 +32,11 @@ Route::middleware('guest')->group(function () {
     });
     Route::post('/register', [AuthController::class, 'register']);
 
-    Route::get('/registerCandidato', function(){
-        return view('registerCandidato');
-    });
-
-    Route::post('/registerCandidato', [CandidatoController::class, 'register']);
-
     # Login
     Route::get('/login', function () {
         return view('login');
     })->name('login');
     Route::post('/login', [AuthController::class, 'login']);
-
-    Route::get('/verification-notice-candidato', function(){
-        return view('verificationNoticeCandidato');
-    })->name('verification-notice-candidato');
 
     # Recuperação de Senha
     Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
@@ -82,10 +72,6 @@ Route::middleware(['auth'])->group(function () {
 
         $user = $request->user();
         $company = $user->company;
-
-        if (!$company || !$company->setup_completed) {
-            return redirect()->route('setup.step1');
-        }
 
         return redirect()->route('dashboard');
     })->name('verification.verify');

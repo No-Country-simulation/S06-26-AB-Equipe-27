@@ -7,9 +7,7 @@ use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
-use App\Services\CandidatoService;
-use App\Models\Candidato;
-use App\Http\Controllers\CandidatoController;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -23,13 +21,28 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
+            'profile_type' => 'required|in:empresa,candidato',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'company_name' => 'required|string|max:255',
+            'company_name' => 'nullable|required_if:profile_type,empresa|string|max:255',
+            'current_company' => 'nullable|string|max:255',
         ]);
 
-        $this->authService->register($data);
+        if ($data['profile_type'] === 'empresa') {
+            $this->authService->register($data);
+        } else {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $user->candidate()->create([
+                'current_company' => $data['current_company'] ?? null,
+            ]);
+            $user->sendEmailVerificationNotification();
+        }
+
         return redirect('/login')->with('success', 'Conta criada com sucesso!');
     }
 
@@ -40,54 +53,47 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'login_type' => 'required|in:empresa,candidato',
         ]);
 
-       $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
+        $loginType = $request->input('login_type');
 
-    // tenta candidato primeiro (ou escolha uma ordem fixa)
-    if (Auth::guard('candidato')->attempt($credentials)) {
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $request->session()->put('login_type', $loginType);
 
-        $candidato = Auth::guard('candidato')->user();
+            $user = Auth::user();
 
-        if (!$candidato->hasVerifiedEmail()) {
-            return redirect()->route('verification-notice-candidato');
+            if (!$user->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice');
+            }
+
+            // Redirect based on login type, ignoring profile existence
+            if ($loginType === 'empresa') {
+                if (!$user->company || !$user->company->setup_completed) {
+                    return redirect()->route('setup.step1');
+                }
+                return redirect()->route('dashboard');
+            } else {
+                // candidato
+                if (!$user->candidate || !$user->candidate->setup_completed) {
+                    return redirect()->route('candidate-setup.step1');
+                }
+                return redirect()->route('dashboard'); // DashboardController will handle showing candidate view
+            }
         }
 
-        return redirect()->route('candidato-dashboard');
+        return back()->withErrors([
+            'email' => 'Credenciais inválidas',
+        ]);
     }
-
-    // tenta user normal
-    if (Auth::guard('web')->attempt($credentials)) {
-        $request->session()->regenerate();
-
-        $user = Auth::guard('web')->user();
-
-        if (!$user->hasVerifiedEmail()) {
-            return redirect()->route('verification.notice');
-        }
-
-        if (!$user->company || !$user->company->setup_completed) {
-            return redirect()->route('setup.step1');
-        }
-
-        return redirect()->route('dashboard');
-    }
-
-    return back()->withErrors([
-        'email' => 'Credenciais inválidas',
-    ]);
-
-    // Falha geral
-    return back()->withErrors([
-        'email' => 'Credenciais inválidas',
-    ]);
-}
 
     # Logout.
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

@@ -545,17 +545,18 @@
                     <!-- SELETOR DE PERFIL -->
                     <div class="type-selector-wrapper">
                         <!-- Card Empresa (Estado ativo e Input de verdade para submit, oculto via CSS) -->
-                        <label class="type-card active">
+                        <label class="type-card active" id="card-empresa-register">
                             <input type="radio" name="account_type" value="empresa" checked>
                             <i class="bi bi-building"></i>
                             <span>Sou Empresa</span>
                         </label>
 
-                        <!-- Card Candidato (Apenas um link estilizado igual ao card) -->
-                        <a href="{{url('/registerCandidato')}}" class="type-card">
+                        <!-- Card Candidato -->
+                        <label class="type-card" id="card-candidato-register">
+                            <input type="radio" name="account_type" value="candidato">
                             <i class="bi bi-person-badge"></i>
                             <span>Sou Candidato</span>
-                        </a>
+                        </label>
                     </div>
 
                     @if ($errors->any())
@@ -570,9 +571,10 @@
 
                     <form method="POST" action="/register">
                         @csrf
+                        <input type="hidden" name="profile_type" id="profileTypeInput" value="empresa">
 
                         <div class="field-row">
-                            <div class="field-group">
+                            <div class="field-group" id="name-field-group">
                                 <label class="field-label" for="name">Nome completo</label>
                                 <div class="input-group-custom">
                                     <i class="bi bi-person"></i>
@@ -580,11 +582,19 @@
                                 </div>
                             </div>
 
-                            <div class="field-group">
+                            <div class="field-group" id="company-name-field-group">
                                 <label class="field-label" for="company_name">Empresa</label>
                                 <div class="input-group-custom">
                                     <i class="bi bi-building"></i>
                                     <input type="text" name="company_name" id="company_name" placeholder="Companhia" required value="{{ old('company_name') }}">
+                                </div>
+                            </div>
+
+                            <div class="field-group" id="current-company-field-group" style="display: none;">
+                                <label class="field-label" for="current_company">Empresa</label>
+                                <div class="input-group-custom">
+                                    <i class="bi bi-building"></i>
+                                    <input type="text" name="current_company" id="current_company" placeholder="Empresa atual ou última" value="{{ old('current_company') }}">
                                 </div>
                             </div>
                         </div>
@@ -637,6 +647,39 @@
             input.type = isHidden ? 'text' : 'password';
             icon.classList.toggle('bi-eye', !isHidden);
             icon.classList.toggle('bi-eye-slash', isHidden);
+        });
+
+        // Alternar tipo de conta no cadastro
+        const cardEmpresaRegister = document.getElementById('card-empresa-register');
+        const cardCandidatoRegister = document.getElementById('card-candidato-register');
+        const profileTypeInput = document.getElementById('profileTypeInput');
+        const companyNameFieldGroup = document.getElementById('company-name-field-group');
+        const companyNameInput = document.getElementById('company_name');
+        const nameFieldGroup = document.getElementById('name-field-group');
+        const radioAccountTypes = document.querySelectorAll('input[name="account_type"]');
+
+        radioAccountTypes.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === 'empresa') {
+                    cardEmpresaRegister.classList.add('active');
+                    cardCandidatoRegister.classList.remove('active');
+                    profileTypeInput.value = 'empresa';
+                    companyNameFieldGroup.style.display = '';
+                    companyNameInput.required = true;
+                    // Make name field full width again when in 2-col mode
+                    if (window.innerWidth >= 576) {
+                        nameFieldGroup.style.width = '';
+                    }
+                } else {
+                    cardEmpresaRegister.classList.remove('active');
+                    cardCandidatoRegister.classList.add('active');
+                    profileTypeInput.value = 'candidato';
+                    companyNameFieldGroup.style.display = 'none';
+                    companyNameInput.required = false;
+                    // Make name field take full width when company name is hidden
+                    nameFieldGroup.style.width = '100%';
+                }
+            });
         });
     </script>
 </body>

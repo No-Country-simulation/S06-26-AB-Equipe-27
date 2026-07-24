@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,16 +41,21 @@
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
 
-        html, body { height: 100%; }
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
@@ -57,8 +63,16 @@
             min-height: 100vh;
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         /* ==========================================================
            LAYOUT — split screen
@@ -85,8 +99,8 @@
             padding: 3rem 3.25rem;
             color: #fff;
             background:
-                radial-gradient(circle at 15% 15%, rgba(124,58,237,.55), transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(13,148,136,.45), transparent 50%),
+                radial-gradient(circle at 15% 15%, rgba(124, 58, 237, .55), transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(13, 148, 136, .45), transparent 50%),
                 linear-gradient(165deg, var(--color-ink) 0%, #241F3D 55%, #1B1830 100%);
             overflow: hidden;
         }
@@ -95,9 +109,9 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px);
             background-size: 22px 22px;
-            mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,.7) 55%, transparent);
+            mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, .7) 55%, transparent);
             pointer-events: none;
         }
 
@@ -122,7 +136,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.6);
+            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .6);
             flex-shrink: 0;
         }
 
@@ -176,7 +190,7 @@
             width: 28px;
             height: 28px;
             border-radius: 8px;
-            background-color: rgba(13,148,136,.22);
+            background-color: rgba(13, 148, 136, .22);
             color: #5EEAD4;
             display: flex;
             align-items: center;
@@ -193,11 +207,13 @@
             gap: 0.5rem;
             font-size: 0.78rem;
             color: #B7B2CF;
-            border-top: 1px solid rgba(255,255,255,.1);
+            border-top: 1px solid rgba(255, 255, 255, .1);
             padding-top: 1.25rem;
         }
 
-        .login-aside .trust-line i { color: #5EEAD4; }
+        .login-aside .trust-line i {
+            color: #5EEAD4;
+        }
 
         /* ---- Painel direito (formulário) ---- */
         .login-form-panel {
@@ -207,7 +223,7 @@
             justify-content: center;
             padding: 2.5rem 1.5rem;
             background-color: var(--color-bg);
-            background-image: radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%);
+            background-image: radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%);
         }
 
         .mobile-brand {
@@ -267,8 +283,74 @@
         .form-subtitle {
             color: var(--color-muted);
             font-size: 0.88rem;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
+
+        /* ==========================================================
+           SELETOR DE TIPO DE CONTA (CARDS)
+        ========================================================== */
+        .type-selector-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .type-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 0.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-surface);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--color-muted);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .type-card:hover {
+            border-color: #C4B5FD;
+            background-color: var(--color-bg);
+            color: var(--color-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .type-card.active {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary-softer);
+            color: var(--color-primary-dark);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
+        }
+
+        .type-card i {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: inherit;
+        }
+
+        .type-card span {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: inherit;
+        }
+
+        /* Oculta o input radio, mantendo-o acessível e submetível */
+        .type-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* -------------------------------------------------------- */
 
         .field-label {
             font-size: 0.8rem;
@@ -292,10 +374,13 @@
         .input-group-custom:focus-within {
             border-color: var(--color-primary);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, .12);
         }
 
-        .input-group-custom i { color: var(--color-primary); font-size: 1rem; }
+        .input-group-custom i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
 
         .input-group-custom input {
             border: none;
@@ -307,7 +392,9 @@
             font-size: 0.92rem;
         }
 
-        .input-group-custom input::placeholder { color: #ACA8C2; }
+        .input-group-custom input::placeholder {
+            color: #ACA8C2;
+        }
 
         .toggle-visibility {
             background: none;
@@ -318,7 +405,10 @@
             align-items: center;
             transition: color .15s ease;
         }
-        .toggle-visibility:hover { color: var(--color-ink); }
+
+        .toggle-visibility:hover {
+            color: var(--color-ink);
+        }
 
         .form-meta-row {
             display: flex;
@@ -347,7 +437,11 @@
             font-size: 0.83rem;
             font-weight: 600;
         }
-        .forgot-password:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .forgot-password:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
 
         .alert-soft-danger {
             background-color: #FDEEEE;
@@ -359,7 +453,10 @@
             margin-bottom: 1.1rem;
         }
 
-        .alert-soft-danger ul { margin-bottom: 0; padding-left: 1.1rem; }
+        .alert-soft-danger ul {
+            margin-bottom: 0;
+            padding-left: 1.1rem;
+        }
 
         .btn-submit {
             background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
@@ -370,14 +467,14 @@
             font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
         }
 
         .btn-submit:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         .register-link {
@@ -391,11 +488,18 @@
             color: var(--color-primary);
             font-weight: 700;
         }
-        .register-link a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .register-link a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
 
         /* ---------------- Responsivo ---------------- */
         @media (max-width: 991.98px) {
-            .login-aside { display: none; }
+            .login-aside {
+                display: none;
+            }
+
             .mobile-brand {
                 display: flex;
                 align-items: center;
@@ -410,10 +514,19 @@
         }
 
         @media (max-width: 420px) {
-            .login-card { padding: 1.75rem 1.35rem; }
+            .login-card {
+                padding: 1.75rem 1.35rem;
+            }
+
+            .type-selector-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            /* Em telas muito pequenas empilha os botões */
         }
     </style>
 </head>
+
 <body>
 
     <div class="login-shell">
@@ -470,6 +583,23 @@
                     <h1 class="form-title">Bem-vindo de volta</h1>
                     <p class="form-subtitle">Acesse sua conta para continuar</p>
 
+                    <!-- SELETOR DE PERFIL -->
+                    <div class="type-selector-wrapper">
+                        <!-- Card Empresa (Estado ativo e Input de verdade para submit, oculto via CSS) -->
+                        <label class="type-card active" id="card-empresa">
+                            <input type="radio" name="login_type" value="empresa" checked>
+                            <i class="bi bi-building"></i>
+                            <span>Sou Empresa</span>
+                        </label>
+
+                        <!-- Card Candidato -->
+                        <label class="type-card" id="card-candidato">
+                            <input type="radio" name="login_type" value="candidato">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Sou Candidato</span>
+                        </label>
+                    </div>
+
                     @if ($errors->any())
                     <div class="alert-soft-danger">
                         <ul>
@@ -482,6 +612,7 @@
 
                     <form method="POST" action="/login">
                         @csrf
+                        <input type="hidden" name="login_type" id="loginTypeInput" value="empresa">
 
                         <label class="field-label" for="email">E-mail</label>
                         <div class="input-group-custom">
@@ -532,6 +663,27 @@
             icon.classList.toggle('bi-eye', !isHidden);
             icon.classList.toggle('bi-eye-slash', isHidden);
         });
+
+        // Alternar entre tipo de conta no login
+        const cardEmpresa = document.getElementById('card-empresa');
+        const cardCandidato = document.getElementById('card-candidato');
+        const loginTypeInput = document.getElementById('loginTypeInput');
+        const radioInputs = document.querySelectorAll('input[name="login_type"]');
+
+        radioInputs.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === 'empresa') {
+                    cardEmpresa.classList.add('active');
+                    cardCandidato.classList.remove('active');
+                    loginTypeInput.value = 'empresa';
+                } else {
+                    cardEmpresa.classList.remove('active');
+                    cardCandidato.classList.add('active');
+                    loginTypeInput.value = 'candidato';
+                }
+            });
+        });
     </script>
 </body>
+
 </html>
