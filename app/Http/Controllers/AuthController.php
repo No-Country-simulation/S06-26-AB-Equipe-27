@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+use Illuminate\Validation\Rule;
+
 class AuthController extends Controller
 {
     protected $authService;
@@ -20,13 +22,25 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $profileType = $request->input('profile_type');
+
         $data = $request->validate([
             'profile_type' => 'required|in:empresa,candidato',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'company_name' => 'nullable|required_if:profile_type,empresa|string|max:255',
-            'current_company' => 'nullable|string|max:255',
+            'company_name' => [
+                Rule::requiredIf($profileType === 'empresa'),
+                'exclude_if:profile_type,candidato',
+                'string',
+                'max:255',
+            ],
+            'current_company' => [
+                'exclude_if:profile_type,empresa',
+                'nullable',
+                'string',
+                'max:255',
+            ],
         ]);
 
         if ($data['profile_type'] === 'empresa') {

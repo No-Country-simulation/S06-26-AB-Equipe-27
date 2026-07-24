@@ -647,15 +647,7 @@
                                 <label class="field-label" for="company_name">Empresa</label>
                                 <div class="input-group-custom">
                                     <i class="bi bi-building"></i>
-                                    <input type="text" name="company_name" id="company_name" placeholder="Empresa" required value="{{ old('company_name') }}">
-                                </div>
-                            </div>
-
-                            <div class="field-group" id="company-field-group" style="display: none;">
-                                <label class="field-label" for="company_name">Empresa (atual ou última)</label>
-                                <div class="input-group-custom">
-                                    <i class="bi bi-building"></i>
-                                    <input type="text" name="company_name" id="company_name" placeholder="Empresa" value="{{ old('company_name') }}">
+                                    <input type="text" name="company_name" id="company_name" placeholder="Nome da sua empresa" value="{{ old('company_name') }}">
                                 </div>
                             </div>
 
@@ -724,32 +716,44 @@
         const profileTypeInput = document.getElementById('profileTypeInput');
         const companyNameFieldGroup = document.getElementById('company-name-field-group');
         const companyNameInput = document.getElementById('company_name');
+        const currentCompanyFieldGroup = document.getElementById('current-company-field-group');
+        const currentCompanyInput = document.getElementById('current_company');
         const nameFieldGroup = document.getElementById('name-field-group');
         const radioAccountTypes = document.querySelectorAll('input[name="account_type"]');
 
-        radioAccountTypes.forEach(radio => {
-            radio.addEventListener('change', function () {
-                if (this.value === 'empresa') {
-                    cardEmpresaRegister.classList.add('active');
-                    cardCandidatoRegister.classList.remove('active');
-                    profileTypeInput.value = 'empresa';
-                    companyNameFieldGroup.style.display = '';
-                    companyNameInput.required = true;
-                    // Make name field full width again when in 2-col mode
-                    if (window.innerWidth >= 576) {
-                        nameFieldGroup.style.width = '';
-                    }
-                } else {
-                    cardEmpresaRegister.classList.remove('active');
-                    cardCandidatoRegister.classList.add('active');
-                    profileTypeInput.value = 'candidato';
-                    companyNameFieldGroup.style.display = 'none';
-                    companyNameInput.required = false;
-                    // Make name field take full width when company name is hidden
-                    nameFieldGroup.style.width = '100%';
+        function applyInitialProfileState() {
+            const checked = document.querySelector('input[name="account_type"]:checked');
+            const value = checked ? checked.value : 'empresa';
+            if (value === 'empresa') {
+                cardEmpresaRegister.classList.add('active');
+                cardCandidatoRegister.classList.remove('active');
+                profileTypeInput.value = 'empresa';
+                companyNameFieldGroup.style.display = '';
+                companyNameInput.setAttribute('required', 'required');
+                currentCompanyFieldGroup.style.display = 'none';
+                currentCompanyInput.removeAttribute('required');
+                if (window.innerWidth >= 576) {
+                    nameFieldGroup.style.width = '';
                 }
-            });
+            } else {
+                cardEmpresaRegister.classList.remove('active');
+                cardCandidatoRegister.classList.add('active');
+                profileTypeInput.value = 'candidato';
+                companyNameFieldGroup.style.display = 'none';
+                companyNameInput.removeAttribute('required');
+                currentCompanyFieldGroup.style.display = '';
+                currentCompanyInput.removeAttribute('required');
+                if (window.innerWidth >= 576) {
+                    nameFieldGroup.style.width = '';
+                }
+            }
+        }
+
+        radioAccountTypes.forEach(radio => {
+            radio.addEventListener('change', applyInitialProfileState);
         });
+
+        applyInitialProfileState();
     </script>
 </body>
 
