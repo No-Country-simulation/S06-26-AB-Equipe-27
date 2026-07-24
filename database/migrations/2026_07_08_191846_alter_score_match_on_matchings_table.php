@@ -9,21 +9,28 @@ return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement('
-            ALTER TABLE matchings
-            ALTER COLUMN score_match
-            TYPE NUMERIC(5,2)
-            USING score_match::NUMERIC
-        ');
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement("
+        ALTER TABLE matchings
+        ALTER COLUMN score_match
+        TYPE NUMERIC(5,2)
+        USING score_match::NUMERIC
+    ");
+        } else {
+            Schema::table('matchings', function (Blueprint $table) {
+                $table->decimal('score_match', 5, 2)->change();
+            });
+        }
     }
 
     public function down(): void
     {
-        DB::statement('
-            ALTER TABLE matchings
-            ALTER COLUMN score_match
-            TYPE INTEGER
-            USING ROUND(score_match)::INTEGER
-        ');
+        DB::table('matchings')->update([
+            'score_match' => DB::raw('ROUND(score_match)')
+        ]);
+
+        Schema::table('matchings', function (Blueprint $table) {
+            $table->integer('score_match')->change();
+        });
     }
 };
