@@ -688,42 +688,7 @@
                                 @endif
                             @endif
                         </div>
-
                     </div>
-
-                    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
-                        <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
-                            {{ $job->level }}
-                        </span>
-                        <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
-                            <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
-                        </span>
-                    </div>
-
-                    <div class="mb-1 flex-grow-1">
-                        <div class="job-info-text mb-2">
-                            <i class="bi bi-building"></i>
-                            {{ $job->area ?? 'Departamento/Área' }}
-                        </div>
-                        <div class="job-info-text">
-                            <i class="bi bi-geo-alt"></i>
-                            {{ $job->city }}, {{ $job->district }}
-                        </div>
-                    </div>
-
-                    <div class="card-divider"></div>
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="job-info-text mb-0">
-                            <i class="bi bi-people"></i>
-                            {{ $job->candidates_count ?? rand(10, 99) }} candidatos
-                        </div>
-
-                        <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
-                            Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
-                        </a>
-                    </div>
-
                 </div>
             </div>
             @endforeach
