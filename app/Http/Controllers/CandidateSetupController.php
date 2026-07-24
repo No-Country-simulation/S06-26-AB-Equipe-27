@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Candidate;
+use App\Services\PythonService;
 
 class CandidateSetupController extends Controller
 {
@@ -18,7 +20,7 @@ class CandidateSetupController extends Controller
     public function postStep1(Request $request)
     {
         $validated = $request->validate([
-            'resume' => 'required|file|mimes:pdf,docx|max:10240',
+            'resume' => 'required|file|mimes:pdf|max:10240',
         ]);
 
         $candidate = Auth::user()->candidate ?? Auth::user()->candidate()->create();
@@ -27,54 +29,39 @@ class CandidateSetupController extends Controller
         if ($request->hasFile('resume')) {
             $path = $request->file('resume')->store('resumes', 'public');
             $candidate->update(['resume_path' => $path]);
-            
-            // Simulate AI processing - in a real app, you'd call an AI service here
-            // For now, let's store some sample data
-            $candidate->update([
-                'full_name' => 'Alexandre Silva',
-                'phone' => '+55 (11) 99876-5432',
-                'city' => 'São Paulo',
-                'country' => 'Brasil',
-                'linkedin' => 'linkedin.com/in/alexandresilva',
-                'portfolio' => 'github.com/alexandresilva',
-                'skills' => ['Python', 'Laravel', 'Docker', 'AWS', 'PostgreSQL', 'Git', 'Redis', 'REST APIs'],
-                'work_experience' => [
-                    [
-                        'company' => 'Google',
-                        'position' => 'Software Engineer',
-                        'start_year' => '2022',
-                        'end_year' => 'Present'
-                    ],
-                    [
-                        'company' => 'IBM',
-                        'position' => 'Backend Developer',
-                        'start_year' => '2019',
-                        'end_year' => '2022'
-                    ]
-                ],
-                'education' => [
-                    [
-                        'degree' => 'Bachelor of Computer Science',
-                        'school' => 'University XYZ',
-                        'start_year' => '2017',
-                        'end_year' => '2021'
-                    ]
-                ],
-                'current_job_title' => 'Senior Backend Developer',
-                'years_experience' => 5,
-                'professional_summary' => 'Backend Engineer with 5 years of experience building scalable APIs and microservices using modern technologies. Proficient in cloud platforms and database management.',
-                'languages' => [
-                    ['name' => 'English', 'level' => 'Fluent'],
-                    ['name' => 'Spanish', 'level' => 'Intermediate'],
-                    ['name' => 'Portuguese', 'level' => 'Native']
-                ],
-                'desired_position' => 'Backend Developer',
-                'employment_type' => ['Full-time'],
-                'work_model' => ['Remote'],
-                'salary_expectation' => '150000',
-                'salary_currency' => 'BRL',
-                'availability' => 'Immediately',
-            ]);
+
+            $pdfContent = file_get_contents(Storage::disk('public')->path($path));
+            $pdfBase64 = base64_encode($pdfContent);
+
+            try {
+                $pythonService = app(PythonService::class);
+                $result = $pythonService->processResume([
+                    'action' => 'extract',
+                    'pdf_base64' => $pdfBase64,
+                ]);
+
+                if ($result['success']) {
+                    $dados = $result['dados_candidato'];
+
+                    $candidateData = [
+                        'full_name' => $dados['nome'] ?? '',
+                        'phone' => $dados['telefone'] ?? '',
+                        'city' => $dados['cidade'] ?? '',
+                        'country' => $dados['estado'] ?? '',
+                        'skills' => $dados['skills'] ?? [],
+                        'education' => collect($dados['formacao'] ?? [])->map(function ($degree, $index) use ($dados) {
+                            return [
+                                'degree' => $degree,
+                                'school' => $dados['instituicao'][$index] ?? '',
+                            ];
+                        })->filter(fn($item) => filled($item['degree']))->values()->all(),
+                    ];
+
+                    $candidate->update($candidateData);
+                }
+            } catch (\Exception $e) {
+                // If AI processing fails, we just store the resume path and move on
+            }
         }
 
         return redirect()->route('candidate-setup.step2');
