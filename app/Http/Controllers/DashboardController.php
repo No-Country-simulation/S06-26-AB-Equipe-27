@@ -14,10 +14,12 @@ class DashboardController extends Controller
     public function index(DiversityScoreService $diversityScoreService)
     {
         $user = auth()->user();
+        $loginType = session('login_type', 'empresa');
 
         // Candidate user dashboard
-        if ($user->candidate()->exists() && !$user->company()->exists()) {
-            $candidate = $user->candidate;
+        if ($loginType === 'candidato') {
+            // Ensure candidate profile exists, create if not
+            $candidate = $user->candidate ?? $user->candidate()->create();
 
             // Get recommended jobs (all jobs for now)
             $jobs = JobPosting::latest()->take(3)->get();

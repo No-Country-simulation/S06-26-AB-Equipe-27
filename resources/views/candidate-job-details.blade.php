@@ -490,7 +490,7 @@
             <div class="alert alert-danger alert-flash mb-4">{{ session('error') }}</div>
         @endif
 
-        <a href="{{ url('/jobs') }}" class="back-link">
+        <a href="{{ url('/candidate-jobs') }}" class="back-link">
             <i class="bi bi-arrow-left"></i> Voltar para vagas
         </a>
 

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsCompanyUser
+class IsCandidateUser
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class IsCompanyUser
     {
         $loginType = $request->session()->get('login_type');
 
-        // Only allow access if login_type is explicitly 'empresa'
-        if ($loginType !== 'empresa') {
+        // Only allow access if login_type is explicitly 'candidato'
+        if ($loginType !== 'candidato') {
             abort(403, 'Acesso não autorizado.');
         }
 

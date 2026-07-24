@@ -455,7 +455,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ url('/vagas') }}">
+                        <a class="nav-link-custom" href="{{ url('/jobs') }}">
                             <i class="bi bi-search"></i> Buscar Vagas
                         </a>
                     </li>
@@ -515,7 +515,7 @@
         {{-- Cards de ação rápida --}}
         <div class="row g-4 mb-4">
             <div class="col-12 col-md-4">
-                <a href="{{ url('/vagas') }}" class="dash-card action-card">
+                <a href="{{ url('/jobs') }}" class="dash-card action-card">
                     <div class="icon-box icon-purple"><i class="bi bi-search"></i></div>
                     <div>
                         <h3>Explorar Vagas</h3>
@@ -651,7 +651,7 @@
                             @endforeach
                             
                             <div class="text-center mt-2">
-                                <a href="{{ url('/vagas/recomendadas') }}" class="text-decoration-none" style="font-size:0.75rem; font-weight:700; color:var(--color-primary-dark);">Ver todas as recomendações <i class="bi bi-arrow-right"></i></a>
+                                <a href="{{ url('/jobs/recomendadas') }}" class="text-decoration-none" style="font-size:0.75rem; font-weight:700; color:var(--color-primary-dark);">Ver todas as recomendações <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -711,7 +711,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">Você ainda não se candidatou a nenhuma vaga. <a href="{{ url('/vagas') }}">Buscar vagas</a></td>
+                                    <td colspan="5" class="text-center py-4 text-muted">Você ainda não se candidatou a nenhuma vaga. <a href="{{ url('/jobs') }}">Buscar vagas</a></td>
                                 </tr>
                                 @endforelse
                             </tbody>

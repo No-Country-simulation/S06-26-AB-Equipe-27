@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EsgProgressController;
 use App\Http\Controllers\DiversityProgressController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 # --------------------------------------------------------------------------
 # 1. Rotas Públicas / Visitantes
@@ -45,36 +45,44 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
-Route::get('/candidato-dashboard', function () {return view('candidato-dashboard');})->name('candidato-dashboard');
 # --------------------------------------------------------------------------
 # 2. Rotas que Exigem Apenas Autenticação Base (Utilizadores Logados)
 # --------------------------------------------------------------------------
+// Logout route
+
 Route::middleware(['auth'])->group(function () {
-
-    # Logout (Fora de outras restrições para permitir sair a qualquer momento)
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
     # Notificação de Verificação de Email
     Route::get('/email/verify', function () {
         return view('verify');
     })->name('verification.notice');
 
-    # aslasa
-
-    Route::get('/verify-email-candidato/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-        return redirect()->route('candidato.dashboard');
-    })->middleware(['auth:candidato', 'signed'])->name('verification.verify.candidato');
+    # Reenvio de link de verificação
+    Route::post('/email/verification-notification', function (\Illuminate\Http\Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('resent', true);
+    })->middleware(['throttle:6,1'])->name('verification.send');
 
     # Processamento do Link de Verificação
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
 
         $user = $request->user();
-        $company = $user->company;
+        $loginType = $request->session()->get('login_type', 'empresa');
+
+        if ($loginType === 'empresa') {
+            if (!$user->company || !$user->company->setup_completed) {
+                return redirect()->route('setup.step1');
+            }
+        } else {
+            if (!$user->candidate || !$user->candidate->setup_completed) {
+                return redirect()->route('candidate-setup.step1');
+            }
+        }
 
         return redirect()->route('dashboard');
-    })->name('verification.verify');
+    })->middleware(['signed'])->name('verification.verify');
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 # --------------------------------------------------------------------------
@@ -99,7 +107,7 @@ Route::middleware(['auth', 'verified', 'is.company'])->group(function () {
 });
 
 // Candidate setup routes
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'is.candidate'])->group(function () {
     Route::get('/candidate-setup/step1', [CandidateSetupController::class, 'step1'])->name('candidate-setup.step1');
     Route::post('/candidate-setup/step1', [CandidateSetupController::class, 'postStep1'])->name('candidate-setup.step1.post');
 
@@ -137,6 +145,7 @@ Route::middleware(['auth', 'verified', 'setup.complete', 'is.company'])->group(f
 
     # CRUD de Vagas (Company features)
     Route::get('/jobs/create', [JobPostingController::class, 'create']);
+    Route::get('/jobs', [JobPostingController::class, 'index']);
     Route::post('/jobs', [JobPostingController::class, 'store']);
     Route::get('/jobs/{id}/edit', [JobPostingController::class, 'edit']);
     Route::put('/jobs/{id}/edit', [JobPostingController::class, 'update']);
@@ -150,13 +159,18 @@ Route::middleware(['auth', 'verified', 'setup.complete', 'is.company'])->group(f
     Route::get('/mapa-talentos', [MapaController::class, 'index']);
 });
 
+// Candidate-only routes
+Route::middleware(['auth', 'verified', 'setup.complete', 'is.candidate'])->group(function () {
+    Route::get('/candidate-jobs', [JobPostingController::class, 'index'])->name('candidate-jobs.show');
+    Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+});
+
 // Routes accessible by both company and candidate users (jobs index, job details, apply)
 Route::middleware(['auth', 'verified'])->group(function () {
     # Dashboards
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     # Jobs
-    Route::get('/jobs', [JobPostingController::class, 'index']);
     Route::get('/jobs/{jobPosting}', [JobPostingController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/{jobPosting}/apply', [JobPostingController::class, 'apply'])->name('jobs.apply');
 });

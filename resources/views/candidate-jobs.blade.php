@@ -593,7 +593,6 @@
 </head>
 
 <body>
-
     <x-navbar activePage="jobs" />
 
     <main class="container my-4 my-lg-5 px-3 px-lg-4">
@@ -633,10 +632,10 @@
                 <aside class="filters-panel">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="mb-0">Filtros</h2>
-                        <a href="{{ url('/jobs') }}" class="filter-clear">Limpar</a>
+                        <a href="{{ url('/candidate-jobs') }}" class="filter-clear">Limpar</a>
                     </div>
 
-                    <form id="filtersForm" method="GET" action="{{ url('/jobs') }}">
+                    <form id="filtersForm" method="GET" action="{{ url('/candidate-jobs') }}">
                         <input type="hidden" name="tab" id="tabInput" value="{{ $filters['tab'] ?? 'all' }}">
                         @if($isFilterApplied)
                         <input type="hidden" name="filter" value="applied">

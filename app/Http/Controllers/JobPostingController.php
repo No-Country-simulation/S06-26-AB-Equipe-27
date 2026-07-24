@@ -19,7 +19,7 @@ class JobPostingController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        $isCompanyUser = $user->company()->exists();
+        $isCompanyUser = session('login_type') === 'empresa';
         
         if ($isCompanyUser) {
             $jobs = JobPosting::where('company_id', $user->company->id)->latest()->get();
@@ -89,7 +89,7 @@ class JobPostingController extends Controller
     public function show(JobPosting $jobPosting)
     {
         $user = auth()->user();
-        $isCompanyUser = $user->company()->exists();
+        $isCompanyUser = session('login_type') === 'empresa';
 
         if ($isCompanyUser) {
             abort(404);

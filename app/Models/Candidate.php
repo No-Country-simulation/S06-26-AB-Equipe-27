@@ -19,6 +19,7 @@ class Candidate extends Model
         'portfolio',
         'resume_path',
         'current_job_title',
+        'current_company',
         'years_experience',
         'professional_summary',
         'skills',

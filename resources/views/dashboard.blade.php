@@ -1543,7 +1543,7 @@
         {{-- Quick Action Cards --}}
         <div class="row g-4 mb-4">
             <div class="col-12 col-md-4">
-                <a href="{{ url('/jobs') }}" class="dash-card action-card">
+                <a href="{{ url('/candidate-jobs') }}" class="dash-card action-card">
                     <div class="icon-box icon-purple"><i class="bi bi-briefcase-fill"></i></div>
                     <div>
                         <h3>Encontrar Vagas</h3>
@@ -1554,7 +1554,7 @@
             </div>
 
             <div class="col-12 col-md-4">
-                <a href="{{ url('/jobs?filter=applied') }}" class="dash-card action-card">
+                <a href="{{ url('/candidate-jobs?filter=applied') }}" class="dash-card action-card">
                     <div class="icon-box icon-green"><i class="bi bi-file-earmark-text-fill"></i></div>
                     <div>
                         <h3>Minhas Candidaturas</h3>

@@ -17,17 +17,16 @@ class SetupComplete
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
+        $loginType = $request->session()->get('login_type', 'empresa');
 
-        if ($user->company()->exists()) {
-            if (!$user->company->setup_completed) {
+        if ($loginType === 'empresa') {
+            if (!$user->company || !$user->company->setup_completed) {
                 return redirect()->route('setup.step1');
             }
-        } elseif ($user->candidate()->exists()) {
-            if (!$user->candidate->setup_completed) {
+        } else {
+            if (!$user->candidate || !$user->candidate->setup_completed) {
                 return redirect()->route('candidate-setup.step1');
             }
-        } else {
-            return redirect()->route('setup.step1');
         }
 
         return $next($request);

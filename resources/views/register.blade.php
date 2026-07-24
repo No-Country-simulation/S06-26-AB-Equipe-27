@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,16 +39,21 @@
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-pop: 0 12px 32px -8px rgba(23,21,42,.16);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-pop: 0 12px 32px -8px rgba(23, 21, 42, .16);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
 
-        html, body { height: 100%; }
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
@@ -55,8 +61,16 @@
             min-height: 100vh;
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         /* ==========================================================
            LAYOUT — split screen
@@ -76,8 +90,8 @@
             padding: 3rem 3.25rem;
             color: #fff;
             background:
-                radial-gradient(circle at 15% 15%, rgba(124,58,237,.55), transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(13,148,136,.45), transparent 50%),
+                radial-gradient(circle at 15% 15%, rgba(124, 58, 237, .55), transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(13, 148, 136, .45), transparent 50%),
                 linear-gradient(165deg, var(--color-ink) 0%, #241F3D 55%, #1B1830 100%);
             overflow: hidden;
         }
@@ -86,9 +100,9 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px);
             background-size: 22px 22px;
-            mask-image: linear-gradient(180deg, transparent, rgba(0,0,0,.7) 55%, transparent);
+            mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, .7) 55%, transparent);
             pointer-events: none;
         }
 
@@ -113,7 +127,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.6);
+            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .6);
             flex-shrink: 0;
         }
 
@@ -165,8 +179,8 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background-color: rgba(255,255,255,.1);
-            border: 1px solid rgba(255,255,255,.18);
+            background-color: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .18);
             color: #fff;
             font-size: 0.75rem;
             font-weight: 700;
@@ -197,11 +211,13 @@
             gap: 0.5rem;
             font-size: 0.78rem;
             color: #B7B2CF;
-            border-top: 1px solid rgba(255,255,255,.1);
+            border-top: 1px solid rgba(255, 255, 255, .1);
             padding-top: 1.25rem;
         }
 
-        .login-aside .trust-line i { color: #5EEAD4; }
+        .login-aside .trust-line i {
+            color: #5EEAD4;
+        }
 
         /* ---- Painel direito (formulário) ---- */
         .login-form-panel {
@@ -211,10 +227,12 @@
             justify-content: center;
             padding: 2.5rem 1.5rem;
             background-color: var(--color-bg);
-            background-image: radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%);
+            background-image: radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%);
         }
 
-        .mobile-brand { display: none; }
+        .mobile-brand {
+            display: none;
+        }
 
         .login-card {
             background: var(--color-surface);
@@ -253,7 +271,9 @@
             color: #fff;
         }
 
-        .auth-toggle .btn-toggle:not(.active):hover { color: var(--color-ink); }
+        .auth-toggle .btn-toggle:not(.active):hover {
+            color: var(--color-ink);
+        }
 
         .form-title {
             font-family: var(--font-display);
@@ -305,7 +325,7 @@
             transition: all 0.2s ease;
             text-decoration: none;
             color: var(--color-muted);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
         .type-card:hover {
@@ -358,7 +378,9 @@
             display: block;
         }
 
-        .field-group { margin-bottom: 1.1rem; }
+        .field-group {
+            margin-bottom: 1.1rem;
+        }
 
         .input-group-custom {
             background-color: var(--color-bg);
@@ -373,10 +395,13 @@
         .input-group-custom:focus-within {
             border-color: var(--color-primary);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, .12);
         }
 
-        .input-group-custom i { color: var(--color-primary); font-size: 1rem; }
+        .input-group-custom i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
 
         .input-group-custom input {
             border: none;
@@ -388,7 +413,9 @@
             font-size: 0.92rem;
         }
 
-        .input-group-custom input::placeholder { color: #ACA8C2; }
+        .input-group-custom input::placeholder {
+            color: #ACA8C2;
+        }
 
         .toggle-visibility {
             background: none;
@@ -399,7 +426,10 @@
             align-items: center;
             transition: color .15s ease;
         }
-        .toggle-visibility:hover { color: var(--color-ink); }
+
+        .toggle-visibility:hover {
+            color: var(--color-ink);
+        }
 
         .password-hint {
             font-size: 0.76rem;
@@ -416,7 +446,11 @@
             font-size: 0.83rem;
             margin-bottom: 1.1rem;
         }
-        .alert-soft-danger ul { margin-bottom: 0; padding-left: 1.1rem; }
+
+        .alert-soft-danger ul {
+            margin-bottom: 0;
+            padding-left: 1.1rem;
+        }
 
         .btn-submit {
             background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
@@ -427,7 +461,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
             margin-top: 0.25rem;
         }
@@ -435,7 +469,7 @@
         .btn-submit:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         .terms-text {
@@ -445,8 +479,16 @@
             margin-top: 1.1rem;
             line-height: 1.5;
         }
-        .terms-text a { color: var(--color-primary); font-weight: 600; }
-        .terms-text a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .terms-text a {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .terms-text a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
 
         .login-link {
             text-align: center;
@@ -454,12 +496,23 @@
             color: var(--color-body);
             margin-top: 1.4rem;
         }
-        .login-link a { color: var(--color-primary); font-weight: 700; }
-        .login-link a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+        .login-link a {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
 
         /* ---------------- Responsivo ---------------- */
         @media (max-width: 991.98px) {
-            .login-aside { display: none; }
+            .login-aside {
+                display: none;
+            }
+
             .mobile-brand {
                 display: flex;
                 align-items: center;
@@ -481,11 +534,19 @@
         }
 
         @media (max-width: 420px) {
-            .login-card { padding: 1.75rem 1.35rem; }
-            .type-selector-wrapper { grid-template-columns: 1fr; } /* Em telas muito pequenas empilha os botões */
+            .login-card {
+                padding: 1.75rem 1.35rem;
+            }
+
+            .type-selector-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            /* Em telas muito pequenas empilha os botões */
         }
     </style>
 </head>
+
 <body>
 
     <div class="login-shell">
@@ -586,7 +647,15 @@
                                 <label class="field-label" for="company_name">Empresa</label>
                                 <div class="input-group-custom">
                                     <i class="bi bi-building"></i>
-                                    <input type="text" name="company_name" id="company_name" placeholder="Companhia" required value="{{ old('company_name') }}">
+                                    <input type="text" name="company_name" id="company_name" placeholder="Empresa" required value="{{ old('company_name') }}">
+                                </div>
+                            </div>
+
+                            <div class="field-group" id="company-field-group" style="display: none;">
+                                <label class="field-label" for="company_name">Empresa (atual ou última)</label>
+                                <div class="input-group-custom">
+                                    <i class="bi bi-building"></i>
+                                    <input type="text" name="company_name" id="company_name" placeholder="Empresa" value="{{ old('company_name') }}">
                                 </div>
                             </div>
 
@@ -640,7 +709,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('togglePassword').addEventListener('click', function () {
+        document.getElementById('togglePassword').addEventListener('click', function() {
             const input = document.getElementById('password');
             const icon = document.getElementById('togglePasswordIcon');
             const isHidden = input.type === 'password';
@@ -683,4 +752,5 @@
         });
     </script>
 </body>
+
 </html>

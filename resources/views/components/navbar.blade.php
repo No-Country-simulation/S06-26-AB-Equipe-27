@@ -5,7 +5,7 @@
  @php
  $activePage = $activePage ?? 'home';
  $user = auth()->user();
- $isCompany = $user && $user->company()->exists();
+ $isCompany = session('login_type') === 'empresa'
  @endphp
 
  <style>
@@ -176,7 +176,7 @@
  {{-- NAVBAR SUPERIOR --}}
  <nav class="navbar navbar-expand-lg sticky-top py-2">
      <div class="container px-4">
-         <a class="navbar-brand d-flex align-items-center" href="{{ url($isCompany ? '/dashboard' : '/jobs') }}">
+         <a class="navbar-brand d-flex align-items-center" href="/dashboard">
              <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
              Skill<span style="color: var(--color-primary);">Focus</span>
          </a>
@@ -222,19 +222,19 @@
              </ul>
              @else
              {{-- Candidate Navigation --}}
-             <ul class="navbar-nav flex-lg-row gap-lg-1 gap-1">
+             <ul class="navbar-nav m-auto flex-lg-row gap-lg-1 gap-1">
                  <li class="nav-item">
                      <a class="nav-link-custom {{ $activePage === 'dashboard' ? 'active' : '' }}" href="{{ url('/dashboard') }}">
                          <i class="bi bi-grid-1x2"></i> Dashboard
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'jobs' ? 'active' : '' }}" href="{{ url('/jobs') }}">
+                     <a class="nav-link-custom {{ $activePage === 'jobs' ? 'active' : '' }}" href="{{ url('/candidate-jobs') }}">
                          <i class="bi bi-briefcase"></i> Vagas
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link-custom {{ $activePage === 'match' ? 'active' : '' }}" href="{{ url('/jobs') }}#matches">
+                     <a class="nav-link-custom {{ $activePage === 'match' ? 'active' : '' }}" href="{{ url('/candidate-jobs') }}#matches">
                          <i class="bi bi-star"></i> Matches
                      </a>
                  </li>
@@ -253,7 +253,7 @@
                      <li><a class="dropdown-item py-2" href="{{ url('/jobs') }}"><i class="bi bi-eye-fill me-2 text-muted"></i>Vagas criadas</a></li>
                      <li><a class="dropdown-item py-2" href="{{ url('/reports') }}"><i class="bi bi-clipboard2-fill me-2 text-muted"></i>Relatórios</a></li>
                      @else
-                     <li><a class="dropdown-item py-2" href="{{ url('/jobs') }}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Vagas</a></li>
+                     <li><a class="dropdown-item py-2" href="{{ url('/candidate-jobs') }}"><i class="bi bi-briefcase-fill me-2 text-muted"></i>Vagas</a></li>
                      <li><a class="dropdown-item py-2" href="{{ route('candidate-setup.step1') }}"><i class="bi bi-person-fill me-2 text-muted"></i>Perfil</a></li>
                      <li><a class="dropdown-item py-2" href="{{ route('candidate-setup.step1') }}"><i class="bi bi-gear-fill me-2 text-muted"></i>Configurações</a></li>
                      @endif
