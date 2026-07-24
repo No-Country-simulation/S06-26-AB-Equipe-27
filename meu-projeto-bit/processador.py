@@ -5,6 +5,8 @@ Empresa: SkillFocus
 '''
 import pandas as pd
 import os
+from ai_service import calcular_match_ia
+
 
 def processar_dados_geograficos(lista_candidatos):
     
@@ -48,25 +50,18 @@ def processar_match(candidato, vaga):
                                     or candidato['is_pcd'])else 'Badge: Padrão'
     
     #Correção retirando o score = 0
+    # Add IA para realização do calculo do score
 
     skill_match = processador_nlp(candidato['skills'], vaga['skills_obrigatorias'])
-    recomendacao = gerar_recomendacao(candidato['skills'], vaga['skills_obrigatorias'])
-
+    resultado_ia = calcular_match_ia(candidato, vaga)
     # Também retirei um for e um if que tinha nessa parte
-    
-    total_skills_exigidas = len(vaga['skills_obrigatorias'])
-
-    if total_skills_exigidas > 0:
-        score = (100 / total_skills_exigidas) * len(skill_match)
-    else:
-        score = 0
     
     dados_para_recrutador = mascarar_dados(candidato)
 
-    dados_para_recrutador ['score_match'] = score
+    dados_para_recrutador ['score_match'] = resultado_ia['score']
     dados_para_recrutador ['skills_em_comum'] = skill_match
     dados_para_recrutador ['badge_diversidade'] = badge
-    dados_para_recrutador ['recomendacao'] = recomendacao
+    dados_para_recrutador ['recomendacao'] = resultado_ia['justificativa']
     
     return dados_para_recrutador
 
