@@ -637,6 +637,7 @@
             overflow-x: auto;
             border-radius: var(--radius-md);
             border: 1px solid var(--color-border);
+            height: 65%;
         }
 
         .table-skillfocus {
@@ -667,6 +668,8 @@
             font-size: 0.87rem;
             color: var(--color-body);
             vertical-align: middle;
+            max-width: 190px;
+            overflow: auto;
         }
 
         .table-skillfocus tbody tr:hover {
@@ -1431,10 +1434,11 @@
         </div>
 
         {{-- Tabela de vagas e Recomendação de IA --}}
-        <div class="row g-4 mb-4 align-items-start">
+        <div class="row g-4 mb-4 align-items-start" style="height: 300px;">
 
-            <div class="col-12 col-lg-8">
-                <div class="dash-card table-widget h-100">
+            <div class="col-12 col-lg-8 h-full" style="height: 100%;">
+                <div class="dash-card table-widget h-full
+                " style="height: 100%;">
                     <div class="widget-header">
                         <div class="icon-box icon-box-sm icon-amber"><i class="bi bi-briefcase-fill"></i></div>
                         <div>
