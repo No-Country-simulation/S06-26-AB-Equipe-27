@@ -1770,7 +1770,7 @@
                             <div class="candidate-job-card">
                                 <div class="d-flex align-items-center gap-2 mb-2">
                                     <div class="icon-box icon-box-sm icon-purple flex-shrink-0"><i class="bi bi-code-slash"></i></div>
-                                    <div class="flex-grow-1 min-w-0">
+                                    <div class="flex-grow-1 min-w-0 overflow-auto">
                                         <div class="candidate-job-title text-truncate">{{ $job->title }}</div>
                                         <div class="d-flex align-items-center flex-wrap gap-2 mt-1">
                                             <span class="candidate-match-badge">{{ rand(80, 95) }}% Match</span>
