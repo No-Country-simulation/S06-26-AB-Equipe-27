@@ -598,19 +598,19 @@
             $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
             }
 
-                    // Índice do Bias Shield — usa o valor real do job quando existir,
-                    // caso contrário mantém o placeholder de demonstração.
-                    $shieldScore = $job->bias_score ?? rand(72, 98);
-                    $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
-                    $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
-                    // Check if candidate already applied
-                    $alreadyApplied = false;
-                    if (!$isCompanyUser && auth()->user()->candidate) {
-                        $alreadyApplied = \App\Models\Matching::where('job_posting_id', $job->id)
-                            ->where('candidate_id', auth()->user()->candidate->id)
-                            ->exists();
-                    }
-                @endphp
+                // Índice do Bias Shield — usa o valor real do job quando existir,
+                // caso contrário mantém o placeholder de demonstração.
+                $shieldScore = $job->bias_score ?? rand(72, 98);
+                $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
+                $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
+                // Check if candidate already applied
+                $alreadyApplied = false;
+                if (!$isCompanyUser && auth()->user()->candidate) {
+                    $alreadyApplied = \App\Models\Matching::where('job_posting_id', $job->id)
+                        ->where('candidate_id', auth()->user()->candidate->id)
+                        ->exists();
+                }
+            @endphp
 
             <div class="col">
                 <div class="job-card p-4 h-100 d-flex flex-column">
@@ -687,7 +687,6 @@
                                     </form>
                                 @endif
                             @endif
-                        </div>
                     </div>
                 </div>
             </div>
