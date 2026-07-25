@@ -131,27 +131,64 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY --from=python_builder /opt/venv /opt/venv
+COPY app/scripts/requirements.txt /tmp/.skillfocus-requirements.txt
 
-RUN set -e; \
-    if [ -x /opt/venv/bin/python ]; then \
-    PY=/opt/venv/bin/python; \
-    elif [ -x /opt/venv/bin/python3 ]; then \
-    ln -sf python3 /opt/venv/bin/python; \
-    PY=/opt/venv/bin/python; \
-    elif command -v python3 >/dev/null 2>&1; then \
-    apt-get update; \
-    apt-get install -y --no-install-recommends python3-venv; \
+RUN set -eu; \
+    apt-get update 2>/dev/null || true; \
+    command -v python3 >/dev/null 2>&1 || apt-get install -y --no-install-recommends python3; \
+    dpkg -s python3-venv >/dev/null 2>&1 || apt-get install -y --no-install-recommends python3-venv python3-pip; \
+    apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
-    python3 -m venv /opt/venv; \
-    /opt/venv/bin/pip install --upgrade pip setuptools wheel; \
-    /opt/venv/bin/pip install --no-cache-dir PyPDF2 pandas google-generativeai; \
-    ln -sf python3 /opt/venv/bin/python 2>/dev/null || true; \
-    PY=/opt/venv/bin/python; \
+    \
+    SYS_PY="$(command -v python3)"; \
+    echo "[python-venv] Using system python: $SYS_PY ($($SYS_PY --version 2>&1 || true))"; \
+    \
+    rm -rf /opt/venv; \
+    "$SYS_PY" -m venv --without-pip /opt/venv 2>/dev/null || \
+    "$SYS_PY" -m venv /opt/venv; \
+    \
+    if [ ! -e /opt/venv/bin/python ]; then \
+    if [ -x /opt/venv/bin/python3 ]; then \
+    (cd /opt/venv/bin && ln -sf python3 python); \
     else \
-    echo "ERROR: no python available"; exit 1; \
+    ln -sf "$SYS_PY" /opt/venv/bin/python; \
     fi; \
-    "$PY" -c "import PyPDF2, pandas; import importlib.util; g1=importlib.util.find_spec('google.genai'); g2=importlib.util.find_spec('google.generativeai'); assert g1 or g2, 'missing google genai sdk'; print('python-ok')"
+    fi; \
+    if [ ! -e /opt/venv/bin/python3 ]; then \
+    if [ -x /opt/venv/bin/python ]; then \
+    (cd /opt/venv/bin && ln -sf python python3); \
+    else \
+    ln -sf "$SYS_PY" /opt/venv/bin/python3; \
+    fi; \
+    fi; \
+    \
+    export PIP_BREAK_SYSTEM_PACKAGES=1; \
+    /opt/venv/bin/python -m ensurepip --upgrade 2>/dev/null || \
+    "$SYS_PY" -m ensurepip --upgrade 2>/dev/null || true; \
+    \
+    if ! command -v /opt/venv/bin/pip >/dev/null 2>&1; then \
+    if [ -x /opt/venv/bin/pip3 ]; then \
+    (cd /opt/venv/bin && ln -sf pip3 pip); \
+    fi; \
+    fi; \
+    \
+    /opt/venv/bin/python -m pip install --upgrade pip setuptools wheel 2>&1 || \
+    "$SYS_PY" -m pip install --upgrade --break-system-packages pip setuptools wheel 2>&1 || true; \
+    \
+    if [ -s /tmp/.skillfocus-requirements.txt ]; then \
+    /opt/venv/bin/python -m pip install --no-cache-dir -r /tmp/.skillfocus-requirements.txt 2>&1 || \
+    "$SYS_PY" -m pip install --no-cache-dir --break-system-packages -r /tmp/.skillfocus-requirements.txt 2>&1; \
+    else \
+    /opt/venv/bin/python -m pip install --no-cache-dir PyPDF2 pandas google-generativeai 2>&1 || \
+    "$SYS_PY" -m pip install --no-cache-dir --break-system-packages PyPDF2 pandas google-generativeai 2>&1; \
+    fi; \
+    rm -f /tmp/.skillfocus-requirements.txt; \
+    \
+    (cd /opt/venv/bin && ln -sf python3 python 2>/dev/null || true); \
+    (cd /opt/venv/bin && ln -sf pip3 pip 2>/dev/null || true); \
+    ls -la /opt/venv/bin/ | head -20 || true; \
+    \
+    /opt/venv/bin/python -c "import PyPDF2, pandas; import importlib.util; g1=importlib.util.find_spec('google.genai'); g2=importlib.util.find_spec('google.generativeai'); assert g1 or g2, 'missing google genai sdk'; print('python-ok using', __import__('sys').executable)"
 
 COPY --from=composer_builder /app .
 
