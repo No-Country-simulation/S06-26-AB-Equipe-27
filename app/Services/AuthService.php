@@ -23,10 +23,11 @@ class AuthService
                 'email' => $data['email'],
                 // 'email_verified_at' => now(), // Auto-verificar para testes
                 'password' => Hash::make($data['password']),
+                'account_type' => 'empresa',
             ]);
 
             $user->sendEmailVerificationNotification();
-
+            // dd($data);
             # Cria empresa vinculada ao usuário.
             Company::create([
                 'user_id' => $user->id,

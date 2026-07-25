@@ -1,0 +1,76 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $hasEmailUnique = false;
+            try {
+                $conn = Schema::getConnection();
+                $sm = $conn->getDoctrineSchemaManager();
+                $indexes = $sm->listTableIndexes($conn->getTablePrefix() . 'users');
+                foreach ($indexes as $idx) {
+                    $cols = $idx->getColumns();
+                    if (count($cols) === 1 && ($cols[0] ?? null) === 'email' && $idx->isUnique()) {
+                        $hasEmailUnique = true;
+                        $table->dropUnique($idx->getName());
+                        break;
+                    }
+                }
+            } catch (\Throwable $e) {
+            }
+
+            if (!$hasEmailUnique) {
+                try {
+                    $table->dropUnique(['email']);
+                } catch (\Throwable $e) {
+                }
+            }
+
+            if (!Schema::hasColumn('users', 'account_type')) {
+                $table->string('account_type', 20)->default('empresa')->after('email');
+            }
+        });
+
+        DB::statement("UPDATE users u SET account_type = CASE
+            WHEN EXISTS (SELECT 1 FROM companies c WHERE c.user_id = u.id) AND
+                 NOT EXISTS (SELECT 1 FROM candidates can WHERE can.user_id = u.id) THEN 'empresa'
+            WHEN EXISTS (SELECT 1 FROM candidates can WHERE can.user_id = u.id) AND
+                 NOT EXISTS (SELECT 1 FROM companies c WHERE c.user_id = u.id) THEN 'candidato'
+            ELSE 'empresa' END");
+
+        Schema::table('users', function (Blueprint $table) {
+            try {
+                $table->unique(['email', 'account_type'], 'users_email_account_type_unique');
+            } catch (\Throwable $e) {
+            }
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            try {
+                $table->dropUnique('users_email_account_type_unique');
+            } catch (\Throwable $e) {
+                try {
+                    $table->dropUnique(['email', 'account_type']);
+                } catch (\Throwable $e2) {
+                }
+            }
+            if (Schema::hasColumn('users', 'account_type')) {
+                $table->dropColumn('account_type');
+            }
+            try {
+                $table->unique('email');
+            } catch (\Throwable $e) {
+            }
+        });
+    }
+};

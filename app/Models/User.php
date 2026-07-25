@@ -14,12 +14,30 @@ use App\Models\Company;
 use App\Models\Candidate;
 
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'account_type'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function isEmpresa(): bool
+    {
+        return ($this->account_type ?? 'empresa') === 'empresa';
+    }
+
+    public function isCandidato(): bool
+    {
+        return ($this->account_type ?? 'empresa') === 'candidato';
+    }
 
     public function company()
     {
@@ -30,17 +48,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(\App\Models\Candidate::class);
     }
-
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    /* public function company(): HasOne
-    {
-        return $this->hasOne(Company::class);
-    } */
 }

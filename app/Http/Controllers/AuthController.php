@@ -27,7 +27,12 @@ class AuthController extends Controller
         $data = $request->validate([
             'profile_type' => 'required|in:empresa,candidato',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->where(fn ($q) => $q->where('account_type', $profileType)),
+            ],
             'password' => 'required|min:6',
             'company_name' => [
                 Rule::requiredIf($profileType === 'empresa'),
@@ -50,6 +55,7 @@ class AuthController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
+                'account_type' => 'candidato',
             ]);
             $user->candidate()->create([
                 'current_company' => $data['current_company'] ?? null,
@@ -70,36 +76,42 @@ class AuthController extends Controller
             'login_type' => 'required|in:empresa,candidato',
         ]);
 
-        $credentials = $request->only('email', 'password');
         $loginType = $request->input('login_type');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if (Auth::attempt($credentials)) {
+        $user = User::where('email', $email)
+            ->where('account_type', $loginType)
+            ->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user, (bool) $request->filled('remember'));
             $request->session()->regenerate();
             $request->session()->put('login_type', $loginType);
-
-            $user = Auth::user();
 
             if (!$user->hasVerifiedEmail()) {
                 return redirect()->route('verification.notice');
             }
 
-            // Redirect based on login type, ignoring profile existence
             if ($loginType === 'empresa') {
                 if (!$user->company || !$user->company->setup_completed) {
                     return redirect()->route('setup.step1');
                 }
                 return redirect()->route('dashboard');
             } else {
-                // candidato
                 if (!$user->candidate || !$user->candidate->setup_completed) {
                     return redirect()->route('candidate-setup.step1');
                 }
-                return redirect()->route('dashboard'); // DashboardController will handle showing candidate view
+                return redirect()->route('dashboard');
             }
         }
 
+        $anotherTypeExists = User::where('email', $email)->exists();
+
         return back()->withErrors([
-            'email' => 'Credenciais inválidas',
+            'email' => $anotherTypeExists && !$user
+                ? 'Credenciais inválidas para o perfil selecionado. Verifique se escolheu Empresa ou Candidato corretamente.'
+                : 'Credenciais inválidas',
         ]);
     }
 
