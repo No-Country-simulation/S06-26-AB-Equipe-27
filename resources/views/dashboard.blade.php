@@ -1133,6 +1133,7 @@
             border-radius: var(--radius-md);
             padding: 0.85rem 0.95rem;
             transition: all 0.2s ease;
+            overflow: auto;
         }
 
         .candidate-job-card:hover {
