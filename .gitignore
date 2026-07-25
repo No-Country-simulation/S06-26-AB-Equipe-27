@@ -23,6 +23,8 @@ __pycache__/
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
+/public/*.db
+/public/%SystemDrive%/
 /storage/*.key
 /storage/pail
 /vendor

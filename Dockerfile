@@ -58,6 +58,13 @@ WORKDIR /build
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
+RUN if [ ! -e /opt/venv/bin/python ]; then \
+    ln -sf python3 /opt/venv/bin/python; \
+    fi \
+    && if [ ! -e /opt/venv/bin/pip ]; then \
+    ln -sf pip3 /opt/venv/bin/pip; \
+    fi
+
 RUN pip install --upgrade pip setuptools wheel
 
 COPY app/scripts/requirements.txt /tmp/requirements.txt
@@ -65,7 +72,8 @@ RUN if [ -s /tmp/requirements.txt ]; then \
     pip install --no-cache-dir -r /tmp/requirements.txt; \
     else \
     pip install --no-cache-dir PyPDF2 pandas google-generativeai; \
-    fi
+    fi \
+    && /opt/venv/bin/python -c "import PyPDF2, pandas; import importlib.util; g1=importlib.util.find_spec('google.genai'); g2=importlib.util.find_spec('google.generativeai'); assert g1 or g2, 'missing google genai sdk'; print('python-builder-ok')"
 
 #######################################
 # Stage 3 — Runtime (PHP 8.3 + Python + PostgreSQL drivers)
@@ -125,7 +133,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=python_builder /opt/venv /opt/venv
 
-RUN /opt/venv/bin/python -c "import PyPDF2, pandas; import importlib.util; g1=importlib.util.find_spec('google.genai'); g2=importlib.util.find_spec('google.generativeai'); assert g1 or g2, 'missing google genai sdk'; print('python-ok')"
+RUN set -e; \
+    if [ -x /opt/venv/bin/python ]; then \
+    PY=/opt/venv/bin/python; \
+    elif [ -x /opt/venv/bin/python3 ]; then \
+    ln -sf python3 /opt/venv/bin/python; \
+    PY=/opt/venv/bin/python; \
+    elif command -v python3 >/dev/null 2>&1; then \
+    apt-get update; \
+    apt-get install -y --no-install-recommends python3-venv; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+    python3 -m venv /opt/venv; \
+    /opt/venv/bin/pip install --upgrade pip setuptools wheel; \
+    /opt/venv/bin/pip install --no-cache-dir PyPDF2 pandas google-generativeai; \
+    ln -sf python3 /opt/venv/bin/python 2>/dev/null || true; \
+    PY=/opt/venv/bin/python; \
+    else \
+    echo "ERROR: no python available"; exit 1; \
+    fi; \
+    "$PY" -c "import PyPDF2, pandas; import importlib.util; g1=importlib.util.find_spec('google.genai'); g2=importlib.util.find_spec('google.generativeai'); assert g1 or g2, 'missing google genai sdk'; print('python-ok')"
 
 COPY --from=composer_builder /app .
 

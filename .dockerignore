@@ -2,6 +2,9 @@
 /vendor
 /public/hot
 /public/storage
+/public/build
+/public/*.db
+/public/%SystemDrive%/
 /storage/*.key
 storage/logs/*
 storage/framework/cache/*
@@ -22,3 +25,9 @@ Dockerfile
 docker-compose.yml
 README.md
 tests
+__pycache__/
+*.pyc
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
