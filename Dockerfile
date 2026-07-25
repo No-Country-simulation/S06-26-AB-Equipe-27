@@ -7,9 +7,8 @@ FROM node:20-alpine AS node_builder
 WORKDIR /build
 
 COPY package*.json ./
-# Render/npm private registries toleration
-RUN npm config set ignore-scripts true 2>/dev/null || true
-RUN npm ci --no-audit --no-fund
+RUN npm config set ignore-scripts true 2>/dev/null || true \
+    && (npm ci --no-audit --no-fund || npm install --no-audit --no-fund)
 
 COPY resources ./resources
 COPY public ./public
