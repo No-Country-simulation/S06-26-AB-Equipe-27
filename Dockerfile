@@ -13,7 +13,8 @@ RUN npm ci --no-audit --no-fund
 
 COPY resources ./resources
 COPY public ./public
-COPY vite.config.js postcss.config.js ./
+COPY vite.config.js ./
+COPY postcss.config.js* ./ 2>/dev/null || true
 COPY tailwind.config.js* ./ 2>/dev/null || true
 
 RUN npm run build
