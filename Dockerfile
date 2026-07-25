@@ -13,8 +13,6 @@ RUN npm config set ignore-scripts true 2>/dev/null || true \
 COPY resources ./resources
 COPY public ./public
 COPY vite.config.js ./
-COPY postcss.config.js* ./ 2>/dev/null || true
-COPY tailwind.config.js* ./ 2>/dev/null || true
 
 RUN npm run build
 
