@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,7 @@
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
@@ -42,14 +43,22 @@
             font-family: var(--font-body);
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%),
-                radial-gradient(circle at 0% 20%, rgba(13,148,136,.045), transparent 40%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 20%, rgba(13, 148, 136, .045), transparent 40%);
             background-attachment: fixed;
             color: var(--color-body);
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         .back-link {
             display: inline-flex;
@@ -62,7 +71,9 @@
             transition: color .15s ease;
         }
 
-        .back-link:hover { color: var(--color-primary); }
+        .back-link:hover {
+            color: var(--color-primary);
+        }
 
         .detail-card {
             background: var(--color-surface);
@@ -103,7 +114,9 @@
             color: var(--color-muted);
         }
 
-        .company-line .verified { color: var(--color-shield); }
+        .company-line .verified {
+            color: var(--color-shield);
+        }
 
         .tag-pill {
             display: inline-flex;
@@ -136,7 +149,9 @@
             gap: 0.35rem;
         }
 
-        .meta-row i { color: #B7B2CF; }
+        .meta-row i {
+            color: #B7B2CF;
+        }
 
         .skill-tag {
             display: inline-block;
@@ -181,9 +196,20 @@
             margin-bottom: 0.55rem;
         }
 
-        .match-badge.excellent { background: var(--color-match-excellent-soft); color: var(--color-match-excellent); }
-        .match-badge.great { background: var(--color-match-great-soft); color: var(--color-match-great); }
-        .match-badge.regular { background: var(--color-match-regular-soft); color: var(--color-match-regular); }
+        .match-badge.excellent {
+            background: var(--color-match-excellent-soft);
+            color: var(--color-match-excellent);
+        }
+
+        .match-badge.great {
+            background: var(--color-match-great-soft);
+            color: var(--color-match-great);
+        }
+
+        .match-badge.regular {
+            background: var(--color-match-regular-soft);
+            color: var(--color-match-regular);
+        }
 
         .match-percent {
             font-family: var(--font-display);
@@ -192,9 +218,17 @@
             line-height: 1;
         }
 
-        .match-percent.excellent { color: var(--color-match-excellent); }
-        .match-percent.great { color: var(--color-match-great); }
-        .match-percent.regular { color: var(--color-match-regular); }
+        .match-percent.excellent {
+            color: var(--color-match-excellent);
+        }
+
+        .match-percent.great {
+            color: var(--color-match-great);
+        }
+
+        .match-percent.regular {
+            color: var(--color-match-regular);
+        }
 
         .btn-save-job {
             width: 100%;
@@ -239,17 +273,26 @@
             transition: all .15s ease;
         }
 
-        .content-tab:hover { color: var(--color-primary); }
+        .content-tab:hover {
+            color: var(--color-primary);
+        }
 
         .content-tab.active {
             color: var(--color-primary);
             border-bottom-color: var(--color-primary);
         }
 
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
+        .tab-pane {
+            display: none;
+        }
 
-        .section-block { margin-bottom: 1.75rem; }
+        .tab-pane.active {
+            display: block;
+        }
+
+        .section-block {
+            margin-bottom: 1.75rem;
+        }
 
         .section-title {
             display: flex;
@@ -261,7 +304,9 @@
             margin-bottom: 0.85rem;
         }
 
-        .section-title i { color: var(--color-primary); }
+        .section-title i {
+            color: var(--color-primary);
+        }
 
         .section-text {
             font-size: 0.92rem;
@@ -290,12 +335,19 @@
             flex-shrink: 0;
         }
 
-        .bullet-list.checks i { color: var(--color-match-excellent); }
-        .bullet-list.dots i { color: var(--color-primary); font-size: 0.45rem; margin-top: 0.45rem; }
+        .bullet-list.checks i {
+            color: var(--color-match-excellent);
+        }
+
+        .bullet-list.dots i {
+            color: var(--color-primary);
+            font-size: 0.45rem;
+            margin-top: 0.45rem;
+        }
 
         .tip-card {
-            background: linear-gradient(135deg, rgba(124,58,237,.08), rgba(13,148,136,.06));
-            border: 1px solid rgba(124,58,237,.15);
+            background: linear-gradient(135deg, rgba(124, 58, 237, .08), rgba(13, 148, 136, .06));
+            border: 1px solid rgba(124, 58, 237, .15);
             border-radius: var(--radius-md);
             padding: 1.25rem 1.35rem;
             display: flex;
@@ -367,11 +419,14 @@
             align-items: center;
             justify-content: center;
             gap: 0.45rem;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.55);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .55);
             transition: transform .15s ease;
         }
 
-        .btn-apply-now:hover { color: #fff; transform: translateY(-1px); }
+        .btn-apply-now:hover {
+            color: #fff;
+            transform: translateY(-1px);
+        }
 
         .btn-applied {
             width: 100%;
@@ -407,8 +462,14 @@
             transition: opacity .15s ease;
         }
 
-        .similar-job:last-child { border-bottom: none; padding-bottom: 0; }
-        .similar-job:hover { opacity: 0.85; }
+        .similar-job:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .similar-job:hover {
+            opacity: 0.85;
+        }
 
         .similar-logo {
             width: 42px;
@@ -421,6 +482,7 @@
             font-size: 0.65rem;
             color: #fff;
             flex-shrink: 0;
+            overflow-x: auto;
         }
 
         .similar-title {
@@ -444,9 +506,20 @@
             white-space: nowrap;
         }
 
-        .similar-match.excellent { background: var(--color-match-excellent-soft); color: var(--color-match-excellent); }
-        .similar-match.great { background: var(--color-match-great-soft); color: var(--color-match-great); }
-        .similar-match.regular { background: var(--color-match-regular-soft); color: var(--color-match-regular); }
+        .similar-match.excellent {
+            background: var(--color-match-excellent-soft);
+            color: var(--color-match-excellent);
+        }
+
+        .similar-match.great {
+            background: var(--color-match-great-soft);
+            color: var(--color-match-great);
+        }
+
+        .similar-match.regular {
+            background: var(--color-match-regular-soft);
+            color: var(--color-match-regular);
+        }
 
         .sidebar-link {
             display: inline-flex;
@@ -458,7 +531,9 @@
             margin-top: 0.75rem;
         }
 
-        .sidebar-link:hover { color: var(--color-primary-dark); }
+        .sidebar-link:hover {
+            color: var(--color-primary-dark);
+        }
 
         .alert-flash {
             border-radius: var(--radius-md);
@@ -473,10 +548,14 @@
         }
 
         @media (max-width: 991.98px) {
-            .match-panel { width: 100%; margin-top: 1.25rem; }
+            .match-panel {
+                width: 100%;
+                margin-top: 1.25rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <x-navbar activePage="jobs" />
@@ -484,10 +563,10 @@
     <main class="container my-4 my-lg-5 px-3 px-lg-4">
 
         @if(session('success'))
-            <div class="alert alert-success alert-flash mb-4">{{ session('success') }}</div>
+        <div class="alert alert-success alert-flash mb-4">{{ session('success') }}</div>
         @endif
         @if(session('error'))
-            <div class="alert alert-danger alert-flash mb-4">{{ session('error') }}</div>
+        <div class="alert alert-danger alert-flash mb-4">{{ session('error') }}</div>
         @endif
 
         <a href="{{ url('/candidate-jobs') }}" class="back-link">
@@ -495,9 +574,9 @@
         </a>
 
         @php
-            $jobSkills = $requirements ?? [];
-            $visibleSkills = array_slice($jobSkills, 0, 4);
-            $extraSkills = max(0, count($jobSkills) - 4);
+        $jobSkills = $requirements ?? [];
+        $visibleSkills = array_slice($jobSkills, 0, 4);
+        $extraSkills = max(0, count($jobSkills) - 4);
         @endphp
 
         {{-- Hero card --}}
@@ -514,7 +593,7 @@
                                 <span>{{ $companyMeta['name'] }}</span>
                                 <i class="bi bi-patch-check-fill verified"></i>
                                 @if($isFeatured)
-                                    <span class="tag-pill featured">Destaque</span>
+                                <span class="tag-pill featured">Destaque</span>
                                 @endif
                             </div>
                         </div>
@@ -529,10 +608,10 @@
 
                     <div class="mt-3">
                         @foreach($visibleSkills as $skill)
-                            <span class="skill-tag">{{ $skill }}</span>
+                        <span class="skill-tag">{{ $skill }}</span>
                         @endforeach
                         @if($extraSkills > 0)
-                            <span class="skill-tag more">+{{ $extraSkills }}</span>
+                        <span class="skill-tag more">+{{ $extraSkills }}</span>
                         @endif
                     </div>
                 </div>
@@ -572,7 +651,7 @@
                             <h2 class="section-title"><i class="bi bi-list-check"></i> Principais responsabilidades</h2>
                             <ul class="bullet-list">
                                 @foreach($responsibilities as $item)
-                                    <li><i class="bi bi-dot"></i><span>{{ $item }}</span></li>
+                                <li><i class="bi bi-dot"></i><span>{{ $item }}</span></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -581,9 +660,9 @@
                             <h2 class="section-title"><i class="bi bi-check2-square"></i> Requisitos</h2>
                             <ul class="bullet-list checks">
                                 @forelse($requirements as $skill)
-                                    <li><i class="bi bi-check-circle-fill"></i><span>Experiência com {{ $skill }}</span></li>
+                                <li><i class="bi bi-check-circle-fill"></i><span>Experiência com {{ $skill }}</span></li>
                                 @empty
-                                    <li><i class="bi bi-check-circle-fill"></i><span>Experiência comprovada na área</span></li>
+                                <li><i class="bi bi-check-circle-fill"></i><span>Experiência comprovada na área</span></li>
                                 @endforelse
                                 <li><i class="bi bi-check-circle-fill"></i><span>Boa comunicação e trabalho em equipe</span></li>
                             </ul>
@@ -593,7 +672,7 @@
                             <h2 class="section-title"><i class="bi bi-plus-circle"></i> Diferenciais</h2>
                             <ul class="bullet-list dots">
                                 @foreach($niceToHave as $item)
-                                    <li><i class="bi bi-circle-fill"></i><span>{{ $item }}</span></li>
+                                <li><i class="bi bi-circle-fill"></i><span>{{ $item }}</span></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -604,9 +683,9 @@
                             <h2 class="section-title"><i class="bi bi-check2-square"></i> Requisitos obrigatórios</h2>
                             <ul class="bullet-list checks">
                                 @forelse($requirements as $skill)
-                                    <li><i class="bi bi-check-circle-fill"></i><span>{{ $skill }}</span></li>
+                                <li><i class="bi bi-check-circle-fill"></i><span>{{ $skill }}</span></li>
                                 @empty
-                                    <li><i class="bi bi-check-circle-fill"></i><span>Formação ou experiência compatível com a vaga</span></li>
+                                <li><i class="bi bi-check-circle-fill"></i><span>Formação ou experiência compatível com a vaga</span></li>
                                 @endforelse
                             </ul>
                         </div>
@@ -614,7 +693,7 @@
                             <h2 class="section-title"><i class="bi bi-plus-circle"></i> Diferenciais</h2>
                             <ul class="bullet-list dots">
                                 @foreach($niceToHave as $item)
-                                    <li><i class="bi bi-circle-fill"></i><span>{{ $item }}</span></li>
+                                <li><i class="bi bi-circle-fill"></i><span>{{ $item }}</span></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -625,7 +704,7 @@
                             <h2 class="section-title"><i class="bi bi-gift"></i> Benefícios</h2>
                             <ul class="bullet-list checks">
                                 @foreach($benefits as $benefit)
-                                    <li><i class="bi bi-check-circle-fill"></i><span>{{ $benefit }}</span></li>
+                                <li><i class="bi bi-check-circle-fill"></i><span>{{ $benefit }}</span></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -690,14 +769,14 @@
                     </div>
 
                     @if($alreadyApplied)
-                        <span class="btn-applied d-block text-center">Candidatura enviada</span>
+                    <span class="btn-applied d-block text-center">Candidatura enviada</span>
                     @else
-                        <form action="{{ route('jobs.apply', $job) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn-apply-now">
-                                <i class="bi bi-send-fill"></i> Candidatar-se agora
-                            </button>
-                        </form>
+                    <form action="{{ route('jobs.apply', $job) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn-apply-now">
+                            <i class="bi bi-send-fill"></i> Candidatar-se agora
+                        </button>
+                    </form>
                     @endif
                 </div>
 
@@ -721,7 +800,7 @@
                         <i class="bi bi-building"></i>
                         <div><strong>Setor</strong>{{ $companyMeta['industry'] }}</div>
                     </div>
-                    <a href="{{ url('/jobs') }}?keyword={{ urlencode($companyMeta['name']) }}" class="sidebar-link">
+                    <a href="{{ url('/candidate-jobs') }}?keyword={{ urlencode($companyMeta['name']) }}" class="sidebar-link">
                         Ver todas as vagas da empresa <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
@@ -730,18 +809,18 @@
                 <div class="sidebar-card">
                     <h3>Vagas semelhantes</h3>
                     @foreach($similarJobs as $similar)
-                        <a href="{{ route('jobs.show', $similar['job']) }}" class="similar-job">
-                            <div class="similar-logo" style="background: {{ $similar['companyMeta']['logoColor'] }};">
-                                {{ $similar['companyMeta']['initials'] }}
-                            </div>
-                            <div class="min-w-0">
-                                <div class="similar-title text-truncate">{{ $similar['job']->title }}</div>
-                                <div class="similar-meta">{{ $similar['companyMeta']['name'] }} · {{ $similar['workType'] }}</div>
-                            </div>
-                            <span class="similar-match {{ $similar['matchMeta']['class'] }}">{{ $similar['matchScore'] }}%</span>
-                        </a>
+                    <a href="{{ route('jobs.show', $similar['job']) }}" class="similar-job">
+                        <div class="similar-logo" style="background: {{ $similar['companyMeta']['logoColor'] }};">
+                            {{ $similar['companyMeta']['initials'] }}
+                        </div>
+                        <div class="min-w-0">
+                            <div class="similar-title text-truncate">{{ $similar['job']->title }}</div>
+                            <div class="similar-meta">{{ $similar['companyMeta']['name'] }} · {{ $similar['workType'] }}</div>
+                        </div>
+                        <span class="similar-match {{ $similar['matchMeta']['class'] }}">{{ $similar['matchScore'] }}%</span>
+                    </a>
                     @endforeach
-                    <a href="{{ url('/jobs') }}" class="sidebar-link">
+                    <a href="{{ url('/candidate-jobs') }}" class="sidebar-link">
                         Ver mais vagas semelhantes <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
@@ -762,8 +841,11 @@
         const STORAGE_KEY = 'skillfocus_saved_jobs';
 
         function getSavedJobs() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-            catch { return []; }
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            } catch {
+                return [];
+            }
         }
 
         function setSavedJobs(ids) {
@@ -779,9 +861,9 @@
             const isSaved = saved.includes(id);
 
             btn.classList.toggle('saved', isSaved);
-            btn.innerHTML = isSaved
-                ? '<i class="bi bi-bookmark-fill"></i> Vaga salva'
-                : '<i class="bi bi-bookmark"></i> Salvar vaga';
+            btn.innerHTML = isSaved ?
+                '<i class="bi bi-bookmark-fill"></i> Vaga salva' :
+                '<i class="bi bi-bookmark"></i> Salvar vaga';
         }
 
         document.getElementById('saveJobBtn')?.addEventListener('click', () => {
@@ -805,4 +887,5 @@
         document.addEventListener('DOMContentLoaded', updateSaveButton);
     </script>
 </body>
+
 </html>
