@@ -96,141 +96,6 @@
             text-decoration: none;
         }
 
-        /* ==========================================================
-           NAVBAR
-           Estrutura padrão Bootstrap (nav.navbar > .container-fluid),
-           que já aplica display:flex + justify-content:space-between
-           aos filhos diretos do container. Por isso NÃO usamos grid
-           customizado aqui: com apenas dois elementos "visíveis" de
-           cada vez (brand + toggler no mobile, brand + collapse no
-           desktop, pois o toggler some no breakpoint lg), o space-between
-           nativo já resolve "brand no start, resto no end" sem gambiarra
-           e sem os saltos de alinhamento que um grid manual costuma
-           causar quando o conteúdo muda de largura.
-        ========================================================== */
-        .navbar {
-            background-color: rgba(255, 255, 255, .85);
-            backdrop-filter: saturate(180%) blur(14px);
-            -webkit-backdrop-filter: saturate(180%) blur(14px);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .navbar-brand {
-            font-family: var(--font-display);
-            font-weight: 700;
-            color: var(--color-ink);
-            font-size: 1.15rem;
-            letter-spacing: -0.01em;
-        }
-
-        .brand-icon {
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
-            color: #fff;
-            border-radius: 9px;
-            width: 34px;
-            height: 34px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
-        }
-
-        /* O collapse agrupa links + ações. No desktop (>=lg) ele vira uma
-           linha flex alinhada ao fim, então os dois blocos ficam sempre
-           colados um ao outro na ponta direita — nunca "soltos" ou
-           puxados pro centro. No mobile ele vira um painel empilhado. */
-        .navbar-collapse {
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 992px) {
-            .navbar-collapse {
-                align-items: center;
-                justify-content: flex-end;
-            }
-        }
-
-        .nav-link-custom {
-            color: var(--color-muted);
-            font-weight: 600;
-            font-size: 0.88rem;
-            padding: 0.55rem 1.05rem !important;
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: background-color .18s ease, color .18s ease;
-            white-space: nowrap;
-        }
-
-        .nav-link-custom:hover {
-            color: var(--color-ink);
-            background-color: var(--color-primary-softer);
-        }
-
-        .nav-link-custom.active {
-            background-color: var(--color-primary);
-            color: #fff;
-            box-shadow: 0 6px 14px -6px rgba(124, 58, 237, .55);
-        }
-
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .icon-btn {
-            color: var(--color-muted);
-            font-size: 1.15rem;
-            transition: color .18s ease;
-        }
-
-        .icon-btn:hover {
-            color: var(--color-ink);
-        }
-
-        .navbar-toggler {
-            width: 36px;
-            height: 36px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            background-color: var(--color-primary-softer);
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        .navbar-toggler-icon {
-            width: 18px;
-            height: 18px;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237C3AED' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .avatar-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 100%;
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dropdown-menu {
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-pop);
-        }
-
         /* ---------------- Page header ---------------- */
         .page-heading .eyebrow {
             font-size: 0.75rem;
@@ -489,40 +354,6 @@
             font-weight: 600;
         }
 
-        /* ---------------- Responsivo ---------------- */
-        /* Abaixo de lg, o collapse deixa de ser uma linha e vira um
-           painel full-width empilhado sob a linha marca/toggler: links
-           em coluna (mais fácil de tocar) e o cluster de ações separado
-           por um divisor, para não parecer "grudado" nos links. */
-
-        @media (max-width: 991.98px) {
-            .navbar-collapse.show {
-                margin-top: 0.85rem;
-                padding-top: 0.85rem;
-                padding-bottom: 0.5rem;
-                border-top: 1px solid var(--color-border);
-                max-height: 75vh;
-                overflow-y: auto;
-            }
-
-            .navbar-nav {
-                width: 100%;
-                gap: 0.35rem;
-            }
-
-            .nav-link-custom {
-                width: 100%;
-            }
-
-            .navbar-actions {
-                width: 100%;
-                justify-content: flex-start;
-                margin-top: 0.75rem;
-                padding-top: 0.75rem;
-                border-top: 1px dashed var(--color-border);
-            }
-        }
-
         @media (max-width: 575.98px) {
             .toolbar-card {
                 flex-direction: column;
@@ -598,18 +429,18 @@
             $badgeBg = 'var(--level-gestao-bg)'; $badgeColor = 'var(--level-gestao-fg)';
             }
 
-                // Índice do Bias Shield — usa o valor real do job quando existir,
-                // caso contrário mantém o placeholder de demonstração.
-                $shieldScore = $job->bias_score ?? rand(72, 98);
-                $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
-                $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
-                // Check if candidate already applied
-                $alreadyApplied = false;
-                if (!$isCompanyUser && auth()->user()->candidate) {
-                    $alreadyApplied = \App\Models\Matching::where('job_posting_id', $job->id)
-                        ->where('candidate_id', auth()->user()->candidate->id)
-                        ->exists();
-                }
+            // Índice do Bias Shield — usa o valor real do job quando existir,
+            // caso contrário mantém o placeholder de demonstração.
+            $shieldScore = $job->bias_score ?? rand(72, 98);
+            $shieldClass = $shieldScore >= 85 ? 'is-high' : 'is-mid';
+            $shieldIcon = $shieldScore >= 85 ? 'bi-shield-check' : 'bi-shield-exclamation';
+            // Check if candidate already applied
+            $alreadyApplied = false;
+            if (!$isCompanyUser && auth()->user()->candidate) {
+            $alreadyApplied = \App\Models\Matching::where('job_posting_id', $job->id)
+            ->where('candidate_id', auth()->user()->candidate->id)
+            ->exists();
+            }
             @endphp
 
             <div class="col">
@@ -618,75 +449,77 @@
                     <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
                         <h2 class="job-title mb-0">{{ $job->title }}</h2>
 
-                            @if($isCompanyUser)
-                            <div class="dropdown dropdown-actions flex-shrink-0">
-                                <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end border-0" style="border-radius: 10px;">
-                                    <li><a class="dropdown-item small py-2" href="/match/{{$job->id}}"><i class="bi bi-person-bounding-box me-2" style="color: var(--color-shield);"></i> Ver Matches</a></li>
-                                    <li><a class="dropdown-item small py-2" href="/jobs/{{$job->id}}/edit"><i class="bi bi-pencil me-2" style="color: var(--level-gestao-fg);"></i> Editar Vaga</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form action="/jobs/{{$job->id}}/delete" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta vaga?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="dropdown-item small py-2 text-danger" type="submit">
-                                                <i class="bi bi-trash me-2"></i> Excluir Vaga
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                            @endif
-                        </div>
-
-                        <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
-                            <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
-                                {{ $job->level }}
-                            </span>
-                            <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
-                                <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
-                            </span>
-                        </div>
-
-                        <div class="mb-1 flex-grow-1">
-                            <div class="job-info-text mb-2">
-                                <i class="bi bi-building"></i>
-                                {{ $job->area ?? 'Departamento/Área' }}
-                            </div>
-                            <div class="job-info-text">
-                                <i class="bi bi-geo-alt"></i>
-                                {{ $job->city }}, {{ $job->district }}
-                            </div>
-                        </div>
-
-                        <div class="card-divider"></div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            @if($isCompanyUser)
-                            <div class="job-info-text mb-0">
-                                <i class="bi bi-people"></i>
-                                {{ $job->candidates_count ?? rand(10, 99) }} candidatos
-                            </div>
-                            @endif
-
-                            @if($isCompanyUser)
-                            <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
-                                Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
-                            </a>
-                            @else
-                                @if($alreadyApplied)
-                                    <span class="btn-ver-detalhes" style="pointer-events: none; opacity: 0.6;">Já Candidatado</span>
-                                @else
-                                    <form action="{{ route('jobs.apply', $job) }}" method="POST">
+                        @if($isCompanyUser)
+                        <div class="dropdown dropdown-actions flex-shrink-0">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0" style="border-radius: 10px;">
+                                <li><a class="dropdown-item small py-2" href="/match/{{$job->id}}"><i class="bi bi-person-bounding-box me-2" style="color: var(--color-shield);"></i> Ver Matches</a></li>
+                                <li><a class="dropdown-item small py-2" href="/jobs/{{$job->id}}/edit"><i class="bi bi-pencil me-2" style="color: var(--level-gestao-fg);"></i> Editar Vaga</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form action="/jobs/{{$job->id}}/delete" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta vaga?')">
                                         @csrf
-                                        <button type="submit" class="btn-ver-detalhes border-0 bg-transparent p-0">
-                                            Candidatar-se <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
+                                        @method('DELETE')
+                                        <button class="dropdown-item small py-2 text-danger" type="submit">
+                                            <i class="bi bi-trash me-2"></i> Excluir Vaga
                                         </button>
                                     </form>
-                                @endif
-                            @endif
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                        <span class="badge-nivel" style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }};">
+                            {{ $job->level }}
+                        </span>
+                        <span class="shield-score {{ $shieldClass }}" title="Índice Bias Shield de triagem equitativa">
+                            <i class="bi {{ $shieldIcon }}"></i> {{ $shieldScore }}%
+                        </span>
+                    </div>
+
+                    <div class="mb-1 flex-grow-1">
+                        <div class="job-info-text mb-2">
+                            <i class="bi bi-building"></i>
+                            {{ $job->area ?? 'Departamento/Área' }}
+                        </div>
+                        <div class="job-info-text">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ $job->city }}, {{ $job->district }}
+                        </div>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        @if($isCompanyUser)
+                        <div class="job-info-text mb-0">
+                            <i class="bi bi-people"></i>
+                            {{ $job->candidates_count ?? rand(10, 99) }} candidatos
+                        </div>
+                        @endif
+
+                        @if($isCompanyUser)
+                        <a href="/match/{{$job->id}}" class="btn-ver-detalhes">
+                            Ver detalhes <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
+                        </a>
+                        @else
+                        @if($alreadyApplied)
+                        <span class="btn-ver-detalhes" style="pointer-events: none; opacity: 0.6;">Já Candidatado</span>
+                        @else
+                        <form action="{{ route('jobs.apply', $job) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-ver-detalhes border-0 bg-transparent p-0">
+                                Candidatar-se <i class="bi bi-chevron-right" style="font-size: 0.7rem;"></i>
+                            </button>
+                        </form>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>

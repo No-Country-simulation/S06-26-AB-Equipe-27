@@ -8,15 +8,16 @@
  $isCompany = session('login_type') === 'empresa'
  @endphp
 
+ @once
  <style>
-     .navbar {
+     .navbar.sf-navbar {
          background-color: rgba(255, 255, 255, .85);
          backdrop-filter: saturate(180%) blur(14px);
          -webkit-backdrop-filter: saturate(180%) blur(14px);
          border-bottom: 1px solid var(--color-border);
      }
 
-     .navbar-brand {
+     .navbar.sf-navbar .navbar-brand {
          font-family: var(--font-display);
          font-weight: 700;
          color: var(--color-ink);
@@ -24,32 +25,62 @@
          letter-spacing: -0.01em;
      }
 
-     .brand-icon {
-         background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
+     .navbar.sf-navbar .navbar-brand {
          color: #fff;
          border-radius: 9px;
-         width: 34px;
+         width: 2.8rem;
          height: 34px;
          display: inline-flex;
          align-items: center;
          justify-content: center;
-         margin-right: 10px;
+         margin-left: -.5rem;
          font-size: 1.05rem;
-         box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .55);
      }
 
-     .navbar-collapse {
+     .navbar-brand img {
+         width: 100%;
+     }
+
+     .navbar.sf-navbar .navbar-collapse {
          gap: 1.5rem;
      }
 
      @media (min-width: 992px) {
-         .navbar-collapse {
+         .navbar.sf-navbar .navbar-collapse {
              align-items: center;
              justify-content: flex-end;
          }
      }
 
-     .nav-link-custom {
+     @media (max-width: 991.98px) {
+         .navbar.sf-navbar .navbar-collapse.show {
+             margin-top: 0.85rem;
+             padding-top: 0.85rem;
+             padding-bottom: 0.5rem;
+             border-top: 1px solid var(--color-border);
+             max-height: 75vh;
+             overflow-y: auto;
+         }
+
+         .navbar.sf-navbar .navbar-nav {
+             width: 100%;
+             gap: 0.35rem;
+         }
+
+         .navbar.sf-navbar .nav-link-custom {
+             width: 100%;
+         }
+
+         .navbar.sf-navbar .navbar-actions {
+             width: 100%;
+             justify-content: flex-start;
+             margin-top: 0.75rem;
+             padding-top: 0.75rem;
+             border-top: 1px dashed var(--color-border);
+         }
+     }
+
+     .navbar.sf-navbar .nav-link-custom {
          color: var(--color-muted);
          font-weight: 600;
          font-size: 0.88rem;
@@ -62,35 +93,35 @@
          white-space: nowrap;
      }
 
-     .nav-link-custom:hover {
+     .navbar.sf-navbar .nav-link-custom:hover {
          color: var(--color-ink);
          background-color: var(--color-primary-softer);
      }
 
-     .nav-link-custom.active {
+     .navbar.sf-navbar .nav-link-custom.active {
          background-color: var(--color-primary);
          color: #fff;
          box-shadow: 0 6px 14px -6px rgba(124, 58, 237, .55);
      }
 
-     .navbar-actions {
+     .navbar.sf-navbar .navbar-actions {
          display: flex;
          align-items: center;
          gap: 0.9rem;
          flex-shrink: 0;
      }
 
-     .icon-btn {
+     .navbar.sf-navbar .icon-btn {
          color: var(--color-muted);
          font-size: 1.15rem;
          transition: color .18s ease;
      }
 
-     .icon-btn:hover {
+     .navbar.sf-navbar .icon-btn:hover {
          color: var(--color-ink);
      }
 
-     .navbar-toggler {
+     .navbar.sf-navbar .navbar-toggler {
          width: 36px;
          height: 36px;
          display: inline-flex;
@@ -100,17 +131,17 @@
          background-color: var(--color-primary-softer);
      }
 
-     .navbar-toggler:focus {
+     .navbar.sf-navbar .navbar-toggler:focus {
          box-shadow: none;
      }
 
-     .navbar-toggler-icon {
+     .navbar.sf-navbar .navbar-toggler-icon {
          width: 18px;
          height: 18px;
          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237C3AED' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
      }
 
-     .avatar-badge {
+     .navbar.sf-navbar .avatar-badge {
          width: 36px;
          height: 36px;
          border-radius: 100%;
@@ -123,7 +154,7 @@
          justify-content: center;
      }
 
-     .dropdown-menu {
+     .navbar.sf-navbar .dropdown-menu {
          border: 1px solid var(--color-border);
          box-shadow: var(--shadow-pop);
          border-radius: 12px;
@@ -132,7 +163,7 @@
          top: 83% !important;
      }
 
-     .dropdown-item {
+     .navbar.sf-navbar .dropdown-item {
          color: var(--color-body);
          font-weight: 500;
          transition: all 0.15s ease;
@@ -140,45 +171,51 @@
          font-size: .85rem;
      }
 
-     .dropdown-item:hover {
+     .navbar.sf-navbar .dropdown-item:hover {
          background-color: var(--color-primary-soft);
          color: var(--color-primary-dark);
      }
 
-     .dropdown-item.active {
+     .navbar.sf-navbar .dropdown-item.active {
          background-color: var(--color-primary);
          color: #FFFFFF;
      }
 
      @media (min-width: 992px) {
-         .nav-item.dropdown {
-             position: relative;
-         }
-
-         .nav-item.dropdown .dropdown-menu {
+         .navbar.sf-navbar .navbar-toggler {
              display: none;
          }
 
-         .nav-item.dropdown:hover .dropdown-menu {
+         .navbar.sf-navbar .nav-item.dropdown {
+             position: relative;
+         }
+
+         .navbar.sf-navbar .nav-item.dropdown .dropdown-menu {
+             display: none;
+         }
+
+         .navbar.sf-navbar .nav-item.dropdown:hover .dropdown-menu {
              display: block;
          }
 
-         .nav-item.dropdown .dropdown-toggle::after {
+         .navbar.sf-navbar .nav-item.dropdown .dropdown-toggle::after {
              transition: transform 0.2s ease;
          }
 
-         .nav-item.dropdown:hover .dropdown-toggle::after {
+         .navbar.sf-navbar .nav-item.dropdown:hover .dropdown-toggle::after {
              transform: rotate(180deg);
          }
      }
  </style>
+ @endonce
 
  {{-- NAVBAR SUPERIOR --}}
- <nav class="navbar navbar-expand-lg sticky-top py-2">
+ <nav class="navbar sf-navbar navbar-expand-lg sticky-top py-2">
      <div class="container px-4">
          <a class="navbar-brand d-flex align-items-center" href="/dashboard">
-             <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-             Skill<span style="color: var(--color-primary);">Focus</span>
+             <a class="navbar-brand d-flex align-items-center" href="/dashboard">
+                 <span class="brand-icon"><img src="logo.webp" alt=""></span>
+             </a>
          </a>
 
          <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu">
@@ -268,9 +305,13 @@
      </div>
  </nav>
 
+ @once
  <script>
      document.addEventListener('DOMContentLoaded', function() {
-         const dropdownToggles = document.querySelectorAll('.nav-item.dropdown .dropdown-toggle');
+         const navbar = document.querySelector('.navbar.sf-navbar');
+         if (!navbar) return;
+
+         const dropdownToggles = navbar.querySelectorAll('.nav-item.dropdown .dropdown-toggle');
          if (typeof bootstrap !== 'undefined') {
              dropdownToggles.forEach(toggle => {
                  new bootstrap.Dropdown(toggle);
@@ -278,3 +319,4 @@
          }
      });
  </script>
+ @endonce
