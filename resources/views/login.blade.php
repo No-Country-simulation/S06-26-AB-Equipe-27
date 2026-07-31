@@ -115,7 +115,8 @@
             pointer-events: none;
         }
 
-        .login-aside .brand-row {
+        .login-aside .brand-row a,
+        .mobile-brand a {
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -124,20 +125,33 @@
             font-size: 1.15rem;
             position: relative;
             z-index: 1;
+            color: inherit;
         }
 
         .brand-icon {
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
             color: #fff;
             border-radius: 9px;
-            width: 34px;
-            height: 34px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .6);
             flex-shrink: 0;
+        }
+
+        .mobile-brand .brand-text {
+            color: #462559;
+        }
+
+        .mobile-brand .brand-text span {
+            color: #4a0353;
+        }
+
+        .brand-text {
+            color: inherit;
+        }
+
+        .brand-text span {
+            color: #C4B5FD;
         }
 
         .login-aside .aside-content {
@@ -534,8 +548,10 @@
         {{-- PAINEL ESQUERDO — proposta de valor (Bias Shield), some no mobile --}}
         <aside class="login-aside">
             <div class="brand-row">
-                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                Skill<span style="color: #C4B5FD;">Focus</span>
+                <a href="#">
+                    <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                    <div class="brand-text"> Skill<span>Focus</span></div>
+                </a>
             </div>
 
             <div class="aside-content">
@@ -569,11 +585,13 @@
             <div style="width: 100%; max-width: 420px;">
 
                 <div class="mobile-brand">
-                    <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                    Skill<span style="color: var(--color-primary);">Focus</span>
+                    <a href="#">
+                        <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                        <div class="brand-text"> Skill<span>Focus</span></div>
+                    </a>
                 </div>
 
-                <div class="login-card">
+                <div class=" login-card">
 
                     <div class="auth-toggle">
                         <a href="{{ url('/login') }}" class="btn-toggle active">Entrar</a>
@@ -655,7 +673,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Alternar visibilidade da senha — apenas UX, não altera o envio do formulário.
-        document.getElementById('togglePassword').addEventListener('click', function () {
+        document.getElementById('togglePassword').addEventListener('click', function() {
             const input = document.getElementById('password');
             const icon = document.getElementById('togglePasswordIcon');
             const isHidden = input.type === 'password';
@@ -671,7 +689,7 @@
         const radioInputs = document.querySelectorAll('input[name="login_type"]');
 
         radioInputs.forEach(radio => {
-            radio.addEventListener('change', function () {
+            radio.addEventListener('change', function() {
                 if (this.value === 'empresa') {
                     cardEmpresa.classList.add('active');
                     cardCandidato.classList.remove('active');

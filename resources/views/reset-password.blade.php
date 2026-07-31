@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,22 +39,28 @@
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
-            --shadow-pop: 0 20px 48px -16px rgba(23,21,42,.20);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
+            --shadow-pop: 0 20px 48px -16px rgba(23, 21, 42, .20);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.08), transparent 45%),
-                radial-gradient(circle at 0% 100%, rgba(13,148,136,.06), transparent 40%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .08), transparent 45%),
+                radial-gradient(circle at 0% 100%, rgba(13, 148, 136, .06), transparent 40%);
             background-attachment: fixed;
             color: var(--color-body);
             min-height: 100vh;
@@ -63,35 +70,58 @@
             padding: 1.5rem;
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         /* ---------------- Brand mark (contexto de marca, como na navbar) ---------------- */
-        .brand-mark {
+        .brand-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.55rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-ink);
             margin-bottom: 1.75rem;
         }
+
+        .brand-row a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            position: relative;
+            z-index: 1;
+            color: inherit;
+        }
+
         .brand-icon {
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
             color: #fff;
             border-radius: 9px;
-            width: 34px;
-            height: 34px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.55);
+            flex-shrink: 0;
         }
-        .brand-mark span {
-            font-family: var(--font-display);
-            font-weight: 700;
-            color: var(--color-ink);
-            font-size: 1.15rem;
-            letter-spacing: -0.01em;
+
+        .brand-text {
+            color: #462559;
+        }
+
+        .brand-text span {
+            color: #4a0353;
         }
 
         /* ---------------- Card principal ---------------- */
@@ -106,6 +136,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .auth-card::before {
             content: "";
             position: absolute;
@@ -134,6 +165,7 @@
             color: var(--color-ink);
             letter-spacing: -0.01em;
         }
+
         .auth-heading p {
             color: var(--color-muted);
             font-size: 0.9rem;
@@ -160,7 +192,10 @@
         }
 
         /* Toggle de mostrar/ocultar senha */
-        .password-field { position: relative; }
+        .password-field {
+            position: relative;
+        }
+
         .password-toggle {
             position: absolute;
             top: 0;
@@ -175,7 +210,10 @@
             z-index: 5;
             transition: color .15s ease;
         }
-        .password-toggle:hover { color: var(--color-primary); }
+
+        .password-toggle:hover {
+            color: var(--color-primary);
+        }
 
         /* Indicador simples de força/requisitos */
         .hint-text {
@@ -186,7 +224,11 @@
             gap: 0.4rem;
             margin-top: -0.5rem;
         }
-        .hint-text i { color: var(--color-shield); font-size: 0.85rem; }
+
+        .hint-text i {
+            color: var(--color-shield);
+            font-size: 0.85rem;
+        }
 
         /* Botão principal */
         .btn-purple {
@@ -198,13 +240,14 @@
             font-size: 0.95rem;
             width: 100%;
             border: none;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
         }
+
         .btn-purple:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         /* Alertas de erro */
@@ -213,9 +256,12 @@
             font-size: 0.87rem;
             background-color: var(--color-shield-danger-soft);
             color: var(--color-shield-danger);
-            border: 1px solid rgba(185,28,28,.15);
+            border: 1px solid rgba(185, 28, 28, .15);
         }
-        .alert ul { padding-left: 1.1rem; }
+
+        .alert ul {
+            padding-left: 1.1rem;
+        }
 
         /* Link secundário */
         .back-link {
@@ -227,6 +273,7 @@
             gap: 0.35rem;
             transition: gap .15s ease, color .15s ease;
         }
+
         .back-link:hover {
             color: var(--color-primary-hover);
             gap: 0.55rem;
@@ -250,9 +297,11 @@
 
     <div class="w-100 d-flex flex-column align-items-center">
 
-        <div class="brand-mark">
-            <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-            <span>Skill<span style="color: var(--color-primary);">Focus</span></span>
+        <div class="brand-row">
+            <a href="#">
+                <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                <div class="brand-text"> Skill<span>Focus</span></div>
+            </a>
         </div>
 
         <div class="auth-card">
@@ -266,13 +315,13 @@
             </div>
 
             @if ($errors->any())
-                <div class="alert border-0 mb-4" role="alert">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="alert border-0 mb-4" role="alert">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <form action="/reset-password" method="POST">
@@ -316,8 +365,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.querySelectorAll('.password-toggle').forEach(function (btn) {
-            btn.addEventListener('click', function () {
+        document.querySelectorAll('.password-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function() {
                 var input = document.getElementById(btn.getAttribute('data-target'));
                 var icon = btn.querySelector('i');
                 var isHidden = input.type === 'password';
@@ -328,4 +377,5 @@
         });
     </script>
 </body>
+
 </html>

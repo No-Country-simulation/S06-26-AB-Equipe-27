@@ -106,7 +106,8 @@
             pointer-events: none;
         }
 
-        .login-aside .brand-row {
+        .login-aside .brand-row a,
+        .mobile-brand a {
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -115,20 +116,33 @@
             font-size: 1.15rem;
             position: relative;
             z-index: 1;
+            color: inherit;
         }
 
         .brand-icon {
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
             color: #fff;
             border-radius: 9px;
-            width: 34px;
-            height: 34px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124, 58, 237, .6);
             flex-shrink: 0;
+        }
+
+        .brand-text {
+            color: inherit;
+        }
+
+        .brand-text span {
+            color: #C4B5FD;
+        }
+
+        .mobile-brand .brand-text {
+            color: #462559;
+        }
+
+        .mobile-brand .brand-text span {
+            color: #4a0353;
         }
 
         .login-aside .aside-content {
@@ -554,8 +568,10 @@
         {{-- PAINEL ESQUERDO — onboarding em 3 passos --}}
         <aside class="login-aside">
             <div class="brand-row">
-                <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                Skill<span style="color: #C4B5FD;">Focus</span>
+                <a href="#">
+                    <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                    <div class="brand-text"> Skill<span>Focus</span></div>
+                </a>
             </div>
 
             <div class="aside-content">
@@ -589,8 +605,10 @@
             <div style="width: 100%; max-width: 440px;">
 
                 <div class="mobile-brand">
-                    <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-                    Skill<span style="color: var(--color-primary);">Focus</span>
+                    <a href="#">
+                        <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                        <div class="brand-text"> Skill<span>Focus</span></div>
+                    </a>
                 </div>
 
                 <div class="login-card">

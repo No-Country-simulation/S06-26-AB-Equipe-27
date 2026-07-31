@@ -17,28 +17,45 @@
          border-bottom: 1px solid var(--color-border);
      }
 
-     .navbar.sf-navbar .navbar-brand {
+     .navbar .brand-row {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.55rem;
          font-family: var(--font-display);
          font-weight: 700;
+         font-size: 1.1rem;
          color: var(--color-ink);
-         font-size: 1.15rem;
-         letter-spacing: -0.01em;
      }
 
-     .navbar.sf-navbar .navbar-brand {
+     .navbar .brand-row a {
+         display: flex;
+         align-items: center;
+         gap: 0.6rem;
+         font-family: var(--font-display);
+         font-weight: 700;
+         font-size: 1.15rem;
+         position: relative;
+         z-index: 1;
+         color: inherit;
+     }
+
+     .navbar .brand-icon {
          color: #fff;
          border-radius: 9px;
-         width: 2.8rem;
-         height: 34px;
          display: inline-flex;
          align-items: center;
          justify-content: center;
-         margin-left: -.5rem;
          font-size: 1.05rem;
+         flex-shrink: 0;
      }
 
-     .navbar-brand img {
-         width: 100%;
+     .navbar .brand-text {
+         color: #462559;
+     }
+
+     .navbar .brand-text span {
+         color: #4a0353;
      }
 
      .navbar.sf-navbar .navbar-collapse {
@@ -212,11 +229,12 @@
  {{-- NAVBAR SUPERIOR --}}
  <nav class="navbar sf-navbar navbar-expand-lg sticky-top py-2">
      <div class="container px-4">
-         <a class="navbar-brand d-flex align-items-center" href="/dashboard">
-             <a class="navbar-brand d-flex align-items-center" href="/dashboard">
-                 <span class="brand-icon"><img src="logo.webp" alt=""></span>
+         <div class="brand-row">
+             <a href="/dashboard">
+                 <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                 <div class="brand-text"> Skill<span>Focus</span></div>
              </a>
-         </a>
+         </div>
 
          <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu">
              <span class="navbar-toggler-icon"></span>

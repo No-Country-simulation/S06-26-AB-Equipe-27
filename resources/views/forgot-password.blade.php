@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,14 +36,20 @@
 
             --radius-sm: 10px;
             --radius-lg: 22px;
-            --shadow-card: 0 1px 2px rgba(23,21,42,.04), 0 10px 28px -14px rgba(23,21,42,.14);
+            --shadow-card: 0 1px 2px rgba(23, 21, 42, .04), 0 10px 28px -14px rgba(23, 21, 42, .14);
 
             --font-display: 'Sora', 'Inter', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
 
-        * { -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; }
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             font-family: var(--font-body);
@@ -54,15 +61,23 @@
             padding: 2rem 1.25rem;
             background-color: var(--color-bg);
             background-image:
-                radial-gradient(circle at 100% 0%, rgba(124,58,237,.06), transparent 45%),
-                radial-gradient(circle at 0% 100%, rgba(13,148,136,.05), transparent 45%);
+                radial-gradient(circle at 100% 0%, rgba(124, 58, 237, .06), transparent 45%),
+                radial-gradient(circle at 0% 100%, rgba(13, 148, 136, .05), transparent 45%);
             background-attachment: fixed;
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); }
-        a { text-decoration: none; }
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: var(--font-display);
+        }
 
-        .recovery-brand {
+        a {
+            text-decoration: none;
+        }
+
+        .brand-row {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -74,17 +89,34 @@
             margin-bottom: 1.75rem;
         }
 
+        .brand-row a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            position: relative;
+            z-index: 1;
+            color: inherit;
+        }
+
         .brand-icon {
-            background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
             color: #fff;
             border-radius: 9px;
-            width: 34px;
-            height: 34px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            box-shadow: 0 4px 10px -3px rgba(124,58,237,.6);
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            color: #462559;
+        }
+
+        .brand-text span {
+            color: #4a0353;
         }
 
         .recovery-card {
@@ -146,7 +178,11 @@
             font-size: 0.83rem;
             margin-bottom: 1.25rem;
         }
-        .alert-soft-danger ul { margin-bottom: 0; padding-left: 1.1rem; }
+
+        .alert-soft-danger ul {
+            margin-bottom: 0;
+            padding-left: 1.1rem;
+        }
 
         .field-label {
             font-size: 0.8rem;
@@ -170,10 +206,13 @@
         .input-group-custom:focus-within {
             border-color: var(--color-primary);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, .12);
         }
 
-        .input-group-custom i { color: var(--color-primary); font-size: 1rem; }
+        .input-group-custom i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
 
         .input-group-custom input {
             border: none;
@@ -185,7 +224,9 @@
             font-size: 0.92rem;
         }
 
-        .input-group-custom input::placeholder { color: #ACA8C2; }
+        .input-group-custom input::placeholder {
+            color: #ACA8C2;
+        }
 
         .btn-recovery {
             background: linear-gradient(155deg, var(--color-primary), var(--color-primary-dark));
@@ -196,14 +237,14 @@
             font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            box-shadow: 0 10px 22px -10px rgba(124,58,237,.6);
+            box-shadow: 0 10px 22px -10px rgba(124, 58, 237, .6);
             transition: transform .15s ease, box-shadow .15s ease;
         }
 
         .btn-recovery:hover {
             color: #fff;
             transform: translateY(-1px);
-            box-shadow: 0 14px 26px -10px rgba(124,58,237,.7);
+            box-shadow: 0 14px 26px -10px rgba(124, 58, 237, .7);
         }
 
         .btn-back {
@@ -212,7 +253,10 @@
             font-size: 0.87rem;
             transition: color .15s ease;
         }
-        .btn-back:hover { color: var(--color-primary); }
+
+        .btn-back:hover {
+            color: var(--color-primary);
+        }
 
         .divider-line {
             border-top: 1px solid var(--color-border);
@@ -221,13 +265,16 @@
         }
     </style>
 </head>
+
 <body>
 
     <div style="width: 100%; max-width: 440px;">
 
-        <div class="recovery-brand">
-            <span class="brand-icon"><i class="bi bi-graph-up-arrow"></i></span>
-            Skill<span style="color: var(--color-primary);">Focus</span>
+        <div class="brand-row">
+            <a href="#">
+                <span class="brand-icon"><img src="logo.webp" alt="Skillfocus logo"></span>
+                <div class="brand-text"> Skill<span>Focus</span></div>
+            </a>
         </div>
 
         <div class="recovery-card">
@@ -283,4 +330,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
