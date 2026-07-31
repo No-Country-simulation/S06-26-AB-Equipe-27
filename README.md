@@ -350,7 +350,7 @@ python api.py
 | Backend Developer | Aylin Bochi | [Acesse aqui](https://github.com/aylinlbochi) |
 | Backend Developer | Deméthrius Heitor Silva | [Acesse aqui](https://github.com/heitorsantanazx) |
 | Full Stack Developer | Edmilson Ferreira | [Acesse aqui](https://github.com/EdmilsonFerreira) |
-| Data analyst| Fernanda Marques | [Acesse aqui](https://github.com/FernandaMarques07) |
+| Data analyst| Fernanda Marques | [Acesse aqui](https://github.com/nanda-marques) |
 | UX Researcher | Luciana Freitag | [Acesse aqui](https://github.com/lucianafreitag) |
 | Social Media Manager | Renata Guedes | [Acesse aqui](https://github.com/renataguedees) |
 | Full Stack Developer | Thiago Ferreira | [Acesse aqui](https://github.com/thiagosag) |
